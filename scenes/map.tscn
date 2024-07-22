@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://7lsk05fs210c"]
+
+[ext_resource type="Script" path="res://scripts/map.gd" id="1_fokwq"]
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_fokwq")
+
+[node name="MapNodes" type="Node2D" parent="."]
+
+[node name="Encounter1" type="Button" parent="MapNodes"]
+offset_left = 525.5
+offset_top = 515.0
+offset_right = 626.5
+offset_bottom = 577.0
+text = "Encounter 1"
+
+[node name="Encounter2" type="Button" parent="MapNodes"]
+offset_left = 525.5
+offset_top = 375.0
+offset_right = 626.5
+offset_bottom = 437.0
+text = "Encounter 2"
+
+[node name="Encounter3" type="Button" parent="MapNodes"]
+offset_left = 525.5
+offset_top = 235.0
+offset_right = 626.5
+offset_bottom = 297.0
+text = "Encounter 3"
+
+[node name="DraftPosition" type="Marker2D" parent="."]
+position = Vector2(226, 175)

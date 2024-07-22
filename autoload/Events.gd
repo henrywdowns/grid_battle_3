@@ -1,0 +1,13 @@
+extends Node
+
+### Events Bus ###
+# Autoload that holds signals so that they can easily be read across disparate nodes.
+
+### Card Signals ###
+var card_placeholder: Card
+
+signal card_played(card: Card)
+signal card_requested(card_name: Card)
+signal draft_card_toggled(card:Card)
+signal card_chosen()
+signal draft_over()

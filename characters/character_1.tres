@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="character" load_steps=2 format=3 uid="uid://dgvglkgejp37i"]
+
+[ext_resource type="Script" path="res://resources/character_resource.gd" id="1_r8lfb"]
+
+[resource]
+script = ExtResource("1_r8lfb")
+HP = 100
+basic_attack = 1
+move_delay = 0.1

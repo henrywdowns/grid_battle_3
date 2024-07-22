@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Card" load_steps=2 format=3 uid="uid://6ynh4nrvx3pj"]
+
+[ext_resource type="Script" path="res://resources/card_resource.gd" id="1_5ubb1"]
+
+[resource]
+script = ExtResource("1_5ubb1")
+card_name = "Other 1"
+card_desc = "Test Other 1"
+card_type = 3
+arcana = 4

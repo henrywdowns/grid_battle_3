@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2mai3opfndh7"]
+
+[ext_resource type="Script" path="res://scripts/char_select.gd" id="1_iadow"]
+[ext_resource type="ButtonGroup" uid="uid://dtx6o65y5oek7" path="res://resources/char_select_buttons.tres" id="2_tyj4c"]
+
+[node name="CharSelect" type="Node2D"]
+script = ExtResource("1_iadow")
+group = ExtResource("2_tyj4c")
+
+[node name="Char1" type="Button" parent="."]
+offset_left = 390.0
+offset_top = 211.0
+offset_right = 540.0
+offset_bottom = 301.0
+toggle_mode = true
+button_group = ExtResource("2_tyj4c")
+text = "Char 1"
+
+[node name="Char2" type="Button" parent="."]
+offset_left = 640.0
+offset_top = 211.0
+offset_right = 790.0
+offset_bottom = 301.0
+toggle_mode = true
+button_group = ExtResource("2_tyj4c")
+text = "Char 2"
+
+[node name="Confirm" type="Button" parent="."]
+offset_left = 517.0
+offset_top = 368.0
+offset_right = 653.0
+offset_bottom = 459.0
+disabled = true
+text = "Confirm"
+
+[node name="DebugChosenChar" type="ColorRect" parent="."]
+offset_left = 425.0
+offset_top = 79.0
+offset_right = 750.0
+offset_bottom = 152.0
+color = Color(0, 0.301961, 0.305882, 1)
+
+[node name="DebugCharText" type="Label" parent="DebugChosenChar"]
+offset_left = 43.0
+offset_top = 26.0
+offset_right = 282.0
+offset_bottom = 49.0
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Confirm" to="." method="_on_confirm_pressed"]
