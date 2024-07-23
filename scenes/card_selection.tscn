@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://c1xko04nie8ve"]
+
+[node name="CardSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="ChosenHand" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 949.0
+offset_top = 68.0
+offset_right = 1049.0
+offset_bottom = 568.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+offset_left = 949.0
+offset_top = 68.0
+offset_right = 1049.0
+offset_bottom = 568.0
+
+[node name="DrawnCards" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 362.0
+offset_right = 876.0
+offset_bottom = 562.0
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 368.0
+offset_right = 896.0
+offset_bottom = 568.0

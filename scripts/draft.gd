@@ -2,55 +2,20 @@ extends Control
 
 @onready var card_container = $Panel/CardContainer
 
-var draft_pool = {
-	"attack_1":{
-		"path":"res://cards/attack_1.tres",
-		"quantity":3
-	},
-	"attack_2":{
-		"path":"res://cards/attack_2.tres",
-		"quantity":3
-	},
-	"defense_1":{
-		"path":"res://cards/defense_1.tres",
-		"quantity":3
-	},
-	"defense_2":{
-		"path":"res://cards/defense_2.tres",
-		"quantity":3
-	},
-	"support_1":{
-		"path":"res://cards/support_1.tres",
-		"quantity":3
-	},
-	"support_2":{
-		"path":"res://cards/support_2.tres",
-		"quantity":3
-	},
-	"other_1":{
-		"path":"res://cards/other_1.tres",
-		"quantity":3
-	},
-	"other_2":{
-		"path":"res://cards/other_2.tres",
-		"quantity":3
-	}
-}
-
 var toggled_card: Card
 var draft_multiple_enabled = true
 
 func _ready():
 	#gen_card("other_1")
 	#draft_cards()
-	draft_multiple(3)
+	draft_multiple(1)
 	Events.draft_card_toggled.connect(reserve_toggled_card)
 
 func _process(delta):
 	pass
 
 func gen_card(card_name: String):
-	var card_path = draft_pool[card_name]["path"]
+	var card_path = Deck.draft_pool[card_name]["path"]
 	var card_res = load(card_path)
 	if card_res:
 		var card_instance = preload("res://cards/base_card.tscn").instantiate()
@@ -58,7 +23,7 @@ func gen_card(card_name: String):
 		card_instance.make_card(card_path)
 
 func draft_cards():
-	var card_list = draft_pool.keys()
+	var card_list = Deck.draft_pool.keys()
 	for i in 3:
 		var random_card = randi_range(0,len(card_list)-1)
 		gen_card(card_list[random_card])
