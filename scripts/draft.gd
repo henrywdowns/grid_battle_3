@@ -11,7 +11,7 @@ func _ready():
 	draft_multiple(1)
 	Events.draft_card_toggled.connect(reserve_toggled_card)
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func gen_card(card_name: String):
@@ -50,6 +50,7 @@ func reserve_toggled_card(toggled_card_button: Card):
 func _on_confirm_card_button_up():
 	if toggled_card:
 		add_card_to_deck(toggled_card)
+		toggled_card.unique_effect()
 		var open_cards = $Panel/CardContainer.get_children()
 		for cards in open_cards:
 			cards.queue_free()

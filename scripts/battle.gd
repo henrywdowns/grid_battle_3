@@ -8,6 +8,7 @@ func _ready():
 	starting_point = gridpoints[4]
 	player_char = spawn_player(self)
 	player_current_panel = Vector2(1,1)
+	spawn_enemy(self,gridpoints[13],"test_enemy_2")
 
 func _input(_event):
 	if accepting_input == true:
@@ -21,6 +22,7 @@ func _input(_event):
 var gridpoints = []
 var panels = []
 var starting_point: Marker2D
+var enemy_starting_point: Marker2D #for testing. plan for automatically generated start points down the line
 var panel_status = {}
 
 var grid_coords = [
@@ -85,14 +87,13 @@ func move_char(dir):
 
 var current_stats: Dictionary
 var current_deck: Array
+var enemy_dict = {}
 
 func spawn_player(scene,loc: Marker2D=starting_point) -> Node2D:
-	print(get_tree().current_scene)
-	print(starting_point)
-	var character := load("characters/%s.tscn" % Global.selected_character) #load character scene based on selection
-	print(character)
+	var new_character := load("characters/%s.tscn" % Global.selected_character) #load character scene based on selection
+	print(new_character)
 	print("characters/%s.tscn" % Global.selected_character)
-	var player_char_node = character.instantiate()
+	var player_char_node = new_character.instantiate()
 	### STAT AND DECK SETUP ###
 	current_stats = Global.meta_character_stats #transfer persistent stats to battle
 	current_deck = Deck.meta_deck #transfer persistent deck to battle
@@ -102,16 +103,23 @@ func spawn_player(scene,loc: Marker2D=starting_point) -> Node2D:
 	print("Current stats from singleton: ",current_stats)
 	print("Current deck from singleton: ",current_deck)
 	player_char_node.add_to_group("Player")
-	print("    ---- Tree: ",get_tree().get_nodes_in_group("Player"))
 	return player_char_node #returns the player_char_node as a value that can be referenced in script calling this func
+
+func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
+	var enemy := load("res://enemies/base_enemy.tscn")
+	var enemy_node = enemy.instantiate()
+	enemy_node.generate_enemy(intended_enemy)
+	enemy_node.global_position = loc.global_position
+	scene.add_child(enemy_node)
+	enemy_dict[enemy_node] = enemy_node.enemy_hp
+	print("New enemy spawned. Dict updated -- %s" % enemy_dict)
+	return enemy_node
 
 ### YOU WIN ###
 
 func you_win():
 	Global.progress_map()
 	Global.goto_scene("res://scenes/map.tscn")
-
-
 
 func _on_button_pressed():
 	you_win()

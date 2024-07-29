@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Enemy" load_steps=2 format=3 uid="uid://dphc7blbep14t"]
+
+[ext_resource type="Script" path="res://resources/enemy_resource.gd" id="1_vnckp"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_vnckp")
+enemy_name = "Test Enemy 1"
+enemy_hp = 15
+enemy_color = Color(0.0470588, 0.509804, 0.647059, 1)

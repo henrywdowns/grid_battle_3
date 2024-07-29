@@ -21,5 +21,5 @@ func make_card(carddata):
 	$CardArc.text = card.card_arcana_str
 	# $CardType.text = card.card_type_list[card.card_type] for some reason this doesn't work
 
-func _on_card_select_toggled(toggled_on):
+func _on_card_select_toggled(_toggled_on):
 	Events.draft_card_toggled.emit(card_data)

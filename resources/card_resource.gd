@@ -63,5 +63,19 @@ var card_type_list = [
 @export var card_desc: String
 @export var card_type: CardType
 @export var card_arcana: CardArcana
+@export var effect_string: String
+@export var effect_int: int
+
 var card_type_str = card_type_list[card_type]
 var card_arcana_str = card_arcana_list[card_arcana]
+
+@export var unique_card_effects: Array[CardEffect]
+func unique_effect():
+	print(unique_card_effects)
+	print("Triggering unique effect (card_resource.gd)")
+	for effect in unique_card_effects:
+		print("effect: ",effect)
+		#print(effect.get_method_list())
+		#if effect.has_method("trigger_effect"):
+		print("effect detected")
+		effect.trigger_effect(self,effect_int)

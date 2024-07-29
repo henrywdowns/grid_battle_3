@@ -10,8 +10,8 @@ func _ready():
 		else:
 			x.disabled = true
 		x.pressed.connect(button_behavior)
-		if Global.current_encounter == 0:
-			run_draft()
+	if Global.current_encounter == 0:
+		run_draft()
 
 func show_nodes_after_draft():
 	if !$MapNodes.visible:
@@ -19,7 +19,7 @@ func show_nodes_after_draft():
 	else:
 		print("Map Nodes already visible")
 
-func button_behavior(index=0):
+func button_behavior(_index=0):
 	Global.goto_scene("res://scenes/battle.tscn")
 
 func run_draft():

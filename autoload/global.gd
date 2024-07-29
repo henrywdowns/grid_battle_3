@@ -10,6 +10,7 @@ var current_scene = null
 func _ready():
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count()-1)
+	
 
 func goto_scene(path):
 	call_deferred("_deferred_goto_scene",path) #uses the below function, but does so in a "deferred 
@@ -32,7 +33,7 @@ func _deferred_goto_scene(path): #don't call this scene - call goto_scene(), whi
 
 var selected_character = null
 var selected_character_scene = PackedScene
-var meta_character_stats = []
+var meta_character_stats = {}
 
 
 ### Map Management ### 
