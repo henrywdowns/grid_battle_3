@@ -4,20 +4,31 @@
 
 [node name="Draft" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_xg48e")
+metadata/_edit_lock_ = true
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(700, 250)
 layout_mode = 1
-offset_right = 700.0
-offset_bottom = 250.0
+anchors_preset = -1
+offset_left = 230.0
+offset_top = 180.0
+offset_right = 930.0
+offset_bottom = 430.0
 
 [node name="CardContainer" type="HBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(700, 250)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_right = 1.645
+anchor_bottom = 2.592
+offset_right = -451.5
+offset_bottom = -398.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
@@ -26,10 +37,10 @@ metadata/_edit_lock_ = true
 
 [node name="Confirm Card" type="Button" parent="."]
 layout_mode = 0
-offset_left = 166.0
-offset_top = 255.0
-offset_right = 538.0
-offset_bottom = 286.0
+offset_left = 396.0
+offset_top = 435.0
+offset_right = 768.0
+offset_bottom = 466.0
 text = "Confirm Card"
 
 [connection signal="button_up" from="Confirm Card" to="." method="_on_confirm_card_button_up"]
