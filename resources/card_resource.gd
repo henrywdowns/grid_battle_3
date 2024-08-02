@@ -79,6 +79,7 @@ var card_type_list = [
 @export var card_desc: String
 @export var card_type: CardType
 @export var card_arcana: CardArcana
+@export var card_filename: String
 @export var arguments: Array
 @export var targeting: TargetType
 @export var flex_dict: Dictionary = {
@@ -92,11 +93,16 @@ var card_arcana_str = card_arcana_list[card_arcana]
 
 @export var unique_card_effects: Array[CardEffect]
 
-func unique_effect():
+func unique_effect(targets: Array):
+	arguments = targets
 	print(unique_card_effects)
 	print("Triggering unique effect (card_resource.gd)")
-	for effect in unique_card_effects:
-		print("effect: ",effect)
-		if effect.has_method("trigger_effect"):
-			print("%s effect detected" % effect)
-		effect.trigger_effect(arguments,flex_dict)
+	if len(unique_card_effects) > 0:
+		for effect in unique_card_effects:
+			print("effect: ",effect)
+			if effect.has_method("trigger_effect"):
+				effect.trigger_effect(arguments,flex_dict)
+			else:
+				print("Error card has no trigger")
+	else:
+		print("No effects!")

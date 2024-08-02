@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://3ycy4pg7cth0"]
+[gd_scene load_steps=5 format=3 uid="uid://3ycy4pg7cth0"]
 
 [ext_resource type="Script" path="res://characters/character_1.gd" id="1_6q7n4"]
 [ext_resource type="PackedScene" uid="uid://ddhudl6c1mpim" path="res://modules/player_movement/player_movement.tscn" id="2_s80ak"]
 [ext_resource type="PackedScene" uid="uid://df50dq4ddtma1" path="res://modules/moveset/move_set.tscn" id="3_yyquc"]
+[ext_resource type="PackedScene" uid="uid://bfyshtftuatok" path="res://modules/player_hand/player_hand.tscn" id="4_hyn7h"]
 
 [node name="Character1" type="Node2D"]
 script = ExtResource("1_6q7n4")
@@ -17,3 +18,5 @@ color = Color(0, 0.913725, 0.913725, 1)
 [node name="PlayerMovement" parent="." instance=ExtResource("2_s80ak")]
 
 [node name="MoveSet" parent="." instance=ExtResource("3_yyquc")]
+
+[node name="PlayerHand" parent="." instance=ExtResource("4_hyn7h")]

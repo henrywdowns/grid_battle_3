@@ -7,4 +7,13 @@ script = ExtResource("1_0ulge")
 card_name = "Defense 1"
 card_desc = "First test defense card"
 card_type = 1
-arcana = 2
+card_arcana = 0
+card_filename = "defense_1.tres"
+arguments = []
+targeting = 4
+flex_dict = {
+"block": 0,
+"damage": 0,
+"healing": 0
+}
+unique_card_effects = Array[Resource("res://resources/card_effect_resource.gd")]([])

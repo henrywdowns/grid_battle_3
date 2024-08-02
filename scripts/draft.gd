@@ -40,8 +40,8 @@ func draft_multiple(rounds: int=1):
 	$".".queue_free()
 
 func add_card_to_deck(card_res: Card):
-	Deck.meta_deck.append(card_res.card_name)
-	print(Deck.meta_deck)
+	Deck.meta_deck.append(card_res.card_filename)
+	print("Deck.meta_deck -- ",Deck.meta_deck)
 
 func reserve_toggled_card(toggled_card_button: Card):
 	toggled_card = toggled_card_button
@@ -50,7 +50,6 @@ func reserve_toggled_card(toggled_card_button: Card):
 func _on_confirm_card_button_up():
 	if toggled_card:
 		add_card_to_deck(toggled_card)
-		toggled_card.unique_effect()
 		var open_cards = $Panel/CardContainer.get_children()
 		for cards in open_cards:
 			cards.queue_free()

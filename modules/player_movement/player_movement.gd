@@ -28,7 +28,6 @@ func _input(_event):
 	if accepting_input == true:
 		for direction in movement_directions:
 			if Input.is_action_just_pressed(direction):
-				print(direction)
 				move_char(direction)
 
 func move_char(dir):
@@ -39,7 +38,7 @@ func move_char(dir):
 		"Right":Vector2(1,0)
 	}
 	var temp_target_panel: Vector2 = player_current_panel + movement_vars[dir]
-	print("Target panel: %s" % temp_target_panel)
+	print("Moved to panel: %s" % temp_target_panel)
 	if temp_target_panel[0] > -1 && temp_target_panel[0] <= grid_partition && temp_target_panel[1] > -1 && temp_target_panel[1] < 3:
 		var target_panel = temp_target_panel
 		var target_panel_index = grid_coords.find(target_panel)

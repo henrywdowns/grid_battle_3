@@ -24,8 +24,10 @@ func receive_damage(damage_amount):
 		enemy_killed()
 	else:
 		enemy_hp -= damage_amount
+	$EnemyHP.text = str(enemy_hp)
 	
 func enemy_killed():
 	if $DeathTrigger:
 		$DeathTrigger.trigger_death()
+	Events.i_died.emit(self)
 	self.queue_free()

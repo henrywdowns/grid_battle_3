@@ -4,8 +4,8 @@ extends Node
 
 var current_scene = null
 #var catchphrase = "Eat my shorts"
-#var battle_gridpoints = []
-#var battle_grid_coords = []
+var battle_gridpoints = []
+var battle_grid_coords = []
 
 func _ready():
 	var root = get_tree().root
@@ -61,13 +61,13 @@ var accepting_input = true
 	#EnemyHandler.clear_enemies()
 	#PlayerCharacter.cleanup()
 	#
-#func translate_coords_to_points(coords):
-	#var target_index = battle_grid_coords.find(coords)
-	#return battle_gridpoints[target_index]
+func translate_coords_to_points(coords):
+	var target_index = battle_grid_coords.find(coords)
+	return battle_gridpoints[target_index]
 #
-#func translate_points_to_coords(points):
-	#var target_index = battle_gridpoints.find(points)
-	#return battle_grid_coords[target_index]
+func translate_points_to_coords(points):
+	var target_index = battle_gridpoints.find(points)
+	return battle_grid_coords[target_index]
 #
 #func check_balance_sheet():
 	#var balance_sheet_res := load("res://resources/BalanceSheet.gd") # load up the balance sheet so we can access player_stats

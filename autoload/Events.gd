@@ -3,7 +3,7 @@ extends Node
 ### Events Bus ###
 # Autoload that holds signals so that they can easily be read across disparate nodes.
 
-### Card Signals ###
+### CARD SIGNALS ###
 var card_placeholder: Card
 
 signal card_played(card: Card)
@@ -17,3 +17,6 @@ signal emit_node(some_node)
 
 ### SETTERS ###
 signal partition_updated(new_value)
+
+### ENEMY SIGNALS ### 
+signal i_died(dead_enemy)

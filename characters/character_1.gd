@@ -5,8 +5,8 @@ extends Node2D
 ### directory to various assets. select a character, pull up requisite scene, find locations for 
 ### assets, store them in PlayerCharacter singleton for use throughout the game. 
 
-var character_gridpoint: Marker2D
-var character_coords: Vector2
+@onready var character_gridpoint: Marker2D
+@onready var character_coords: Vector2 = Vector2(1,1)
 var stats: Dictionary = {"HP":100,"basic_attack":"res://cards/basic_attacks/basic_attack.tres","move_delay":0.1}
 var char_meta_data: Dictionary = {"Name":"Character 1","filename":"character_1"}
 # Called when the node enters the scene tree for the first time.
@@ -16,6 +16,7 @@ func _ready() -> void:
 	print("Starting Health: %s" % stats.HP)
 	print("Basic Attack: %s" % stats.basic_attack)
 	print("Move Delay: %s" % stats.move_delay)
+	print("Char 1 character coords: ",character_coords)
 
 
 

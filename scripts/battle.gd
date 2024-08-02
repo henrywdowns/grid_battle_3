@@ -8,17 +8,10 @@ func _ready():
 	build_stage()
 	print('Panel status: ',panel_status)
 	ready_char()
-	current_enemies.append(spawn_enemy(self,gridpoints[13],"test_enemy_2"))
-	var temp_panel = Array(panel_status.keys())[13]
-	print(temp_panel)
-	panel_status[temp_panel]['occupant']=current_enemies[0]
+	ready_enemy()
 
-#func _input(_event):
-	#if accepting_input == true:
-		#for direction in movement_directions:
-			#if Input.is_action_just_pressed(direction):
-				#move_char(direction)
-	#put attacks here too once those are up
+func _process(_delta):
+	pass
 
 ### BATTLE SCENE CONSTRUCTION AND CONTROLS ###
 
@@ -84,6 +77,22 @@ func spawn_player(scene,loc: Marker2D=starting_point) -> Node2D:
 	player_char_node.add_to_group("Player")
 	return player_char_node #returns the player_char_node as a value that can be referenced in script calling this func
 
+func pass_gridpoints(dest_node,spawning=true):
+	dest_node.gridpoints = gridpoints
+	dest_node.grid_partition = grid_partition
+	if !spawning:
+		pass
+	else:
+		dest_node.player_current_panel = Vector2(1,1)
+
+### ENEMY HANDLING ###
+func ready_enemy():
+	current_enemies.append(spawn_enemy(self,gridpoints[13],"test_enemy_2"))
+	var temp_panel = Array(panel_status.keys())[13]
+	#print(temp_panel)
+	panel_status[temp_panel]['occupant']=Array(enemy_dict.keys())[0]
+	Events.i_died.connect(clean_up_enemy)
+
 func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	var enemy := load("res://enemies/base_enemy.tscn")
 	var enemy_node = enemy.instantiate()
@@ -94,11 +103,16 @@ func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	print("New enemy spawned. Dict updated -- %s" % enemy_dict)
 	#panel_status[loc]["occupant"]=enemy_node
 	return enemy_node
-	
-func pass_gridpoints(dest_node):
-	dest_node.gridpoints = gridpoints
-	dest_node.grid_partition = grid_partition
-	dest_node.player_current_panel = Vector2(1,1)
+
+func clean_up_enemy(enemy):
+	for panel in panel_status:
+		if panel_status[panel]["occupant"] == enemy:
+			print("Cleaning up enemy %s" % enemy)
+			panel_status[panel]["occupant"] = null
+			return
+			
+	print("Error -- enemy not found")
+
 
 ### YOU WIN ###
 
