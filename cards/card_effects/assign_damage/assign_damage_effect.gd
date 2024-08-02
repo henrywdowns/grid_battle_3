@@ -6,11 +6,12 @@ class_name assign_damage
 	# Damage int
 
 func trigger_effect(arguments: Array,wildcard_dict: Dictionary={}) -> void:
-	print("it's happening")
-	print(arguments)
+	print("	### ASSIGN_DAMAGE ###")
+	print("Targets -- ",arguments," -- Dict values -- ",wildcard_dict)
 	for arg in arguments:
-		print(arg)
+		print("Currently targeting -- ",arg)
 		if arg is Node2D and wildcard_dict['damage']: #TODO: Once Enemies are properly classed, change Node2D to Enemy
 			arg.receive_damage(wildcard_dict['damage'])
 		else:
 			print("Damage Assignment Error -- incorrect target or wildcard type")
+	print("	### END ASSIGN_DAMAGE ###")

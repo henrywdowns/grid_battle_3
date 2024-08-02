@@ -1,16 +1,20 @@
-[gd_resource type="Resource" script_class="Card" load_steps=2 format=3 uid="uid://b7vb7dxkwudbx"]
+[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://b7vb7dxkwudbx"]
 
 [ext_resource type="Script" path="res://resources/card_resource.gd" id="1_0fg30"]
+[ext_resource type="Resource" uid="uid://bj1tnj7fy0lqa" path="res://cards/card_effects/assign_damage/assign_damage_effect.tres" id="2_11lx5"]
 
 [resource]
 script = ExtResource("1_0fg30")
 card_name = "Attack 2"
-card_desc = "Test attack 2"
+card_desc = "Pierce attack"
 card_type = 0
 card_arcana = 0
+card_filename = "attack_2"
 arguments = []
-damage_int = 0
-healing_int = 0
-blocking_int = 0
-test_dict = {}
-unique_card_effects = Array[Resource("res://resources/card_effect_resource.gd")]([])
+targeting = 5
+flex_dict = {
+"block": 0,
+"damage": 5,
+"healing": 0
+}
+unique_card_effects = Array[Resource("res://resources/card_effect_resource.gd")]([ExtResource("2_11lx5")])

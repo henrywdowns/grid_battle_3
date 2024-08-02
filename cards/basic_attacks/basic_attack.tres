@@ -9,6 +9,7 @@ card_name = "Basic Attack"
 card_desc = "This shouldn't Show up"
 card_type = 0
 card_arcana = 0
+card_filename = ""
 arguments = []
 targeting = 0
 flex_dict = {

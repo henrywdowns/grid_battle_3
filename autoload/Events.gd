@@ -13,7 +13,8 @@ signal card_chosen()
 signal draft_over()
 signal emit_node(some_node)
 
-
+### PLAYER SIGNALS ###
+signal entity_moved(new_pos: Marker2D,old_pos: Marker2D)
 
 ### SETTERS ###
 signal partition_updated(new_value)

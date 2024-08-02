@@ -17,8 +17,8 @@ func goto_scene(path):
 	#state" where it executes during idle time, rather than while other code is still running
 	
 func _deferred_goto_scene(path): #don't call this scene - call goto_scene(), which calls this scene
-	print("Chosen path: %s" % path)
-	print("Current scene: %s" % current_scene)
+	#print("Chosen path: %s" % path)
+	#print("Current scene: %s" % current_scene)
 	var s = ResourceLoader.load(path) #load new scene
 	if not s:
 		print("Failed to load scene at path: %s" % path)

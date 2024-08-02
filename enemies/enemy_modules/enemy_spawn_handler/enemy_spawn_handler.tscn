@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5s27hrxrujwy"]
+
+[ext_resource type="Script" path="res://enemies/enemy_modules/enemy_spawn_handler/enemy_spawn_handler.gd" id="1_ethyd"]
+
+[node name="EnemySpawnHandler" type="Node"]
+script = ExtResource("1_ethyd")

@@ -6,8 +6,7 @@ var toggled_card: Card
 var draft_multiple_enabled = true
 
 func _ready():
-	#gen_card("other_1")
-	#draft_cards()
+	print("### DRAFT SCENE ###")
 	draft_multiple(1)
 	Events.draft_card_toggled.connect(reserve_toggled_card)
 
@@ -41,7 +40,6 @@ func draft_multiple(rounds: int=1):
 
 func add_card_to_deck(card_res: Card):
 	Deck.meta_deck.append(card_res.card_filename)
-	print("Deck.meta_deck -- ",Deck.meta_deck)
 
 func reserve_toggled_card(toggled_card_button: Card):
 	toggled_card = toggled_card_button

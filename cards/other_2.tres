@@ -7,4 +7,13 @@ script = ExtResource("1_425j7")
 card_name = "Other 2"
 card_desc = "Test Other 2"
 card_type = 3
-arcana = 5
+card_arcana = 0
+card_filename = "other_2"
+arguments = []
+targeting = 0
+flex_dict = {
+"block": 0,
+"damage": 0,
+"healing": 0
+}
+unique_card_effects = Array[Resource("res://resources/card_effect_resource.gd")]([])

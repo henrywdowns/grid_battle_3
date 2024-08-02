@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dwsyyilobo4q8"]
+[gd_scene load_steps=3 format=3 uid="uid://dwsyyilobo4q8"]
 
 [ext_resource type="Script" path="res://enemies/base_enemy.gd" id="1_tp8bt"]
+[ext_resource type="PackedScene" uid="uid://b5s27hrxrujwy" path="res://enemies/enemy_modules/enemy_spawn_handler/enemy_spawn_handler.tscn" id="2_gck60"]
 
 [node name="BaseEnemy" type="Node2D"]
 script = ExtResource("1_tp8bt")
@@ -26,3 +27,5 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "HP placeholder"
 horizontal_alignment = 1
+
+[node name="EnemySpawnHandler" parent="." instance=ExtResource("2_gck60")]

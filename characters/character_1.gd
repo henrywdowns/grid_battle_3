@@ -13,10 +13,7 @@ var char_meta_data: Dictionary = {"Name":"Character 1","filename":"character_1"}
 @onready var current_health: int = stats.HP
 
 func _ready() -> void:
-	print("Starting Health: %s" % stats.HP)
-	print("Basic Attack: %s" % stats.basic_attack)
-	print("Move Delay: %s" % stats.move_delay)
-	print("Char 1 character coords: ",character_coords)
+	pass
 
 
 

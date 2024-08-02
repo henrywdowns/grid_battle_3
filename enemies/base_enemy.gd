@@ -9,7 +9,6 @@ func _ready():
 	pass
 
 func generate_enemy(enemy_tres):
-	print("res://enemies/%s.tres" % enemy_tres)
 	var enemy = load("res://enemies/%s.tres" % enemy_tres)
 	enemy_data = enemy
 	enemy_hp = enemy_data.enemy_hp

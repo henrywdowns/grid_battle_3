@@ -44,7 +44,7 @@ var draft_pool = {
 }
 
 var basic_attack: Card
-var meta_deck = []
+var meta_deck = ["attack_1","attack_2","attack_2"]
 var default_deck = []
 func print_deck():
 	print(meta_deck)

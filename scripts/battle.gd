@@ -5,8 +5,8 @@ var player_char: Node2D
 var current_enemies = []
 
 func _ready():
+	print("### BATTLE SCENE ###")
 	build_stage()
-	print('Panel status: ',panel_status)
 	ready_char()
 	ready_enemy()
 
@@ -49,6 +49,10 @@ func build_stage():
 		else:
 			panel_status[panel]["color"] = "red"
 	starting_point = gridpoints[4]
+	
+func update_panel_status(new_panel=null,old_panel=null):
+	#TODO: WHEN READY - CONNECT EVENTS.ENTITY_MOVED(UPDATE_PANEL_STATUS)
+	pass
 
 ### BATTLE-SPECIFIC CHARACTER MANAGEMENT ###
 # Incl. Spawning & Stats
@@ -63,8 +67,6 @@ func ready_char():
 
 func spawn_player(scene,loc: Marker2D=starting_point) -> Node2D:
 	var new_character := load("characters/%s.tscn" % Global.selected_character) #load character scene based on selection
-	print(new_character)
-	print("characters/%s.tscn" % Global.selected_character)
 	var player_char_node = new_character.instantiate()
 	### STAT AND DECK SETUP ###
 	current_stats = Global.meta_character_stats #transfer persistent stats to battle
@@ -72,8 +74,6 @@ func spawn_player(scene,loc: Marker2D=starting_point) -> Node2D:
 	### END SETUP ###
 	player_char_node.position = loc.global_position #take passed starting point position and put the character there
 	scene.add_child(player_char_node) #add the character to the tree calling the function
-	print("Current stats from singleton: ",current_stats)
-	print("Current deck from singleton: ",current_deck)
 	player_char_node.add_to_group("Player")
 	return player_char_node #returns the player_char_node as a value that can be referenced in script calling this func
 
@@ -87,10 +87,12 @@ func pass_gridpoints(dest_node,spawning=true):
 
 ### ENEMY HANDLING ###
 func ready_enemy():
-	current_enemies.append(spawn_enemy(self,gridpoints[13],"test_enemy_2"))
+	current_enemies.append(spawn_enemy(self,gridpoints[13],"test_enemy_1"))
 	var temp_panel = Array(panel_status.keys())[13]
-	#print(temp_panel)
+	current_enemies.append(spawn_enemy(self,gridpoints[16],"test_enemy_2"))
+	var temp_panel_2 = Array(panel_status.keys())[16]
 	panel_status[temp_panel]['occupant']=Array(enemy_dict.keys())[0]
+	panel_status[temp_panel_2]['occupant']=Array(enemy_dict.keys())[1]
 	Events.i_died.connect(clean_up_enemy)
 
 func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
@@ -104,11 +106,14 @@ func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	#panel_status[loc]["occupant"]=enemy_node
 	return enemy_node
 
-func clean_up_enemy(enemy):
+func clean_up_enemy(target_enemy):
+	print(panel_status)
 	for panel in panel_status:
-		if panel_status[panel]["occupant"] == enemy:
-			print("Cleaning up enemy %s" % enemy)
+		if panel_status[panel]["occupant"] == target_enemy:
+			print("Panel -- ", panel_status[panel])
+			print("Cleaning up enemy %s" % target_enemy)
 			panel_status[panel]["occupant"] = null
+			print("Panel after cleanup -- ",panel_status[panel])
 			return
 			
 	print("Error -- enemy not found")

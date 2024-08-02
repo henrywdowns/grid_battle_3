@@ -94,9 +94,9 @@ var card_arcana_str = card_arcana_list[card_arcana]
 @export var unique_card_effects: Array[CardEffect]
 
 func unique_effect(targets: Array):
+	print("	### UNIQUE_EFFECT ###")
 	arguments = targets
-	print(unique_card_effects)
-	print("Triggering unique effect (card_resource.gd)")
+	print("Unique card effects -- ",unique_card_effects," -- Targets -- ",arguments)
 	if len(unique_card_effects) > 0:
 		for effect in unique_card_effects:
 			print("effect: ",effect)
