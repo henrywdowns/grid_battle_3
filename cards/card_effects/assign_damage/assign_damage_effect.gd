@@ -1,5 +1,9 @@
 extends CardEffect
-class_name attack_1
+class_name assign_damage
+
+### Arguments Array Requirements:
+	# Target Node2D
+	# Damage int
 
 func trigger_effect(arguments: Array,wildcard_dict: Dictionary={}) -> void:
 	for arg in arguments:
@@ -7,4 +11,3 @@ func trigger_effect(arguments: Array,wildcard_dict: Dictionary={}) -> void:
 			arg.receive_damage(wildcard_dict['damage'])
 		else:
 			print("Damage Assignment Error -- incorrect target or wildcard type")
-	print("Attack_1 effect was triggered!")

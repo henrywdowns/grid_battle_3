@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="assign_damage" load_steps=2 format=3 uid="uid://bj1tnj7fy0lqa"]
+
+[ext_resource type="Script" path="res://cards/card_effects/assign_damage/assign_damage_effect.gd" id="1_yx584"]
+
+[resource]
+script = ExtResource("1_yx584")

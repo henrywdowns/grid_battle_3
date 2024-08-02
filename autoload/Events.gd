@@ -11,3 +11,9 @@ signal card_requested(card_name: Card)
 signal draft_card_toggled(card:Card)
 signal card_chosen()
 signal draft_over()
+signal emit_node(some_node)
+
+
+
+### SETTERS ###
+signal partition_updated(new_value)

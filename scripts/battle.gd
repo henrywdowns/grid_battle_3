@@ -1,20 +1,23 @@
 extends Node2D
 
-@onready var accepting_input = true
+@onready var accepting_input = false
 var player_char: Node2D
+var current_enemies = []
 
 func _ready():
 	build_stage()
-	starting_point = gridpoints[4]
-	player_char = spawn_player(self)
-	player_current_panel = Vector2(1,1)
-	spawn_enemy(self,gridpoints[13],"test_enemy_2")
+	print('Panel status: ',panel_status)
+	ready_char()
+	current_enemies.append(spawn_enemy(self,gridpoints[13],"test_enemy_2"))
+	var temp_panel = Array(panel_status.keys())[13]
+	print(temp_panel)
+	panel_status[temp_panel]['occupant']=current_enemies[0]
 
-func _input(_event):
-	if accepting_input == true:
-		for direction in movement_directions:
-			if Input.is_action_just_pressed(direction):
-				move_char(direction)
+#func _input(_event):
+	#if accepting_input == true:
+		#for direction in movement_directions:
+			#if Input.is_action_just_pressed(direction):
+				#move_char(direction)
 	#put attacks here too once those are up
 
 ### BATTLE SCENE CONSTRUCTION AND CONTROLS ###
@@ -34,7 +37,7 @@ var grid_coords = [
 	Vector2(5, 0), Vector2(5, 1), Vector2(5, 2)
 	]
 
-var grid_partition = 2 #represents furthest right player can go. want to declare
+var grid_partition = 2	#represents furthest right player can go. want to declare
 					   #so in the future i can adjust with effects
 
 func build_stage():
@@ -52,35 +55,7 @@ func build_stage():
 			panel_status[panel]["color"] = "blue"
 		else:
 			panel_status[panel]["color"] = "red"
-
-### CHARACTER MOVEMENT ###
-
-### new attack plan:
-#going to throw away the coordinate system (for collision at least)
-#instead of doing the math every time to calculate a hit (which means lots of different logic
-#depending on attacks, i'm going to make characters snap to marker2d like before, but they will
-#have hitboxes that just confirm to the entire panel they're on. then attacks will similarly 
-#launch projectiles with hitboxes oriented to the height of they panels they should be on, allowing
-#for more seamless collision detection and tween movement from panel to panel. it's more flexible.
-
-var movement_directions = ["Up","Down","Left","Right"]
-var player_current_panel: Vector2
-
-func move_char(dir):
-	var movement_vars = {
-		"Up":Vector2(0,-1),
-		"Down":Vector2(0,1),
-		"Left":Vector2(-1,0),
-		"Right":Vector2(1,0)
-	}
-	var temp_target_panel: Vector2 = player_current_panel + movement_vars[dir]
-	print("Target panel: %s" % temp_target_panel)
-	if temp_target_panel[0] > -1 && temp_target_panel[0] <= grid_partition && temp_target_panel[1] > -1 && temp_target_panel[1] < 3:
-		var target_panel = temp_target_panel
-		var target_panel_index = grid_coords.find(target_panel)
-		player_current_panel = target_panel
-		player_char.global_position = gridpoints[target_panel_index].global_position
-	
+	starting_point = gridpoints[4]
 
 ### BATTLE-SPECIFIC CHARACTER MANAGEMENT ###
 # Incl. Spawning & Stats
@@ -88,6 +63,10 @@ func move_char(dir):
 var current_stats: Dictionary
 var current_deck: Array
 var enemy_dict = {}
+
+func ready_char():
+	Events.emit_node.connect(pass_gridpoints)
+	player_char = spawn_player(self)
 
 func spawn_player(scene,loc: Marker2D=starting_point) -> Node2D:
 	var new_character := load("characters/%s.tscn" % Global.selected_character) #load character scene based on selection
@@ -113,7 +92,13 @@ func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	scene.add_child(enemy_node)
 	enemy_dict[enemy_node] = enemy_node.enemy_hp
 	print("New enemy spawned. Dict updated -- %s" % enemy_dict)
+	#panel_status[loc]["occupant"]=enemy_node
 	return enemy_node
+	
+func pass_gridpoints(dest_node):
+	dest_node.gridpoints = gridpoints
+	dest_node.grid_partition = grid_partition
+	dest_node.player_current_panel = Vector2(1,1)
 
 ### YOU WIN ###
 

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://df50dq4ddtma1"]
+
+[ext_resource type="Script" path="res://modules/moveset/move_set.gd" id="1_0vgc2"]
+
+[node name="MoveSet" type="Node"]
+script = ExtResource("1_0vgc2")

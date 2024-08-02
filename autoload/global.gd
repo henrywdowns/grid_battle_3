@@ -51,6 +51,10 @@ func progress_map():
 	print("Progressing map. Current map: %s -- Current encounter: %s" % [current_map,current_encounter])
 	
 
+### General Helper Stuff That's Useful All Over ###
+
+var accepting_input = true
+
 ### MISC CARRYOVER HELP FUNCS - MAY NOT NEED BUT COULD BE USEFUL ### 
 
 #func cleanup():

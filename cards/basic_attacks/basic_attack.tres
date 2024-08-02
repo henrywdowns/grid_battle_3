@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://bb7si1wuugsvs"]
+
+[ext_resource type="Script" path="res://resources/card_resource.gd" id="1_nb82i"]
+[ext_resource type="Resource" uid="uid://bj1tnj7fy0lqa" path="res://cards/card_effects/assign_damage/assign_damage_effect.tres" id="2_42hbu"]
+
+[resource]
+script = ExtResource("1_nb82i")
+card_name = "Basic Attack"
+card_desc = "This shouldn't Show up"
+card_type = 0
+card_arcana = 0
+effect_string = ""
+effect_int = 0
+arguments = []
+unique_card_effects = Array[Resource("res://resources/card_effect_resource.gd")]([ExtResource("2_42hbu")])

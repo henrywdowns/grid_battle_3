@@ -5,7 +5,9 @@ extends Node2D
 ### directory to various assets. select a character, pull up requisite scene, find locations for 
 ### assets, store them in PlayerCharacter singleton for use throughout the game. 
 
-var stats: Dictionary = {"HP":100,"basic_attack":1,"move_delay":0.1}
+var character_gridpoint: Marker2D
+var character_coords: Vector2
+var stats: Dictionary = {"HP":100,"basic_attack":"res://cards/basic_attacks/basic_attack.tres","move_delay":0.1}
 var char_meta_data: Dictionary = {"Name":"Character 1","filename":"character_1"}
 # Called when the node enters the scene tree for the first time.
 @onready var current_health: int = stats.HP
@@ -14,6 +16,7 @@ func _ready() -> void:
 	print("Starting Health: %s" % stats.HP)
 	print("Basic Attack: %s" % stats.basic_attack)
 	print("Move Delay: %s" % stats.move_delay)
+
 
 
 ### below pattern involves loading stats from central char location (PlayerCharacter.gd)... I want to store stats in each character when char is ###

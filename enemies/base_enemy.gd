@@ -3,6 +3,7 @@ extends Node2D
 var enemy_data:Enemy
 var enemy_hp: int
 var enemy_name: String
+var has_death_trigger: bool = false
 
 func _ready():
 	pass
@@ -16,3 +17,15 @@ func generate_enemy(enemy_tres):
 	$EnemyRect.color = enemy_data.enemy_color
 	$EnemyHP.text = str(enemy_hp)
 	print("Enemy -- Name: %s -- HP: %s" % [enemy_name,enemy_hp])
+
+func receive_damage(damage_amount):
+	if enemy_hp-damage_amount <= 0:
+		enemy_hp = 0
+		enemy_killed()
+	else:
+		enemy_hp -= damage_amount
+	
+func enemy_killed():
+	if $DeathTrigger:
+		$DeathTrigger.trigger_death()
+	self.queue_free()

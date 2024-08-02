@@ -9,6 +9,11 @@ card_name = "Attack 1"
 card_desc = "First Test Attack"
 card_type = 0
 card_arcana = 0
-effect_string = ""
-effect_int = 1
+arguments = []
+targeting = 2
+flex_dict = {
+"block": 0,
+"damage": 0,
+"healing": 0
+}
 unique_card_effects = Array[Resource("res://resources/card_effect_resource.gd")]([ExtResource("2_688d1")])
