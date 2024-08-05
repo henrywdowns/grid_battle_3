@@ -115,7 +115,9 @@ func determine_target(target_type) -> Array:
 			target_result.append(get_parent())
 		TargetType.PIERCE:
 			print(	"### PIERCE ###")
-			target_result += perform_pierce(player_location_coords)
+			var pierce_result = perform_pierce(player_location_coords)
+			if pierce_result:
+				target_result += pierce_result
 	print("	### END DETERMINE_TARGET ###")
 	return target_result
 

@@ -9,6 +9,7 @@ func _ready():
 	build_stage()
 	ready_char()
 	ready_enemy()
+	#Events.i_died.connect(check_if_all_dead)
 
 func _process(_delta):
 	pass
@@ -59,7 +60,7 @@ func update_panel_status(new_panel=null,old_panel=null):
 
 var current_stats: Dictionary
 var current_deck: Array
-var enemy_dict = {}
+var enemy_dict = {} ### THIS IS NOT BEING UPDATED WHEN ENEMIES DIE
 
 func ready_char():
 	Events.emit_node.connect(pass_gridpoints)
@@ -108,6 +109,7 @@ func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 
 func clean_up_enemy(target_enemy):
 	print(panel_status)
+	check_if_all_dead()
 	for panel in panel_status:
 		if panel_status[panel]["occupant"] == target_enemy:
 			print("Panel -- ", panel_status[panel])
@@ -122,8 +124,16 @@ func clean_up_enemy(target_enemy):
 ### YOU WIN ###
 
 func you_win():
+	print("### You Win ###")
+	$"PickACard".run_draft()
 	Global.progress_map()
 	Global.goto_scene("res://scenes/map.tscn")
+
+func check_if_all_dead():
+	var enemies_left = len(Array(enemy_dict.keys()))
+	print("Number of enemies: ",enemies_left)
+	if enemies_left <= 0:
+		you_win()
 
 func _on_button_pressed():
 	you_win()
