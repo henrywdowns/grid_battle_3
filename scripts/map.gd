@@ -23,7 +23,7 @@ func show_nodes_after_draft():
 func button_behavior(_index=0):
 	Global.goto_scene("res://scenes/battle.tscn")
 
-func run_draft():
+func run_draft(): # THE MAP DRAFT SHOULD BE A FULL-ON DRAFT FROM AVAILABLE CARD-POOL. NEED TO REWORK
 	var draft_scene = draft_path.instantiate() #this is where i call draft. i think i just want this
 	# at the beginning of the map, not at every node.
 	draft_scene.global_position = $DraftPosition.position
