@@ -7,6 +7,7 @@ var draft_multiple_enabled = true
 
 func _ready():
 	print("### DRAFT SCENE ###")
+	print("Cards in deck: ",len(Deck.meta_deck))
 	draft_multiple(1)
 	Events.draft_card_toggled.connect(reserve_toggled_card)
 
@@ -28,6 +29,7 @@ func draft_cards():
 		gen_card(card_list[random_card])
 
 func draft_multiple(rounds: int=1):
+	print("### DRAFT MULTIPLE ###")
 	var card_count = 0
 	while card_count < rounds:
 		if card_count > 5:
@@ -36,10 +38,11 @@ func draft_multiple(rounds: int=1):
 		draft_cards()
 		await Events.card_chosen
 	Events.draft_over.emit()
+	print("### END DRAFT ###")
 	$".".queue_free()
 
 func add_card_to_deck(card_res: Card):
-	Deck.meta_deck.append(card_res.card_filename)
+	Deck.meta_deck.append(card_res)
 
 func reserve_toggled_card(toggled_card_button: Card):
 	toggled_card = toggled_card_button
@@ -48,6 +51,7 @@ func reserve_toggled_card(toggled_card_button: Card):
 func _on_confirm_card_button_up():
 	if toggled_card:
 		add_card_to_deck(toggled_card)
+		print("Cards in deck: ",len(Deck.meta_deck))
 		var open_cards = $Panel/CardContainer.get_children()
 		for cards in open_cards:
 			cards.queue_free()

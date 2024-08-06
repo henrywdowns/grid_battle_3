@@ -5,7 +5,7 @@ extends Node
 ### INITIALIZATION ###
 
 var panel_data = {} # Will populate with data from battle.tscn
-@onready var basic_attack_card = load(self.get_parent().stats['basic_attack']) ### MAKE A RESOURCE TO REPRESENT DECKS
+@onready var basic_attack_card = Global.meta_character_stats['basic_attack']
 
 func _ready():
 	print("	move_set node is ready.")
@@ -60,22 +60,23 @@ func translate_points_to_coords(points):
 
 func _input(_event):
 	if accepting_input == true:
-		if Input.is_action_just_pressed("Basic"):
+		if Input.is_action_just_pressed("Basic"): # basic attack
 			print("basic_attack")
 			use_card(basic_attack_card)
-		if Input.is_action_just_pressed("Card"):
+		if Input.is_action_just_pressed("Card"): # play a card
 			print("Card played")
-			var player_hand = get_parent().get_node("PlayerHand").player_hand
+			var player_hand = get_parent().get_node("PlayerHand").player_hand # access player hand node -> hand dictionary
 			print(player_hand)
 			if len(player_hand)>0:
-				var first_card_in_hand = load("res://cards/%s.tres" % player_hand[0])
+				var first_card_in_hand = player_hand[0]
 				print("First card object: ", first_card_in_hand)
 				use_card(first_card_in_hand)
 			else:
 				print("Empty hand")
+
 ### CARD USAGE ###
 
-func use_card(card):
+func use_card(card: Card):
 	print("	### USE_CARD ###")
 	print("Card Node -- ",card)
 	if card:

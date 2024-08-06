@@ -67,7 +67,7 @@ func ready_char():
 	player_char = spawn_player(self)
 
 func spawn_player(scene,loc: Marker2D=starting_point) -> Node2D:
-	var new_character := load("characters/%s.tscn" % Global.selected_character) #load character scene based on selection
+	var new_character := load("characters/base_character.tscn") #load character scene based on selection
 	var player_char_node = new_character.instantiate()
 	### STAT AND DECK SETUP ###
 	current_stats = Global.meta_character_stats #transfer persistent stats to battle
@@ -108,7 +108,11 @@ func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	return enemy_node
 
 func clean_up_enemy(target_enemy):
+	print("CLEANING UP ",target_enemy)
 	print(panel_status)
+	print(enemy_dict)
+	print(enemy_dict.erase(target_enemy))
+	print(enemy_dict)
 	check_if_all_dead()
 	for panel in panel_status:
 		if panel_status[panel]["occupant"] == target_enemy:
@@ -127,6 +131,7 @@ func you_win():
 	print("### You Win ###")
 	$"PickACard".run_draft()
 	Global.progress_map()
+	await Events.card_chosen
 	Global.goto_scene("res://scenes/map.tscn")
 
 func check_if_all_dead():

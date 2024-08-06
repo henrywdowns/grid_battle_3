@@ -3,7 +3,6 @@ extends Node
 ### SCENE SWITCHER ###
 
 var current_scene = null
-#var catchphrase = "Eat my shorts"
 var battle_gridpoints = []
 var battle_grid_coords = []
 
@@ -17,8 +16,6 @@ func goto_scene(path):
 	#state" where it executes during idle time, rather than while other code is still running
 	
 func _deferred_goto_scene(path): #don't call this scene - call goto_scene(), which calls this scene
-	#print("Chosen path: %s" % path)
-	#print("Current scene: %s" % current_scene)
 	var s = ResourceLoader.load(path) #load new scene
 	if not s:
 		print("Failed to load scene at path: %s" % path)
@@ -32,9 +29,9 @@ func _deferred_goto_scene(path): #don't call this scene - call goto_scene(), whi
 ### Character Management ###
 
 var selected_character = null
-var selected_character_scene = PackedScene
+var selected_character_tres = character
 var meta_character_stats = {}
-
+var char_res: character
 
 ### Map Management ### 
 
@@ -46,7 +43,7 @@ func progress_map():
 	if current_encounter >= 3:
 		current_encounter = 0
 		current_map += 1
-		print("Current deck: %s \nDefault deck: %s" % [Deck.meta_deck,Deck.default_deck])
+		print("Current deck: %s \nDefault deck: %s" % [Deck.meta_deck,Deck.temporary_deck])
 		Deck.meta_deck = Deck.default_deck
 	print("Progressing map. Current map: %s -- Current encounter: %s" % [current_map,current_encounter])
 	
@@ -57,10 +54,6 @@ var accepting_input = true
 
 ### MISC CARRYOVER HELP FUNCS - MAY NOT NEED BUT COULD BE USEFUL ### 
 
-#func cleanup():
-	#EnemyHandler.clear_enemies()
-	#PlayerCharacter.cleanup()
-	#
 func translate_coords_to_points(coords):
 	var target_index = battle_grid_coords.find(coords)
 	return battle_gridpoints[target_index]
@@ -68,7 +61,7 @@ func translate_coords_to_points(coords):
 func translate_points_to_coords(points):
 	var target_index = battle_gridpoints.find(points)
 	return battle_grid_coords[target_index]
-#
+
 #func check_balance_sheet():
 	#var balance_sheet_res := load("res://resources/BalanceSheet.gd") # load up the balance sheet so we can access player_stats
 	#var balance_sheet = balance_sheet_res.new() #creating an instance of balance_sheet.gd

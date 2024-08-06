@@ -29,4 +29,3 @@ offset_bottom = 297.0
 text = "Encounter 3"
 
 [node name="DraftPosition" type="Marker2D" parent="."]
-position = Vector2(226, 175)

@@ -7,10 +7,6 @@ extends Node2D
 
 @onready var character_gridpoint: Marker2D
 @onready var character_coords: Vector2 = Vector2(1,1)
-var stats: Dictionary = {"HP":100,"basic_attack":"res://cards/basic_attacks/basic_attack.tres","move_delay":0.1}
-var char_meta_data: Dictionary = {"Name":"Character 1","filename":"character_1"}
-# Called when the node enters the scene tree for the first time.
-@onready var current_health: int = stats.HP
 
 func _ready() -> void:
 	pass
