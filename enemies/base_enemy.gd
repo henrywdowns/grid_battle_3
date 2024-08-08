@@ -26,7 +26,7 @@ func receive_damage(damage_amount):
 	$EnemyHP.text = str(enemy_hp)
 	
 func enemy_killed():
-	if $DeathTrigger:
+	if has_node("DeathTrigger"):
 		$DeathTrigger.trigger_death()
 	Events.i_died.emit(self)
 	self.queue_free()

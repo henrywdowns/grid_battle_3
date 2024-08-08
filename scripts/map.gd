@@ -1,4 +1,6 @@
 extends Node2D
+### DEBUG STUFF ###
+var num_of_map_drafts = 7 # adjust this in run_draft() later
 
 @onready var map_node_array = $MapNodes.get_children()
 var draft_path = load("res://scenes/draft.tscn")
@@ -27,5 +29,7 @@ func run_draft(): # THE MAP DRAFT SHOULD BE A FULL-ON DRAFT FROM AVAILABLE CARD-
 	var draft_scene = draft_path.instantiate() #this is where i call draft. i think i just want this
 	# at the beginning of the map, not at every node.
 	draft_scene.global_position = $DraftPosition.position
+	draft_scene.determine_pool("map_draft")
 	$".".add_child(draft_scene)
+	draft_scene.draft_multiple(num_of_map_drafts)
 	$MapNodes.visible = false

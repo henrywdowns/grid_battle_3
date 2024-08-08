@@ -43,8 +43,8 @@ func progress_map():
 	if current_encounter >= 3:
 		current_encounter = 0
 		current_map += 1
-		print("Current deck: %s \nDefault deck: %s" % [Deck.meta_deck,Deck.temporary_deck])
-		Deck.meta_deck = Deck.default_deck
+		print("Current deck: %s \nDraft Pool: %s" % [Deck.meta_deck,Deck.draft_pool])
+		Deck.meta_deck = []
 	print("Progressing map. Current map: %s -- Current encounter: %s" % [current_map,current_encounter])
 	
 

@@ -8,42 +8,10 @@ extends Node
 ### to adjust your deck during the map, and everything goes back into your draft pool
 ### at the next stage?
 
-var draft_pool = {
-	"attack_1":{
-		"path":"res://cards/attack_1.tres",
-		"quantity":3
-	},
-	"attack_2":{
-		"path":"res://cards/attack_2.tres",
-		"quantity":3
-	},
-	"defense_1":{
-		"path":"res://cards/defense_1.tres",
-		"quantity":3
-	},
-	"defense_2":{
-		"path":"res://cards/defense_2.tres",
-		"quantity":3
-	},
-	"support_1":{
-		"path":"res://cards/support_1.tres",
-		"quantity":3
-	},
-	"support_2":{
-		"path":"res://cards/support_2.tres",
-		"quantity":3
-	},
-	"other_1":{
-		"path":"res://cards/other_1.tres",
-		"quantity":3
-	},
-	"other_2":{
-		"path":"res://cards/other_2.tres",
-		"quantity":3
-	}
-}
 
 var basic_attack: Card
 var meta_deck: Array[Card] = []
+var draft_pool: Array[Card] = []
+var reward_draftable_pool: Array[Card] = [] 
 func print_deck():
 	print(meta_deck)

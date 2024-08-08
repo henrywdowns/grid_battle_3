@@ -34,7 +34,8 @@ func send_char_info_to_global():
 	char_stats["HP"] = char_res.HP
 	char_stats["basic_attack"] = char_res.basic_attack
 	char_stats["move_delay"] = char_res.move_delay
-	Deck.meta_deck = char_res.default_deck
-	print(Deck.meta_deck)
+	Deck.draft_pool = char_res.default_deck
+	print(Deck.draft_pool)
+	Deck.reward_draftable_pool = char_res.draftable_pool
 	Global.meta_character_stats = char_stats
 	Deck.basic_attack = basic_attack_card

@@ -1,13 +1,20 @@
-[gd_resource type="Resource" script_class="character" load_steps=5 format=3 uid="uid://dgvglkgejp37i"]
+[gd_resource type="Resource" script_class="character" load_steps=11 format=3 uid="uid://dgvglkgejp37i"]
 
 [ext_resource type="Resource" uid="uid://bb7si1wuugsvs" path="res://cards/basic_attacks/basic_attack.tres" id="1_gc6ia"]
 [ext_resource type="Script" path="res://resources/character_resource.gd" id="1_r8lfb"]
 [ext_resource type="Resource" uid="uid://deiv34cibyfs7" path="res://cards/attack_1.tres" id="2_12735"]
 [ext_resource type="Resource" uid="uid://b7vb7dxkwudbx" path="res://cards/attack_2.tres" id="3_s33nc"]
+[ext_resource type="Resource" uid="uid://bnibxtivgw1h3" path="res://cards/defense_1.tres" id="4_frpfs"]
+[ext_resource type="Resource" uid="uid://6ynh4nrvx3pj" path="res://cards/other_1.tres" id="5_d7w8r"]
+[ext_resource type="Resource" uid="uid://cqtyue1s71gsh" path="res://cards/defense_2.tres" id="5_vgiwb"]
+[ext_resource type="Resource" uid="uid://bj1ktrvkly28j" path="res://cards/support_1.tres" id="6_qrowi"]
+[ext_resource type="Resource" uid="uid://d1w1ilbs1mpvy" path="res://cards/support_2.tres" id="7_y1a24"]
+[ext_resource type="Resource" uid="uid://bia8fhou1rdnb" path="res://cards/other_2.tres" id="9_mkb3p"]
 
 [resource]
 script = ExtResource("1_r8lfb")
 HP = 100
 basic_attack = ExtResource("1_gc6ia")
 move_delay = 0.1
-default_deck = Array[Resource("res://resources/card_resource.gd")]([ExtResource("2_12735"), ExtResource("3_s33nc"), ExtResource("2_12735"), ExtResource("2_12735"), ExtResource("3_s33nc")])
+default_deck = Array[Resource("res://resources/card_resource.gd")]([ExtResource("2_12735"), ExtResource("3_s33nc"), ExtResource("4_frpfs"), ExtResource("5_vgiwb"), ExtResource("6_qrowi"), ExtResource("7_y1a24"), ExtResource("5_d7w8r"), ExtResource("9_mkb3p")])
+draftable_pool = Array[Resource("res://resources/card_resource.gd")]([ExtResource("2_12735"), ExtResource("3_s33nc"), ExtResource("4_frpfs"), ExtResource("5_vgiwb")])
