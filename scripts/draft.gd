@@ -70,6 +70,7 @@ func draft_multiple(rounds: int=1):
 
 func add_card_to_deck(card_res: Card):
 	Deck.meta_deck.append(card_res)
+	Deck.draft_pool.append(card_res)
 
 func determine_pool(selected_pool = "draft_reward"):
 	match selected_pool:
