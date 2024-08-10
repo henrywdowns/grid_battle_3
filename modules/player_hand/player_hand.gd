@@ -5,22 +5,22 @@ extends Node
 @onready var player_hand = Deck.meta_deck.duplicate()
 
 func _ready():
-	print("	player_hand node is ready.")
-	print("	Player hand at ready -- ",player_hand)
+	print_debug("	player_hand node is ready.")
+	print_debug("	Player hand at ready -- ",player_hand)
 	call_deferred("_initialize")
 
 func _initialize():
 	Events.card_played.connect(card_played)
 
 func card_played(card):
-	print(card.card_name)
+	print_debug(card.card_name)
 	if player_hand and player_hand[0]:
-		print(player_hand[0])
+		print_debug(player_hand[0])
 		if player_hand[0] == card:
 			player_hand.pop_front()
-			print("Hand after card played: ", player_hand)
+			print_debug("Hand after card played: ", player_hand)
 	else:
-		print("No hand")
+		print_debug("No hand")
 
 func refill_hand():
 	pass

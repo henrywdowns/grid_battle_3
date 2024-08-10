@@ -14,4 +14,4 @@ var meta_deck: Array[Card] = []
 var draft_pool: Array[Card] = []
 var reward_draftable_pool: Array[Card] = [] 
 func print_deck():
-	print(meta_deck)
+	print_debug(meta_deck)

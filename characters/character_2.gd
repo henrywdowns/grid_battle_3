@@ -6,7 +6,7 @@ var char_meta_data: Dictionary = {"Name":"Character 2","filename":"character_2"}
 @onready var current_health: int = stats.HP
 
 func _ready() -> void:
-	print("Starting Health: %s" % stats.HP)
-	print("Basic Attack: %s" % stats.basic_attack)
-	print("Move Delay: %s" % stats.move_delay)
+	print_debug("Starting Health: %s" % stats.HP)
+	print_debug("Basic Attack: %s" % stats.basic_attack)
+	print_debug("Move Delay: %s" % stats.move_delay)
 

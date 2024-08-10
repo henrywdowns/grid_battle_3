@@ -5,7 +5,7 @@ var player_char: Node2D
 var current_enemies = []
 
 func _ready():
-	print("### BATTLE SCENE ###")
+	print_debug("### BATTLE SCENE ###")
 	build_stage()
 	ready_char()
 	ready_enemy()
@@ -103,40 +103,40 @@ func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	enemy_node.global_position = loc.global_position
 	scene.add_child(enemy_node)
 	enemy_dict[enemy_node] = enemy_node.enemy_hp
-	print("New enemy spawned. Dict updated -- %s" % enemy_dict)
+	print_debug("New enemy spawned. Dict updated -- %s" % enemy_dict)
 	#panel_status[loc]["occupant"]=enemy_node
 	return enemy_node
 
 func clean_up_enemy(target_enemy):
-	print("CLEANING UP ",target_enemy)
-	print(panel_status)
-	print(enemy_dict)
-	print(enemy_dict.erase(target_enemy))
-	print(enemy_dict)
+	print_debug("CLEANING UP ",target_enemy)
+	print_debug(panel_status)
+	print_debug(enemy_dict)
+	print_debug(enemy_dict.erase(target_enemy))
+	print_debug(enemy_dict)
 	check_if_all_dead()
 	for panel in panel_status:
 		if panel_status[panel]["occupant"] == target_enemy:
-			print("Panel -- ", panel_status[panel])
-			print("Cleaning up enemy %s" % target_enemy)
+			print_debug("Panel -- ", panel_status[panel])
+			print_debug("Cleaning up enemy %s" % target_enemy)
 			panel_status[panel]["occupant"] = null
-			print("Panel after cleanup -- ",panel_status[panel])
+			print_debug("Panel after cleanup -- ",panel_status[panel])
 			return
 			
-	print("Error -- enemy not found")
+	print_debug("Error -- enemy not found")
 
 
 ### YOU WIN ###
 
 func you_win():
-	print("### You Win ###")
+	print_debug("### You Win ###")
 	$"PickACard".run_draft()
-	Global.progress_map()
 	await Events.card_chosen
+	Global.progress_map()
 	Global.goto_scene("res://scenes/map.tscn")
 
 func check_if_all_dead():
 	var enemies_left = len(Array(enemy_dict.keys()))
-	print("Number of enemies: ",enemies_left)
+	print_debug("Number of enemies: ",enemies_left)
 	if enemies_left <= 0:
 		you_win()
 

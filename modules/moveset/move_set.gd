@@ -8,7 +8,7 @@ var panel_data = {} # Will populate with data from battle.tscn
 @onready var basic_attack_card = Global.meta_character_stats['basic_attack']
 
 func _ready():
-	print("	move_set node is ready.")
+	print_debug("	move_set node is ready.")
 	call_deferred("_initialize")
 
 func _initialize():
@@ -61,52 +61,52 @@ func translate_points_to_coords(points):
 func _input(_event):
 	if accepting_input == true:
 		if Input.is_action_just_pressed("Basic"): # basic attack
-			print("basic_attack")
+			print_debug("basic_attack")
 			use_card(basic_attack_card)
 		if Input.is_action_just_pressed("Card"): # play a card
-			print("Card played")
+			print_debug("Card played")
 			var player_hand = get_parent().get_node("PlayerHand").player_hand # access player hand node -> hand dictionary
-			print(player_hand)
+			print_debug(player_hand)
 			if len(player_hand)>0:
 				var first_card_in_hand = player_hand[0]
-				print("First card object: ", first_card_in_hand)
+				print_debug("First card object: ", first_card_in_hand)
 				use_card(first_card_in_hand)
 			else:
-				print("Empty hand")
+				print_debug("Empty hand")
 
 ### CARD USAGE ###
 
 func use_card(card: Card):
-	print("	### USE_CARD ###")
-	print("Card Node -- ",card)
+	print_debug("	### USE_CARD ###")
+	print_debug("Card Node -- ",card)
 	if card:
-		print("Card targeting enum type -- ",card.targeting)
+		print_debug("Card targeting enum type -- ",card.targeting)
 		var card_target = determine_target(card.targeting)
-		print("use_card -- Card target list -- ",card_target)
+		print_debug("use_card -- Card target list -- ",card_target)
 		if card_target:
-			print(card_target)
+			print_debug(card_target)
 			if card_target[0]:
-				print("Targets: ", card_target)
+				print_debug("Targets: ", card_target)
 				card.unique_effect(card_target)
 		else:
-			print("No target")
+			print_debug("No target")
 		Events.card_played.emit(card)
 	else:
-		print("Error no card")
-	print("	### END USE_CARD ###")
+		print_debug("Error no card")
+	print_debug("	### END USE_CARD ###")
 
 ### TARGET LOCATION -- THIS ONE WILL BE LONG AND BRUTAL ###
 
 func determine_target(target_type) -> Array:
-	print("	### DETERMINE_TARGET ###")
+	print_debug("	### DETERMINE_TARGET ###")
 	var player_location_coords = get_parent().character_coords
 	var target_result = []
-	print("Node playing card -- ",get_parent())
-	#print("Player location coords: %s" % player_location_coords)
+	print_debug("Node playing card -- ",get_parent())
+	#print_debug("Player location coords: %s" % player_location_coords)
 	var player_location_gridpoint = get_parent().character_gridpoint
 	match target_type:
 		TargetType.HITSCAN:
-			print(	"### HITSCAN ###")
+			print_debug(	"### HITSCAN ###")
 			target_result.append(perform_hitscan(player_location_coords))
 		TargetType.PROJECTILE:
 			perform_projectile(player_location_gridpoint)
@@ -115,38 +115,38 @@ func determine_target(target_type) -> Array:
 		TargetType.SELF:
 			target_result.append(get_parent())
 		TargetType.PIERCE:
-			print(	"### PIERCE ###")
+			print_debug(	"### PIERCE ###")
 			var pierce_result = perform_pierce(player_location_coords)
 			if pierce_result:
 				target_result += pierce_result
-	print("	### END DETERMINE_TARGET ###")
+	print_debug("	### END DETERMINE_TARGET ###")
 	return target_result
 
 func perform_hitscan(start_position: Vector2, direction: Vector2 = Vector2.RIGHT):
-	print("	#hitscan#")
+	print_debug("	#hitscan#")
 	var hitscan_pointer = start_position
 	for x in range(6):
 		hitscan_pointer += direction
 		var pointer_grid_point = translate_coords_to_points(hitscan_pointer)
 		if panel_data[pointer_grid_point]["occupant"]:
 			return panel_data[pointer_grid_point]["occupant"]
-	print("missed")
+	print_debug("missed")
 
 func perform_pierce(start_position: Vector2, direction: Vector2 = Vector2.RIGHT):
-	print("	#pierce#")
+	print_debug("	#pierce#")
 	var pierce_pointer = start_position
 	var pierce_targets = []
 	for x in range(6):
 		pierce_pointer += direction
-		print("Pointer -- ",pierce_pointer)
+		print_debug("Pointer -- ",pierce_pointer)
 		var pointer_grid_point = translate_coords_to_points(pierce_pointer)
 		if panel_data[pointer_grid_point]["occupant"]:
-			print("Occupant found -- ",panel_data[pointer_grid_point]["occupant"])
+			print_debug("Occupant found -- ",panel_data[pointer_grid_point]["occupant"])
 			pierce_targets.append(panel_data[pointer_grid_point]["occupant"])
 	if len(pierce_targets) > 0:
-		print(pierce_targets)
+		print_debug(pierce_targets)
 		return pierce_targets
-	print("missed")
+	print_debug("missed")
 
 func perform_projectile(start_position: Marker2D):
 	pass

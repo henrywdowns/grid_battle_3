@@ -20,7 +20,7 @@ func show_nodes_after_draft():
 	if !$MapNodes.visible:
 		$MapNodes.visible = true
 	else:
-		print("Map Nodes already visible")
+		print_debug("Map Nodes already visible")
 
 func button_behavior(_index=0):
 	Global.goto_scene("res://scenes/battle.tscn")

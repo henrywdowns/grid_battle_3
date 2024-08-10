@@ -16,14 +16,14 @@ func _process(_delta):
 func button_behavior(index):
 	index +=1
 	char_choice = "character_%s" % index
-	print("Char choice: ",char_choice)
+	print_debug("Char choice: ",char_choice)
 	Global.selected_character = char_choice
 	Global.selected_character_tres = "characters/%s.tres" % char_choice
 	$DebugChosenChar/DebugCharText.text = char_choice
 	$Confirm.disabled = false
 
 func _on_confirm_pressed():
-	print(Global.selected_character," selected.")
+	print_debug(Global.selected_character," selected.")
 	send_char_info_to_global()
 	Global.goto_scene("res://scenes/map.tscn")
 	
@@ -35,7 +35,6 @@ func send_char_info_to_global():
 	char_stats["basic_attack"] = char_res.basic_attack
 	char_stats["move_delay"] = char_res.move_delay
 	Deck.draft_pool = char_res.default_deck
-	print(Deck.draft_pool)
 	Deck.reward_draftable_pool = char_res.draftable_pool
 	Global.meta_character_stats = char_stats
 	Deck.basic_attack = basic_attack_card

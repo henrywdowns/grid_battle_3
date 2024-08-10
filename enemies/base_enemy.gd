@@ -15,7 +15,7 @@ func generate_enemy(enemy_tres):
 	enemy_name = enemy_data.enemy_name
 	$EnemyRect.color = enemy_data.enemy_color
 	$EnemyHP.text = str(enemy_hp)
-	print("Enemy -- Name: %s -- HP: %s" % [enemy_name,enemy_hp])
+	print_debug("Enemy -- Name: %s -- HP: %s" % [enemy_name,enemy_hp])
 
 func receive_damage(damage_amount):
 	if enemy_hp-damage_amount <= 0:

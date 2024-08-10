@@ -41,20 +41,20 @@ func _input(_event):
 			PlayerCharacter.basic_attack()
 
 func _ready():
-	print(EnemyHandler.current_enemies)
+	print_debug(EnemyHandler.current_enemies)
 	var battle_scene = $"."
-	print("From battle, battle_scene is: ",battle_scene)
+	print_debug("From battle, battle_scene is: ",battle_scene)
 	for i in gridpanels:
 		gridpoints.append(i.get_children()[0])
 	Global.battle_gridpoints = gridpoints # pass gridpoints array to global for translator
 	Global.battle_grid_coords = grid_coords # pass coords array to global too
-	print("Stats from battle scene: ",PlayerCharacter.current_stats)
+	print_debug("Stats from battle scene: ",PlayerCharacter.current_stats)
 	player_instance = PlayerCharacter.spawn_player(battle_scene,$"Arena Panels/X1Y1/Marker2D")
 	enemy_instance_1 = EnemyHandler.test_spawn(battle_scene,$"Arena Panels/X4Y1/Marker2D")
 	enemy_instance_2 = spawn_legal_random_enemy()
 	for i in EnemyHandler.current_enemies:
-		print(i)
-		print(i.enemy_stats)
+		print_debug(i)
+		print_debug(i.enemy_stats)
 	battle_started = true
 
 func _process(_delta):
@@ -80,10 +80,10 @@ func grid_movement(dir):
 		var target_index = grid_coords.find(player_grid_loc)
 		if target_index != -1:
 			player_instance.global_position = gridpoints[target_index].global_position
-			print("Player Character moved to %s" % player_grid_loc)
+			print_debug("Player Character moved to %s" % player_grid_loc)
 		PlayerCharacter.current_position = player_grid_loc
 	else:
-		print("Action blocked")
+		print_debug("Action blocked")
 
 func you_win():
 	accepting_input = false
@@ -107,24 +107,24 @@ func check_if_panel_legal(panel_coords:Vector2,all_player_or_enemy="all") -> boo
 	update_coords_current_state()
 	if panel_coords:
 		if all_player_or_enemy == "all":
-			print("Evaluating all panels")
+			print_debug("Evaluating all panels")
 			if panel_coords in grid_coords and panel_coords not in coords_current_state:
 				return true
 		elif all_player_or_enemy == "player":
-			print("Evaluating player panels")
+			print_debug("Evaluating player panels")
 			if panel_coords in legal_panels and panel_coords not in coords_current_state:
 				return true
 		elif all_player_or_enemy == "enemy":
-			print("Evaluating enemy panels")
+			print_debug("Evaluating enemy panels")
 			if panel_coords in grid_coords and panel_coords not in legal_panels and panel_coords not in coords_current_state:
 				return true
 		else:
-			print("Incorrect input - returning false")
+			print_debug("Incorrect input - returning false")
 			return false
-		print("Evaluated false")
+		print_debug("Evaluated false")
 		return false
 	else:
-		print("No panel coords, evaluating false")
+		print_debug("No panel coords, evaluating false")
 		return false
 
 func spawn_legal_random_enemy():
@@ -133,7 +133,7 @@ func spawn_legal_random_enemy():
 	var panel
 	var failsafe = 0
 	while legal == false:
-		print("Legality check count: ",failsafe)
+		print_debug("Legality check count: ",failsafe)
 		failsafe += 1
 		if failsafe > 10:
 			break

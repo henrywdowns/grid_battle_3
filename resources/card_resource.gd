@@ -94,15 +94,15 @@ var card_arcana_str = card_arcana_list[card_arcana]
 @export var unique_card_effects: Array[CardEffect]
 
 func unique_effect(targets: Array):
-	print("	### UNIQUE_EFFECT ###")
+	print_debug("	### UNIQUE_EFFECT ###")
 	arguments = targets
-	print("Unique card effects -- ",unique_card_effects," -- Targets -- ",arguments)
+	print_debug("Unique card effects -- ",unique_card_effects," -- Targets -- ",arguments)
 	if len(unique_card_effects) > 0:
 		for effect in unique_card_effects:
-			print("effect: ",effect)
+			print_debug("effect: ",effect)
 			if effect.has_method("trigger_effect"):
 				effect.trigger_effect(arguments,flex_dict)
 			else:
-				print("Error card has no trigger")
+				print_debug("Error card has no trigger")
 	else:
-		print("No effects!")
+		print_debug("No effects!")

@@ -18,7 +18,7 @@ func goto_scene(path):
 func _deferred_goto_scene(path): #don't call this scene - call goto_scene(), which calls this scene
 	var s = ResourceLoader.load(path) #load new scene
 	if not s:
-		print("Failed to load scene at path: %s" % path)
+		print_debug("Failed to load scene at path: %s" % path)
 		return
 	if current_scene:
 		current_scene.free() #free old scene
@@ -43,9 +43,9 @@ func progress_map():
 	if current_encounter >= 3:
 		current_encounter = 0
 		current_map += 1
-		print("Current deck: %s \nDraft Pool: %s" % [Deck.meta_deck,Deck.draft_pool])
+		print_debug("Current deck: %s \nDraft Pool: %s" % [Deck.meta_deck,Deck.draft_pool])
 		Deck.meta_deck = []
-	print("Progressing map. Current map: %s -- Current encounter: %s" % [current_map,current_encounter])
+	print_debug("Progressing map. Current map: %s -- Current encounter: %s" % [current_map,current_encounter])
 	
 
 ### General Helper Stuff That's Useful All Over ###
@@ -76,7 +76,7 @@ func translate_points_to_coords(points):
 	#elif coords_or_gridpoint == "gridpoint":
 		#return random_gridpoint
 	#else:
-		#print("Incorrect input")
+		#print_debug("Incorrect input")
 	## will need this for movement to make sure objects move as intended. since each object is tied to a 
 	## coord/marker2d and each coord/marker2d is tied to a specific global_position, i think it makes sense
 	## to keep track of on-screen objects somewhere (singleton? battle scene?). maybe i make a dict w/ their

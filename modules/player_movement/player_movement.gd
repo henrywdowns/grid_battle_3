@@ -6,7 +6,7 @@ var player_char: Node
 func _ready():
 	player_char = get_parent()
 	Events.emit_node.emit(self)
-	print("	player_movement node is ready.")
+	print_debug("	player_movement node is ready.")
 
 ### BATTLE STAGE DATA ###
 var grid_partition: int
@@ -37,7 +37,7 @@ func move_char(dir):
 		"Right":Vector2(1,0)
 	}
 	var temp_target_panel: Vector2 = player_current_panel + movement_vars[dir]
-	print("Moved to panel: %s" % temp_target_panel)
+	print_debug("Moved to panel: %s" % temp_target_panel)
 	if temp_target_panel[0] > -1 && temp_target_panel[0] <= grid_partition && temp_target_panel[1] > -1 && temp_target_panel[1] < 3:
 		var target_panel = temp_target_panel
 		var player_current_panel_gridpoint = gridpoints[grid_coords.find(player_current_panel)]
