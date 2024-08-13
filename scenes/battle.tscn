@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cywwm23mo1u1p"]
+[gd_scene load_steps=9 format=3 uid="uid://cywwm23mo1u1p"]
 
 [ext_resource type="Script" path="res://scripts/battle.gd" id="1_bdq1u"]
 [ext_resource type="Texture2D" uid="uid://dfh18qsmfsmqr" path="res://assets/Arena/Blue Panel.png" id="2_3sy8k"]
 [ext_resource type="Texture2D" uid="uid://c07igln71onym" path="res://assets/Arena/Red Panel.png" id="3_57xu6"]
 [ext_resource type="PackedScene" uid="uid://n6y4q87t2yyp" path="res://modules/pick_a_card/pick_a_card.tscn" id="4_56jkx"]
+[ext_resource type="PackedScene" uid="uid://c6erw7erxe57k" path="res://scenes/card_ui.tscn" id="5_wci2q"]
 
 [sub_resource type="Gradient" id="Gradient_hnils"]
 offsets = PackedFloat32Array(0, 0.74026, 0.922078, 1)
@@ -379,6 +380,10 @@ metadata/_edit_lock_ = true
 
 [node name="DraftPosition" type="Marker2D" parent="."]
 metadata/_edit_lock_ = true
+
+[node name="CardUI" parent="." instance=ExtResource("5_wci2q")]
+offset_right = 1152.0
+offset_bottom = 648.0
 
 [connection signal="pressed" from="CloseScene/Button" to="." method="_on_button_pressed"]
 [connection signal="button_up" from="BackToMap/BackToMapButton" to="." method="_on_back_to_map_button_button_up"]

@@ -17,4 +17,4 @@ HP = 100
 basic_attack = ExtResource("1_gc6ia")
 move_delay = 0.1
 default_deck = Array[Resource("res://resources/card_resource.gd")]([ExtResource("2_12735"), ExtResource("3_s33nc"), ExtResource("4_frpfs"), ExtResource("5_vgiwb"), ExtResource("6_qrowi"), ExtResource("7_y1a24"), ExtResource("5_d7w8r"), ExtResource("9_mkb3p")])
-draftable_pool = Array[Resource("res://resources/card_resource.gd")]([ExtResource("2_12735"), ExtResource("3_s33nc"), ExtResource("4_frpfs"), ExtResource("5_vgiwb")])
+draftable_pool = Array[Resource("res://resources/card_resource.gd")]([ExtResource("2_12735"), ExtResource("3_s33nc"), ExtResource("4_frpfs"), ExtResource("5_vgiwb"), null])

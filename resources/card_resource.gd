@@ -85,7 +85,8 @@ var card_type_list = [
 @export var flex_dict: Dictionary = {
 	'damage': 0,
 	'healing':0,
-	'block':0
+	'block':0,
+	'area':''
 }
 
 var card_type_str = card_type_list[card_type]
