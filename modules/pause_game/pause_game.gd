@@ -36,4 +36,3 @@ func pause_game():
 		resume()
 	print_debug("Pause game 2: ",get_tree().paused)
 	print("Visibility: ",$".".visible)
-

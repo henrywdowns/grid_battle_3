@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @export var group: ButtonGroup
 var char_choice = null

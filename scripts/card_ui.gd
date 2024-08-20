@@ -34,7 +34,7 @@ func open_selector():
 
 func _on_card_timer_timeout():
 	open_hand_available = true
-	print_debug("Hand is ready")
+	$CardTimer/TimerLabel.text = "Hand reset ready"
 
 ### BUTTON BEHAVIOR ###
 
@@ -48,6 +48,7 @@ func _on_submit_hand_button_up():
 	open_hand_available = false
 
 ### TIMER BEHAVIOR ###
+
 func init_timer():
 	$CardTimer.wait_time = 5
 	$CardTimer.one_shot = true
@@ -79,7 +80,3 @@ func pause_game():
 		resume()
 	print_debug("Pause game 2: ",get_tree().paused)
 	print("Visibility: ",$".".visible)
-
-
-
-

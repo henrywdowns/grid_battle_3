@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @onready var accepting_input = false
 var player_char: Node2D
@@ -9,6 +9,7 @@ func _ready():
 	build_stage()
 	ready_char()
 	ready_enemy()
+	$CardUI.visible = true # this way i can hide the node in the 2D editing screen
 	#Events.i_died.connect(check_if_all_dead)
 
 func _process(_delta):
@@ -129,6 +130,7 @@ func clean_up_enemy(target_enemy):
 
 func you_win():
 	print_debug("### You Win ###")
+	Events.you_win.emit()
 	$"PickACard".run_draft()
 	await Events.card_chosen
 	Global.progress_map()

@@ -16,14 +16,25 @@ gradient = SubResource("Gradient_hnils")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bmnuy"]
 size = Vector2(64, 45.5)
 
-[node name="Battle" type="Node2D"]
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_bdq1u")
+metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.309804, 0.541176, 0.576471, 1)
 self_modulate = Color(0.313726, 0.654902, 0.701961, 1)
-offset_right = 1151.0
-offset_bottom = 646.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = SubResource("GradientTexture2D_t0hvj")
 metadata/_edit_lock_ = true
 
@@ -34,10 +45,16 @@ text = "BATTLE SCENE
 "
 
 [node name="CloseScene" type="ColorRect" parent="."]
-offset_left = 940.0
-offset_top = 563.0
-offset_right = 1154.0
-offset_bottom = 647.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -214.0
+offset_top = -84.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="Button" type="Button" parent="CloseScene"]
 layout_mode = 1
@@ -55,10 +72,18 @@ offset_bottom = 23.0
 text = "CLOSE SCENE"
 metadata/_edit_lock_ = true
 
-[node name="Arena Panels" type="Node2D" parent="."]
+[node name="Arena Panels" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="X0Y0" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(232, 282)
+position = Vector2(-318, -89)
 scale = Vector2(2, 2)
 texture = ExtResource("2_3sy8k")
 metadata/_edit_lock_ = true
@@ -73,7 +98,7 @@ position = Vector2(0.5, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X0Y1" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(232, 373)
+position = Vector2(-318, 2)
 scale = Vector2(2, 2)
 texture = ExtResource("2_3sy8k")
 metadata/_edit_lock_ = true
@@ -88,7 +113,7 @@ position = Vector2(0.5, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X0Y2" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(232, 464)
+position = Vector2(-318, 93)
 scale = Vector2(2, 2)
 texture = ExtResource("2_3sy8k")
 metadata/_edit_lock_ = true
@@ -103,7 +128,7 @@ position = Vector2(0.5, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X1Y0" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(359, 282)
+position = Vector2(-191, -89)
 scale = Vector2(2, 2)
 texture = ExtResource("2_3sy8k")
 metadata/_edit_lock_ = true
@@ -118,7 +143,7 @@ position = Vector2(0.5, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X1Y1" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(359, 373)
+position = Vector2(-191, 2)
 scale = Vector2(2, 2)
 texture = ExtResource("2_3sy8k")
 metadata/_edit_lock_ = true
@@ -133,7 +158,7 @@ position = Vector2(0.5, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X1Y2" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(359, 464)
+position = Vector2(-191, 93)
 scale = Vector2(2, 2)
 texture = ExtResource("2_3sy8k")
 metadata/_edit_lock_ = true
@@ -148,7 +173,7 @@ position = Vector2(0.5, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X2Y0" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(486, 282)
+position = Vector2(-64, -89)
 scale = Vector2(2, 2)
 texture = ExtResource("2_3sy8k")
 metadata/_edit_lock_ = true
@@ -163,7 +188,7 @@ position = Vector2(0.5, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X2Y1" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(486, 373)
+position = Vector2(-64, 2)
 scale = Vector2(2, 2)
 texture = ExtResource("2_3sy8k")
 metadata/_edit_lock_ = true
@@ -178,7 +203,7 @@ position = Vector2(0.5, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X2Y2" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(486, 464)
+position = Vector2(-64, 93)
 scale = Vector2(2, 2)
 texture = ExtResource("2_3sy8k")
 metadata/_edit_lock_ = true
@@ -193,7 +218,7 @@ position = Vector2(0.5, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X3Y0" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(615, 282)
+position = Vector2(65, -89)
 scale = Vector2(2, 2)
 texture = ExtResource("3_57xu6")
 metadata/_edit_lock_ = true
@@ -208,7 +233,7 @@ position = Vector2(0, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X3Y1" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(615, 372)
+position = Vector2(65, 1)
 scale = Vector2(2, 2)
 texture = ExtResource("3_57xu6")
 metadata/_edit_lock_ = true
@@ -223,7 +248,7 @@ position = Vector2(0, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X3Y2" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(615, 464)
+position = Vector2(65, 93)
 scale = Vector2(2, 2)
 texture = ExtResource("3_57xu6")
 metadata/_edit_lock_ = true
@@ -238,7 +263,7 @@ position = Vector2(0, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X4Y0" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(744, 282)
+position = Vector2(194, -89)
 scale = Vector2(2, 2)
 texture = ExtResource("3_57xu6")
 metadata/_edit_lock_ = true
@@ -253,7 +278,7 @@ position = Vector2(0, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X4Y1" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(744, 372)
+position = Vector2(194, 1)
 scale = Vector2(2, 2)
 texture = ExtResource("3_57xu6")
 metadata/_edit_lock_ = true
@@ -268,7 +293,7 @@ position = Vector2(0, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X4Y2" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(744, 464)
+position = Vector2(194, 93)
 scale = Vector2(2, 2)
 texture = ExtResource("3_57xu6")
 metadata/_edit_lock_ = true
@@ -283,7 +308,7 @@ position = Vector2(0, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X5Y0" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(873, 282)
+position = Vector2(323, -89)
 scale = Vector2(2, 2)
 texture = ExtResource("3_57xu6")
 metadata/_edit_lock_ = true
@@ -298,7 +323,7 @@ position = Vector2(0, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X5Y1" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(873, 372)
+position = Vector2(323, 1)
 scale = Vector2(2, 2)
 texture = ExtResource("3_57xu6")
 metadata/_edit_lock_ = true
@@ -313,7 +338,7 @@ position = Vector2(0, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="X5Y2" type="Sprite2D" parent="Arena Panels"]
-position = Vector2(873, 464)
+position = Vector2(323, 93)
 scale = Vector2(2, 2)
 texture = ExtResource("3_57xu6")
 metadata/_edit_lock_ = true
@@ -328,10 +353,13 @@ position = Vector2(0, -1.25)
 shape = SubResource("RectangleShape2D_bmnuy")
 
 [node name="NOTES" type="ColorRect" parent="."]
-offset_left = 650.0
-offset_top = 35.0
-offset_right = 1075.0
-offset_bottom = 177.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -425.0
+offset_bottom = 142.0
+grow_horizontal = 0
 color = Color(0.0980392, 0.0980392, 0.0980392, 1)
 
 [node name="NOTES" type="Label" parent="NOTES"]
@@ -382,8 +410,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_lock_ = true
 
 [node name="CardUI" parent="." instance=ExtResource("5_wci2q")]
-offset_right = 1152.0
-offset_bottom = 648.0
+visible = false
+layout_mode = 1
 
 [connection signal="pressed" from="CloseScene/Button" to="." method="_on_button_pressed"]
-[connection signal="button_up" from="BackToMap/BackToMapButton" to="." method="_on_back_to_map_button_button_up"]

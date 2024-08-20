@@ -21,3 +21,6 @@ signal partition_updated(new_value)
 
 ### ENEMY SIGNALS ### 
 signal i_died(dead_enemy)
+
+### BATTLE SIGNALS ###
+signal you_win()

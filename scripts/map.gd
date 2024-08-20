@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 ### DEBUG STUFF ###
 var num_of_map_drafts = 1 # adjust this in run_draft() later
 
