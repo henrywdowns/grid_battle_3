@@ -39,6 +39,7 @@ texture = SubResource("GradientTexture2D_t0hvj")
 metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "BATTLE SCENE
@@ -376,6 +377,7 @@ metadata/_edit_lock_ = true
 
 [node name="BackToMap" type="ColorRect" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 445.0
 offset_top = 321.0
 offset_right = 678.0

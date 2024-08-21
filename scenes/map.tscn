@@ -22,6 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Encounter1" type="Button" parent="MapNodes"]
+layout_mode = 0
 offset_left = -52.0
 offset_top = 107.0
 offset_right = 49.0
@@ -30,6 +31,7 @@ text = "Encounter 1"
 metadata/_edit_lock_ = true
 
 [node name="Encounter2" type="Button" parent="MapNodes"]
+layout_mode = 0
 offset_left = -52.0
 offset_top = -33.0
 offset_right = 49.0
@@ -38,6 +40,7 @@ text = "Encounter 2"
 metadata/_edit_lock_ = true
 
 [node name="Encounter3" type="Button" parent="MapNodes"]
+layout_mode = 0
 offset_left = -52.0
 offset_top = -173.0
 offset_right = 49.0

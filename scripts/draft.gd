@@ -6,6 +6,7 @@ extends Control
 @onready var temp_draft_pool: Array[Card]
 var temp_pool_determined = false
 var which_pool: String
+var pool_card_names: Array
 
 var toggled_card: Card
 var draft_multiple_enabled = true
@@ -32,11 +33,9 @@ func gen_card(card: Card):
 ### ACTUAL DRAFT BEHAVIOR ###
 
 func draft_cards():
-	var cards_left = len(temp_draft_pool)
-	var max_cards = min(3, cards_left)
+	var cards_left = len(temp_draft_pool) # set to actual number of cards in pool
+	var max_cards = min(3, cards_left) # pick whichever is smaller. most options a draft can have
 	print_debug("Cards left: ",cards_left,"\nMax cards: ",max_cards)
-	if cards_left > 2:
-		cards_left = 3
 	if cards_left > 0:
 		var card_pack = [] # hold previously selected cards for the pack
 		for i in range(max_cards):
@@ -82,7 +81,12 @@ func determine_pool(selected_pool = "draft_reward"):
 		_:
 			print_debug("Error -- invalid draft pool")
 	temp_pool_determined = true
-	print_debug("### POOL DETERMINED ### ",temp_draft_pool)
+	if len(temp_draft_pool) > 0:
+		for cardname in temp_draft_pool:
+			if cardname is Card:
+				pool_card_names.append(cardname.card_name)
+	print_debug("### POOL DETERMINED ###\n",len(temp_draft_pool))
+	print_debug("	",pool_card_names)
 
 ### CONFIRM BUTTON BEHAVIOR ###
 
