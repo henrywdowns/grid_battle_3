@@ -1,8 +1,10 @@
 extends Node
 
 
-### THIS IS A PLACEHOLDER FOR HAND SELECTION - PLAYER SHOULD CHOOSE CARDS LIKE MMBN CHIPS ###
-@onready var player_hand = Deck.meta_deck.duplicate()
+### INTENT ###
+# When hand is submitted in card_ui, this takes the submitted hand and makes it available in battle.
+
+@onready var player_hand: Array[Card]
 
 func _ready():
 	print_debug("	player_hand node is ready.")
@@ -11,6 +13,8 @@ func _ready():
 
 func _initialize():
 	Events.card_played.connect(card_played)
+
+### CARD BEHAVIOR ###
 
 func card_played(card):
 	print_debug(card.card_name)
@@ -21,8 +25,3 @@ func card_played(card):
 			print_debug("Hand after card played: ", player_hand)
 	else:
 		print_debug("No hand")
-
-func refill_hand():
-	pass
-	# Right now the plan is to force player to wait a whole turn with no cards in hand.
-	# Deck will be back to full the turn after. 

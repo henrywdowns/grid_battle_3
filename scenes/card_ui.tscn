@@ -14,36 +14,98 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 script = ExtResource("1_t4cab")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MainPanel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 9
+anchors_preset = -1
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_right = 600.0
+grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
-layout_mode = 2
-color = Color(0.360784, 0.509804, 0.611765, 1)
+[node name="MainColorRect" type="ColorRect" parent="MainPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.028808, 0.302035, 0.54815, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="ChosenPContainer" type="PanelContainer" parent="MainPanel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -180.0
+offset_bottom = 664.0
+grow_horizontal = 0
+
+[node name="ChosenHand" type="VBoxContainer" parent="MainPanel/ChosenPContainer"]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(75, 100)
+[node name="ChosenColorRect" type="ColorRect" parent="MainPanel/ChosenPContainer"]
 layout_mode = 2
-color = Color(0.372549, 0.372549, 0.372549, 1)
+color = Color(0.650658, 0.377315, 0.604394, 0.4)
+metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="DrawnPContainer" type="PanelContainer" parent="MainPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -416.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DrawnCards" type="HFlowContainer" parent="MainPanel/DrawnPContainer"]
 layout_mode = 2
+theme_override_constants/h_separation = 12
+alignment = 1
+
+[node name="DrawnColorRect" type="ColorRect" parent="MainPanel/DrawnPContainer"]
+layout_mode = 2
+color = Color(0.235294, 0.545098, 0.545098, 0.4)
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="MainPanel"]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 51.0
+offset_right = 665.0
+offset_bottom = 447.0
+color = Color(0.551328, 0.227351, 0.286985, 1)
+
+[node name="Label" type="Label" parent="MainPanel/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "card image here"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -66.0
+grow_horizontal = 2
+grow_vertical = 0
 size_flags_vertical = 8
 alignment = 2
 
-[node name="SubmitHand" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="SubmitHand" type="Button" parent="MainPanel/VBoxContainer"]
 layout_mode = 2
 text = "Submit Hand"
 metadata/_edit_lock_ = true
 
-[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="MainPanel/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
 metadata/_edit_lock_ = true
@@ -60,10 +122,10 @@ offset_bottom = 186.0
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 1
-offset_left = 607.0
-offset_top = 513.0
-offset_right = 1197.0
-offset_bottom = 699.0
+offset_left = 1022.0
+offset_top = 48.0
+offset_right = 1612.0
+offset_bottom = 234.0
 color = Color(0.205117, 0.205117, 0.205117, 1)
 
 [node name="Label" type="Label" parent="ColorRect"]
@@ -75,5 +137,5 @@ text = "TODO:
 autowrap_mode = 2
 metadata/_edit_lock_ = true
 
-[connection signal="button_up" from="MarginContainer/VBoxContainer/SubmitHand" to="." method="_on_submit_hand_button_up"]
+[connection signal="button_up" from="MainPanel/VBoxContainer/SubmitHand" to="." method="_on_submit_hand_button_up"]
 [connection signal="timeout" from="CardTimer" to="." method="_on_card_timer_timeout"]

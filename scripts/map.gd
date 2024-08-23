@@ -1,6 +1,6 @@
 extends Control
 ### DEBUG STUFF ###
-var num_of_map_drafts = 1 # adjust this in run_draft() later
+var num_of_map_drafts = 10 # adjust this in run_draft() later
 
 @onready var map_node_array = $MapNodes.get_children()
 var draft_path = load("res://scenes/draft.tscn")

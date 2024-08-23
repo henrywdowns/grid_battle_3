@@ -8,10 +8,16 @@ extends Node
 ### to adjust your deck during the map, and everything goes back into your draft pool
 ### at the next stage?
 
-
+### CHARACTER BASE STATS ###
 var basic_attack: Card
 var meta_deck: Array[Card] = []
+
+### DRAFT POOLS ###
 var draft_pool: Array[Card] = []
 var reward_draftable_pool: Array[Card] = [] 
+
+### DYNAMIC DECK STATS ###
+var cards_per_hand := 5
+
 func print_deck():
 	print_debug(meta_deck)

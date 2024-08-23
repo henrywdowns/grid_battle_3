@@ -1,11 +1,32 @@
 extends Control
 
+### TODO ###
+# Make sure controls are inactive when window is closed
+# Menu navigation should include keys and probably mouse
+# Send drawn cards to tentative hand and vice versa
+# Handle card zone changes between tentative hand, drawn cards, player hand, and discard pile
+# Populate card nodes/images in UI when drawn
+
 ### INTENT ###
 # MMBN-style card selection that pauses the battle every so often to "draw" new cards.
+# This taps a duplicate of Deck.meta_deck for available cards, then draws 5 random cards. 
+# player_hand.gd will depend on this node to pass hand info into battle
 
+### UI VARIABLES ###
 var open_hand_available := false
 var current_time: float = 0.0
 var card_ui_open := false
+@onready var drawn_cards_container := $MainPanel/DrawnPContainer/DrawnCards
+
+### CARD SELECTION/MANIPULATION VARIABLES ###
+@onready var cards_in_deck = Deck.meta_deck.duplicate() # full list of cards in drafted deck
+@onready var discard_pile: Array[Card] # cards that were spent or not chosen on submit
+@onready var drawn_cards: Array[Card] # cards that were drawn but not yet selected
+@onready var tentative_hand: Array[Card] # cards you've selected pre-submit
+@export var refilling_hand: bool = false # changes to true on 0, preventing card draw for a turn.
+
+### PLAYER HAND NODE ###
+@onready var player_hand_node = get_parent().get_node("PlayerHand")
 
 func _ready():
 	z_index = 15
@@ -15,6 +36,7 @@ func _ready():
 	print_debug($".".process_mode)
 	init_timer()
 	open_selector()
+	_init_deck_stuff()
 
 func _input(_event):
 	#if Input.is_action_just_pressed("Pause"):
@@ -30,11 +52,22 @@ func _process(delta):
 ### CARD SELECTOR BEHAVIOR ###
 func open_selector():
 	print_debug("Opening selector")
+	draw_cards()
+	populate_cards_in_selector()
 	pause()
 
 func _on_card_timer_timeout():
 	open_hand_available = true
+	if refilling_hand == true: # if you deck out, you must go a full round without cards to refill
+		refill_hand() # set refilling_hand to false so that draw_cards will draw.
 	$CardTimer/TimerLabel.text = "Hand reset ready"
+
+func populate_cards_in_selector():
+	for drawn_card in drawn_cards: # iterate through drawn_cards array
+		assert(drawn_card is Card) # confirming drawn_card is Card class
+		var card_instance = preload("res://cards/base_card.tscn").instantiate()
+		card_instance.make_card(drawn_card)
+		drawn_cards_container.add_child(card_instance)
 
 ### BUTTON BEHAVIOR ###
 
@@ -80,3 +113,36 @@ func pause_game():
 		resume()
 	print_debug("Pause game 2: ",get_tree().paused)
 	print("Visibility: ",$".".visible)
+
+### CARD DRAW/MANIPULATION BEHAVIOR ###
+
+func _init_deck_stuff():
+		cards_in_deck.shuffle() # I think this will get called after i make cards_in_deck so need to find a better home
+
+func draw_cards(hand_size = Deck.cards_per_hand):
+	for drawn_card in hand_size:
+		assert(len(cards_in_deck) >= 0)
+		if refilling_hand == false:
+			if len(cards_in_deck) > 0:
+				drawn_cards.append(cards_in_deck.pop_front())
+			elif len(cards_in_deck) == 0:
+				refilling_hand = true
+				break
+	print_debug("Drawn cards: ",drawn_cards)
+
+func shuffle_deck():
+	for discarded_card in discard_pile:
+		cards_in_deck.append(discard_pile.pop_front())
+	cards_in_deck.shuffle()
+	print_debug("Deck shuffled. Cards in deck: ",len(cards_in_deck)," Cards in discard: ",len(discard_pile))
+
+func refill_hand():
+	refilling_hand = false
+	# Right now the plan is to force player to wait a whole turn with no cards in hand.
+	# Deck will be back to full the turn after.
+
+func discard_card(discarded_card:Card):
+	# Puts card into discard pile. I think the calling node/func will handle removal from its own array.
+	assert(discarded_card not in (player_hand_node.player_hand + drawn_cards + tentative_hand))
+	discard_pile.append(discarded_card)
+	# should i just have a change_card_zones func that handles this? 
