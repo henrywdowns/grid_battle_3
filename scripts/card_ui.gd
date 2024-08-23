@@ -74,22 +74,25 @@ func swap_containers(some_card: Node):
 	var destination: Container # anon variable. will be the drawn cards or chosen hand containers
 	var drawn_cards_container = $MainPanel/DrawnPContainer/DrawnCards
 	var tentative_hand_container = $MainPanel/ChosenPContainer/ChosenHand
+	### TODO: CHECK_VALID() FUNC TO SEE IF CARD MEETS CONSTRAINTS BASED ON CHOSEN HAND
 	match some_card.get_parent(): # wherever the card already is, set destination to the other, and then change card data zones accordingly
 		tentative_hand_container:
 			destination = $MainPanel/DrawnPContainer/DrawnCards
-			change_card_zone(some_card,drawn_cards,tentative_hand)
+			change_card_zone(some_card,tentative_hand,drawn_cards)
 		drawn_cards_container:
 			destination = $MainPanel/ChosenPContainer/ChosenHand
-			change_card_zone(some_card,tentative_hand,drawn_cards)
+			change_card_zone(some_card,drawn_cards,tentative_hand)
 		_:
 			print_debug("issue with container")
 		
 	some_card.reparent(destination) # send the card node to destination
 	print_debug(some_card," has been reparented to ",some_card.get_parent().name)
+	print_debug("Tentative Hand: ",tentative_hand,"\nDrawn Cards: ",drawn_cards,"\nDiscard Pile: ",discard_pile,"\nPlayer Hand: ",player_hand_node.player_hand)
 
 ### BUTTON BEHAVIOR ###
 
 func _on_submit_hand_button_up():
+	chosen_hand_cleanup()
 	resume()
 	$CardTimer/TimerLabel.text = str($CardTimer.wait_time)
 	print($CardTimer.wait_time)
@@ -143,19 +146,23 @@ func draw_cards(hand_size = Deck.cards_per_hand):
 		assert(len(cards_in_deck) >= 0)
 		if refilling_hand == false:
 			if len(cards_in_deck) > 0:
-				drawn_cards.append(cards_in_deck.pop_front())
+				var adding_card = cards_in_deck.pop_front()
+				if adding_card != null:
+					drawn_cards.append(adding_card)
+				#drawn_cards.append(cards_in_deck.pop_front())
 			elif len(cards_in_deck) == 0:
 				refilling_hand = true
 				break
 	print_debug("Drawn cards: ",drawn_cards)
 
 func shuffle_deck():
-	for discarded_card in discard_pile:
+	for discarded_card in len(discard_pile):
 		cards_in_deck.append(discard_pile.pop_front())
 	cards_in_deck.shuffle()
 	print_debug("Deck shuffled. Cards in deck: ",len(cards_in_deck)," Cards in discard: ",len(discard_pile))
 
 func refill_hand():
+	shuffle_deck()
 	refilling_hand = false
 	# Right now the plan is to force player to wait a whole turn with no cards in hand.
 	# Deck will be back to full the turn after.
@@ -168,10 +175,28 @@ func discard_card(discarded_card:Card):
 
 func change_card_zone(some_card: Node, starting_location: Array[Card],destination: Array[Card]):
 	var some_card_data: Card = some_card.card_data
-	assert(destination in [drawn_cards,tentative_hand,player_hand_node.player_hand,discard_pile])
+	assert(destination in [drawn_cards,tentative_hand,player_hand_node.player_hand,discard_pile,cards_in_deck])
 	assert(starting_location != destination)
-	print_debug("Transferring card %s from starting location %s to destination %s" % [some_card.to_string(),starting_location,destination])
+	print_debug("Transferring card %s from starting location %s to destination %s" % [some_card.name,starting_location,destination])
 	var temp_card_placeholder = some_card_data # hold some_card here so we can ensure no duplication
-	starting_location.erase(some_card_data)
-	destination.append(temp_card_placeholder)
+	#starting_location.erase(some_card_data)
+	#destination.append(temp_card_placeholder)
+	destination.append(starting_location.pop_at(starting_location.find(some_card_data))) # find index of chosen card and pop that into destination
 	print_debug("Card in starting_location: ",some_card_data in starting_location,"\nCard in destination: ",some_card_data in destination)
+
+func chosen_hand_cleanup():
+	print_debug("Cleaning up hand. Tentative hand: ",tentative_hand)
+	# Send chosen hand to actual hand, remove drawn cards from hand for next time. Trigger with submit button
+	for selected_card in len(tentative_hand): # iterate through tentative hand
+		assert(tentative_hand[selected_card] is Card)
+		player_hand_node.player_hand.append(tentative_hand.pop_front()) # remove card from tentative hand, append to player_hand
+	for unselected_card in len(drawn_cards): # iterate through leftover drawn cards
+		assert(drawn_cards[unselected_card] is Card)
+		discard_pile.append(drawn_cards.pop_front) # remove leftover card and append to discard_pile
+	for card_inst in $MainPanel/ChosenPContainer/ChosenHand.get_children()+$MainPanel/DrawnPContainer/DrawnCards.get_children():
+		assert(card_inst is AbridgedCardNode)
+		card_inst.queue_free()
+	print_debug("Player hand after cleanup: ",player_hand_node.player_hand)
+func check_valid_card_choice(some_card:Card):
+	pass
+	# TODO: Need this to check arcana compatibility before changing card zones

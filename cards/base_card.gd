@@ -1,5 +1,5 @@
 extends Control
-
+class_name BaseCardNode
 var card_data:Card
 
 func _ready():

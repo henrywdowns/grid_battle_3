@@ -1,5 +1,5 @@
 extends Control
-
+class_name AbridgedCardNode
 var card_data:Card
 
 func _ready():

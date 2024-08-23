@@ -415,4 +415,35 @@ metadata/_edit_lock_ = true
 visible = false
 layout_mode = 1
 
+[node name="DebugMessages" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 656.0
+offset_top = 108.0
+offset_right = 1269.0
+offset_bottom = 357.0
+
+[node name="DeckBox" type="ColorRect" parent="DebugMessages"]
+layout_mode = 2
+
+[node name="DeckLabel" type="Label" parent="DebugMessages/DeckBox"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="DiscardBox" type="ColorRect" parent="DebugMessages"]
+layout_mode = 2
+
+[node name="DiscardLabel" type="Label" parent="DebugMessages/DiscardBox"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="HandBox" type="ColorRect" parent="DebugMessages"]
+layout_mode = 2
+
+[node name="HandLabel" type="Label" parent="DebugMessages/HandBox"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
 [connection signal="pressed" from="CloseScene/Button" to="." method="_on_button_pressed"]
