@@ -15,9 +15,10 @@ func make_card(carddata):
 	}
 	$CardSelect.self_modulate = card_colors[card_data.card_type]
 	$CardSelect/CardName.text = card_data.card_name
-	$CardSelect/CardDesc.text = card_data.card_desc
+	#$CardSelect/CardDesc.text = card_data.card_desc
 	$CardSelect/CardArc.text = card_data.card_arcana_str
 	# $CardType.text = card.card_type_list[card.card_type] for some reason this doesn't work
 
-func _on_card_select_toggled(_toggled_on):
-	Events.draft_card_toggled.emit(card_data)
+func _on_card_select_button_up() -> void:
+	print_debug("abridged card clicked")
+	Events.card_ui_card_clicked.emit(self)

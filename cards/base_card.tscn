@@ -1,57 +1,91 @@
-[gd_scene load_steps=2 format=3 uid="uid://cd3sev0rmcf5c"]
+[gd_scene load_steps=8 format=3 uid="uid://cd3sev0rmcf5c"]
 
 [ext_resource type="Script" path="res://cards/base_card.gd" id="1_0o5up"]
+[ext_resource type="Theme" uid="uid://jvq42dohggaa" path="res://assets/Styleboxes/test_stylebox-1.tres" id="2_86ajn"]
+[ext_resource type="Texture2D" uid="uid://cut86ytwa2a2l" path="res://assets/Styleboxes/test-stylebox-2.png" id="3_dcx6t"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wi50d"]
+texture = ExtResource("3_dcx6t")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_61c0u"]
+texture = ExtResource("3_dcx6t")
+modulate_color = Color(0.643137, 0.643137, 0.643137, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bpv47"]
+texture = ExtResource("3_dcx6t")
+region_rect = Rect2(-0.0718384, -0.465431, 149.952, 200.888)
+modulate_color = Color(0.847059, 0.847059, 0.847059, 1)
+
+[sub_resource type="Theme" id="Theme_bqsus"]
 
 [node name="BaseCard" type="Control"]
+z_index = 1
 custom_minimum_size = Vector2(150, 2.08165e-12)
 layout_mode = 3
-anchors_preset = 0
+anchor_right = 0.078
+anchor_bottom = 0.185
+offset_right = 0.23999
+offset_bottom = 0.199997
 script = ExtResource("1_0o5up")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(75, 100)
-layout_mode = 0
-offset_right = 150.0
-offset_bottom = 200.0
-color = Color(0.709804, 0.270588, 0.286275, 1)
-metadata/_edit_use_anchors_ = true
-
-[node name="CardName" type="Label" parent="."]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 23.0
-
-[node name="CardDesc" type="Label" parent="."]
-layout_mode = 0
-offset_left = 6.0
-offset_top = 98.0
-offset_right = 143.0
-offset_bottom = 190.0
-horizontal_alignment = 1
-autowrap_mode = 2
-
-[node name="CardArc" type="Label" parent="."]
-layout_mode = 0
-offset_left = 107.0
-offset_top = 4.0
-offset_right = 147.0
-offset_bottom = 27.0
-
-[node name="CardType" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = 72.0
-offset_bottom = 95.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="CardSelect" type="Button" parent="."]
 layout_mode = 0
 offset_right = 150.0
 offset_bottom = 200.0
+theme = ExtResource("2_86ajn")
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_focus_color = Color(0.439216, 0.694118, 0.619608, 1)
+theme_override_colors/icon_pressed_color = Color(0.823529, 0.823529, 0.823529, 1)
+theme_override_colors/icon_hover_color = Color(0.803922, 0.254902, 0.462745, 1)
+theme_override_styles/hover = SubResource("StyleBoxTexture_wi50d")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_61c0u")
+theme_override_styles/normal = SubResource("StyleBoxTexture_bpv47")
 toggle_mode = true
+
+[node name="CardName" type="Label" parent="CardSelect"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 24.0
+offset_right = 115.0
+offset_bottom = 47.0
+
+[node name="CardDesc" type="Label" parent="CardSelect"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 126.0
+offset_right = 144.0
+offset_bottom = 194.0
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="CardArc" type="Label" parent="CardSelect"]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 28.0
+offset_right = 147.0
+offset_bottom = 51.0
+
+[node name="CardType" type="Label" parent="CardSelect"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 24.0
+offset_top = -3.0
+offset_right = -5.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(75, 100)
+layout_mode = 0
+offset_left = 18.0
+offset_top = 24.0
+offset_right = 150.0
+offset_bottom = 200.0
+theme = SubResource("Theme_bqsus")
 
 [connection signal="toggled" from="CardSelect" to="." method="_on_card_select_toggled"]

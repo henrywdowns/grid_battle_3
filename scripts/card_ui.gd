@@ -26,7 +26,7 @@ var card_ui_open := false
 @export var refilling_hand: bool = false # changes to true on 0, preventing card draw for a turn.
 
 ### PLAYER HAND NODE ###
-@onready var player_hand_node = get_parent().get_node("PlayerHand")
+@onready var player_hand_node: Node
 
 func _ready():
 	z_index = 15
@@ -45,7 +45,7 @@ func _input(_event):
 	if Input.is_action_just_pressed("Open Hand") and open_hand_available:
 		open_selector()
 
-func _process(delta):
+func _process(_delta):
 	if !$CardTimer.is_stopped():
 		$CardTimer/TimerLabel.text = str(snapped($CardTimer.time_left,0.01))
 
@@ -65,9 +65,27 @@ func _on_card_timer_timeout():
 func populate_cards_in_selector():
 	for drawn_card in drawn_cards: # iterate through drawn_cards array
 		assert(drawn_card is Card) # confirming drawn_card is Card class
-		var card_instance = preload("res://cards/base_card.tscn").instantiate()
+		var card_instance = preload("res://cards/abridged_card.tscn").instantiate()
 		card_instance.make_card(drawn_card)
 		drawn_cards_container.add_child(card_instance)
+
+func swap_containers(some_card: Node):
+	print_debug("card signal received") # connected to Events.card_ui_card_clicked
+	var destination: Container # anon variable. will be the drawn cards or chosen hand containers
+	var drawn_cards_container = $MainPanel/DrawnPContainer/DrawnCards
+	var tentative_hand_container = $MainPanel/ChosenPContainer/ChosenHand
+	match some_card.get_parent(): # wherever the card already is, set destination to the other, and then change card data zones accordingly
+		tentative_hand_container:
+			destination = $MainPanel/DrawnPContainer/DrawnCards
+			change_card_zone(some_card,drawn_cards,tentative_hand)
+		drawn_cards_container:
+			destination = $MainPanel/ChosenPContainer/ChosenHand
+			change_card_zone(some_card,tentative_hand,drawn_cards)
+		_:
+			print_debug("issue with container")
+		
+	some_card.reparent(destination) # send the card node to destination
+	print_debug(some_card," has been reparented to ",some_card.get_parent().name)
 
 ### BUTTON BEHAVIOR ###
 
@@ -118,6 +136,7 @@ func pause_game():
 
 func _init_deck_stuff():
 		cards_in_deck.shuffle() # I think this will get called after i make cards_in_deck so need to find a better home
+		Events.card_ui_card_clicked.connect(swap_containers)
 
 func draw_cards(hand_size = Deck.cards_per_hand):
 	for drawn_card in hand_size:
@@ -146,3 +165,13 @@ func discard_card(discarded_card:Card):
 	assert(discarded_card not in (player_hand_node.player_hand + drawn_cards + tentative_hand))
 	discard_pile.append(discarded_card)
 	# should i just have a change_card_zones func that handles this? 
+
+func change_card_zone(some_card: Node, starting_location: Array[Card],destination: Array[Card]):
+	var some_card_data: Card = some_card.card_data
+	assert(destination in [drawn_cards,tentative_hand,player_hand_node.player_hand,discard_pile])
+	assert(starting_location != destination)
+	print_debug("Transferring card %s from starting location %s to destination %s" % [some_card.to_string(),starting_location,destination])
+	var temp_card_placeholder = some_card_data # hold some_card here so we can ensure no duplication
+	starting_location.erase(some_card_data)
+	destination.append(temp_card_placeholder)
+	print_debug("Card in starting_location: ",some_card_data in starting_location,"\nCard in destination: ",some_card_data in destination)

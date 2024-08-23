@@ -9,7 +9,7 @@ func _ready():
 	build_stage()
 	ready_char()
 	ready_enemy()
-	$CardUI.visible = true # this way i can hide the node in the 2D editing screen
+	card_ui_init()
 	#Events.i_died.connect(check_if_all_dead)
 
 func _process(_delta):
@@ -144,3 +144,9 @@ func check_if_all_dead():
 
 func _on_button_pressed():
 	you_win()
+
+
+### CARD UI HANDLING ### 
+func card_ui_init():
+	$CardUI.visible = true # this way i can hide the node in the 2D editing screen
+	$CardUI.player_hand_node = get_node("Character1/PlayerHand")

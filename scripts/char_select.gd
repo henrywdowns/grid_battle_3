@@ -27,7 +27,7 @@ func _on_confirm_pressed():
 	send_char_info_to_global()
 	Global.goto_scene("res://scenes/map.tscn")
 	
-func send_char_info_to_global():
+func send_char_info_to_global(): # this is obsolete and I should be passing the character resource
 	var char_res = load("res://characters/%s.tres" % char_choice)
 	var char_stats = {}
 	var basic_attack_card = char_res.basic_attack
@@ -37,4 +37,5 @@ func send_char_info_to_global():
 	Deck.draft_pool = char_res.default_deck
 	Deck.reward_draftable_pool = char_res.draftable_pool
 	Global.meta_character_stats = char_stats
+	Global.char_res = char_res
 	Deck.basic_attack = basic_attack_card

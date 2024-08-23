@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Card" load_steps=3 format=3 uid="uid://bb7si1wuugsvs"]
+[gd_resource type="Resource" script_class="Card" load_steps=4 format=3 uid="uid://bb7si1wuugsvs"]
 
 [ext_resource type="Script" path="res://resources/card_resource.gd" id="1_nb82i"]
+[ext_resource type="Script" path="res://resources/card_effect_resource.gd" id="2_8bsrl"]
 [ext_resource type="Resource" uid="uid://bj1tnj7fy0lqa" path="res://cards/card_effects/assign_damage/assign_damage_effect.tres" id="2_42hbu"]
 
 [resource]
@@ -17,4 +18,4 @@ flex_dict = {
 "damage": 5,
 "healing": 0
 }
-unique_card_effects = Array[Resource("res://resources/card_effect_resource.gd")]([ExtResource("2_42hbu")])
+unique_card_effects = Array[ExtResource("2_8bsrl")]([ExtResource("2_42hbu")])

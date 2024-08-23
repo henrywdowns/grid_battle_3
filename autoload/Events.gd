@@ -12,6 +12,7 @@ signal draft_card_toggled(card:Card)
 signal card_chosen()
 signal draft_over()
 signal emit_node(some_node)
+signal card_ui_card_clicked(card:Card)
 
 ### PLAYER SIGNALS ###
 signal entity_moved(new_pos: Marker2D,old_pos: Marker2D)
