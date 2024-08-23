@@ -20,7 +20,7 @@ modulate_color = Color(0.847059, 0.847059, 0.847059, 1)
 
 [node name="AbridgedCard" type="Control"]
 z_index = 1
-custom_minimum_size = Vector2(150, 2.08165e-12)
+custom_minimum_size = Vector2(150, 143)
 layout_mode = 3
 anchor_right = 0.078
 anchor_bottom = 0.132

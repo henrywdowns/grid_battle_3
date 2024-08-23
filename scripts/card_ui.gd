@@ -94,6 +94,7 @@ func swap_containers(some_card: Node):
 func _on_submit_hand_button_up():
 	chosen_hand_cleanup()
 	resume()
+	Events.card_ui_debug_update_cards.emit()
 	$CardTimer/TimerLabel.text = str($CardTimer.wait_time)
 	print($CardTimer.wait_time)
 	$CardTimer.start()
@@ -187,16 +188,23 @@ func change_card_zone(some_card: Node, starting_location: Array[Card],destinatio
 func chosen_hand_cleanup():
 	print_debug("Cleaning up hand. Tentative hand: ",tentative_hand)
 	# Send chosen hand to actual hand, remove drawn cards from hand for next time. Trigger with submit button
-	for selected_card in len(tentative_hand): # iterate through tentative hand
-		assert(tentative_hand[selected_card] is Card)
-		player_hand_node.player_hand.append(tentative_hand.pop_front()) # remove card from tentative hand, append to player_hand
-	for unselected_card in len(drawn_cards): # iterate through leftover drawn cards
-		assert(drawn_cards[unselected_card] is Card)
-		discard_pile.append(drawn_cards.pop_front) # remove leftover card and append to discard_pile
+	
+	while tentative_hand.size()>0:
+		var selected_card=tentative_hand.pop_front() # pop the first element
+		assert(selected_card is Card)
+		player_hand_node.player_hand.append(selected_card) # append to player_hand
+	
+	while drawn_cards.size()>0:
+		var unselected_card=drawn_cards.pop_front() # pop the first element
+		assert(unselected_card is Card)
+		discard_pile.append(unselected_card) # append to discard_pile
+	
 	for card_inst in $MainPanel/ChosenPContainer/ChosenHand.get_children()+$MainPanel/DrawnPContainer/DrawnCards.get_children():
 		assert(card_inst is AbridgedCardNode)
 		card_inst.queue_free()
+	
 	print_debug("Player hand after cleanup: ",player_hand_node.player_hand)
+
 func check_valid_card_choice(some_card:Card):
 	pass
 	# TODO: Need this to check arcana compatibility before changing card zones

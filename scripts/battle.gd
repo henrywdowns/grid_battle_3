@@ -145,7 +145,6 @@ func check_if_all_dead():
 func _on_button_pressed():
 	you_win()
 
-
 ### CARD UI HANDLING ### 
 func card_ui_init():
 	$CardUI.visible = true # this way i can hide the node in the 2D editing screen
