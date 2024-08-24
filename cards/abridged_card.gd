@@ -3,7 +3,7 @@ class_name AbridgedCardNode
 var card_data:Card
 
 func _ready():
-	pass
+	$CardSelect.global_position = $".".global_position
 
 func make_card(carddata):
 	card_data = carddata

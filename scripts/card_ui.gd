@@ -58,8 +58,7 @@ func open_selector():
 
 func _on_card_timer_timeout():
 	open_hand_available = true
-	if refilling_hand == true: # if you deck out, you must go a full round without cards to refill
-		refill_hand() # set refilling_hand to false so that draw_cards will draw.
+	refill_hand()
 	$CardTimer/TimerLabel.text = "Hand reset ready"
 
 func populate_cards_in_selector():
@@ -96,9 +95,9 @@ func _on_submit_hand_button_up():
 	resume()
 	Events.card_ui_debug_update_cards.emit()
 	$CardTimer/TimerLabel.text = str($CardTimer.wait_time)
-	print($CardTimer.wait_time)
+	print_debug($CardTimer.wait_time)
 	$CardTimer.start()
-	print($CardTimer.is_stopped())
+	print_debug($CardTimer.is_stopped())
 	print_debug("Timer started")
 	open_hand_available = false
 
@@ -116,7 +115,7 @@ func resume():
 	$".".visible = false
 	get_tree().paused = false
 	print_debug("Resume game 2: ",get_tree().paused)
-	print("Visibility: ",$".".visible)
+	print_debug("Visibility: ",$".".visible)
 	card_ui_open = false
 
 func pause():
@@ -124,7 +123,7 @@ func pause():
 	$".".visible = true
 	get_tree().paused = true
 	print_debug("Pause 2: ",get_tree().paused)
-	print("Visibility: ",$".".visible)
+	print_debug("Visibility: ",$".".visible)
 	card_ui_open = true
 
 func pause_game():
@@ -134,13 +133,14 @@ func pause_game():
 	elif Input.is_action_just_pressed("Pause") and get_tree().paused:
 		resume()
 	print_debug("Pause game 2: ",get_tree().paused)
-	print("Visibility: ",$".".visible)
+	print_debug("Visibility: ",$".".visible)
 
 ### CARD DRAW/MANIPULATION BEHAVIOR ###
 
 func _init_deck_stuff():
 		cards_in_deck.shuffle() # I think this will get called after i make cards_in_deck so need to find a better home
 		Events.card_ui_card_clicked.connect(swap_containers)
+		Events.card_played.connect(discard_played_card)
 
 func draw_cards(hand_size = Deck.cards_per_hand):
 	for drawn_card in hand_size:
@@ -150,29 +150,31 @@ func draw_cards(hand_size = Deck.cards_per_hand):
 				var adding_card = cards_in_deck.pop_front()
 				if adding_card != null:
 					drawn_cards.append(adding_card)
-				#drawn_cards.append(cards_in_deck.pop_front())
-			elif len(cards_in_deck) == 0:
-				refilling_hand = true
-				break
+
 	print_debug("Drawn cards: ",drawn_cards)
 
 func shuffle_deck():
+	print_debug("Cards in discard: ",len(discard_pile))
 	for discarded_card in len(discard_pile):
 		cards_in_deck.append(discard_pile.pop_front())
 	cards_in_deck.shuffle()
 	print_debug("Deck shuffled. Cards in deck: ",len(cards_in_deck)," Cards in discard: ",len(discard_pile))
 
 func refill_hand():
-	shuffle_deck()
-	refilling_hand = false
+	print("AAAAAAA REFILL PLEASE")
+	if refilling_hand == true:
+		shuffle_deck()
+		refilling_hand = false
+	else:
+		refilling_hand = true
+	print_debug(len(cards_in_deck))
+	
 	# Right now the plan is to force player to wait a whole turn with no cards in hand.
 	# Deck will be back to full the turn after.
 
-func discard_card(discarded_card:Card):
-	# Puts card into discard pile. I think the calling node/func will handle removal from its own array.
-	assert(discarded_card not in (player_hand_node.player_hand + drawn_cards + tentative_hand))
+func discard_played_card(discarded_card:Card):
 	discard_pile.append(discarded_card)
-	# should i just have a change_card_zones func that handles this? 
+	print_debug(len(discard_pile))
 
 func change_card_zone(some_card: Node, starting_location: Array[Card],destination: Array[Card]):
 	var some_card_data: Card = some_card.card_data

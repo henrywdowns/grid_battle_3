@@ -71,6 +71,7 @@ func _input(_event):
 				var first_card_in_hand = player_hand[0]
 				print_debug("First card object: ", first_card_in_hand)
 				use_card(first_card_in_hand)
+				
 			else:
 				print_debug("Empty hand")
 
