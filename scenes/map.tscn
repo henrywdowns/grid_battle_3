@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://7lsk05fs210c"]
+[gd_scene load_steps=3 format=3 uid="uid://7lsk05fs210c"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_fokwq"]
+[ext_resource type="Script" path="res://scenes/map_generator.gd" id="2_6cxj8"]
 
 [node name="Map" type="Control"]
 layout_mode = 3
@@ -49,3 +50,6 @@ text = "Encounter 3"
 metadata/_edit_lock_ = true
 
 [node name="DraftPosition" type="Marker2D" parent="."]
+
+[node name="MapGenerator" type="Node" parent="."]
+script = ExtResource("2_6cxj8")

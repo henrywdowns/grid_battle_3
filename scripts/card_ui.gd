@@ -24,6 +24,7 @@ var card_ui_open := false
 @onready var drawn_cards: Array[Card] # cards that were drawn but not yet selected
 @onready var tentative_hand: Array[Card] # cards you've selected pre-submit
 @export var refilling_hand: bool = false # changes to true on 0, preventing card draw for a turn.
+@onready var base_card_scene = preload("res://cards/abridged_card.tscn")
 
 ### PLAYER HAND NODE ###
 @onready var player_hand_node: Node
@@ -64,14 +65,13 @@ func _on_card_timer_timeout():
 func populate_cards_in_selector():
 	for drawn_card in drawn_cards: # iterate through drawn_cards array
 		assert(drawn_card is Card) # confirming drawn_card is Card class
-		var card_instance = preload("res://cards/abridged_card.tscn").instantiate()
+		var card_instance = base_card_scene.instantiate()
 		card_instance.make_card(drawn_card)
 		drawn_cards_container.add_child(card_instance)
 
 func swap_containers(some_card: Node):
 	print_debug("card signal received") # connected to Events.card_ui_card_clicked
 	var destination: Container # anon variable. will be the drawn cards or chosen hand containers
-	var drawn_cards_container = $MainPanel/DrawnPContainer/DrawnCards
 	var tentative_hand_container = $MainPanel/ChosenPContainer/ChosenHand
 	### TODO: CHECK_VALID() FUNC TO SEE IF CARD MEETS CONSTRAINTS BASED ON CHOSEN HAND
 	match some_card.get_parent(): # wherever the card already is, set destination to the other, and then change card data zones accordingly

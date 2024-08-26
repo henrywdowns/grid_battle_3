@@ -104,4 +104,5 @@ func _on_confirm_card_button_up():
 		for cards in open_cards:
 			cards.queue_free()
 		Events.card_chosen.emit()
+		toggled_card = null
 	

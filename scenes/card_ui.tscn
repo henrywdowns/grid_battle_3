@@ -39,14 +39,17 @@ anchor_right = 1.0
 offset_left = -180.0
 offset_bottom = 664.0
 grow_horizontal = 0
+mouse_filter = 2
 
 [node name="ChosenColorRect" type="ColorRect" parent="MainPanel/ChosenPContainer"]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0.650658, 0.377315, 0.604394, 0.4)
 metadata/_edit_lock_ = true
 
 [node name="ChosenHand" type="VBoxContainer" parent="MainPanel/ChosenPContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="DrawnPContainer" type="PanelContainer" parent="MainPanel"]
 layout_mode = 1
@@ -133,7 +136,7 @@ layout_mode = 0
 offset_right = 525.0
 offset_bottom = 201.0
 text = "TODO:
-- building actual UI elements in card_selection.tscn but ive got the pause game logic here. need to pick one and merge them."
+- persistent card slots (returning a card brings it back to where it was instead of the end)"
 autowrap_mode = 2
 metadata/_edit_lock_ = true
 
