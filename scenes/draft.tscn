@@ -12,22 +12,35 @@ grow_vertical = 2
 script = ExtResource("1_xg48e")
 metadata/_edit_lock_ = true
 
-[node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(700, 250)
+[node name="DraftStuffHolder" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -350.0
-offset_top = -125.0
-offset_right = 350.0
-offset_bottom = 125.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CardContainer" type="HBoxContainer" parent="Panel"]
+[node name="Panel" type="Panel" parent="DraftStuffHolder"]
+custom_minimum_size = Vector2(700, 250)
+layout_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -356.0
+offset_top = -81.0
+offset_right = 344.0
+offset_bottom = 169.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardContainer" type="HBoxContainer" parent="DraftStuffHolder/Panel"]
 custom_minimum_size = Vector2(700, 250)
 layout_mode = 1
 anchors_preset = -1
@@ -41,31 +54,30 @@ theme_override_constants/separation = 20
 alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="Confirm Card" type="Button" parent="."]
+[node name="Confirm Card" type="Button" parent="DraftStuffHolder"]
 custom_minimum_size = Vector2(372, 31)
-layout_mode = 1
-anchors_preset = -1
+layout_mode = 2
 anchor_left = 0.5
 anchor_top = 0.65
 anchor_right = 0.5
 anchor_bottom = 0.65
-offset_left = -186.0
-offset_top = -15.5
-offset_right = 186.0
-offset_bottom = 15.5
+offset_left = -192.0
+offset_top = 184.5
+offset_right = 180.0
+offset_bottom = 215.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Confirm Card"
 
-[node name="TodoRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = 656.0
-offset_top = 244.0
-offset_right = 1220.0
-offset_bottom = 354.0
+[node name="TodoRect" type="ColorRect" parent="DraftStuffHolder"]
+layout_mode = 2
+offset_left = -290.0
+offset_top = -232.0
+offset_right = 274.0
+offset_bottom = -122.0
 color = Color(0.495771, 0.349332, 0.587335, 1)
 
-[node name="TodoText" type="Label" parent="TodoRect"]
+[node name="TodoText" type="Label" parent="DraftStuffHolder/TodoRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -76,4 +88,4 @@ text = " "
 autowrap_mode = 2
 metadata/_edit_lock_ = true
 
-[connection signal="button_up" from="Confirm Card" to="." method="_on_confirm_card_button_up"]
+[connection signal="button_up" from="DraftStuffHolder/Confirm Card" to="." method="_on_confirm_card_button_up"]

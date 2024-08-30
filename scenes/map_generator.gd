@@ -1,19 +1,18 @@
 extends Node
 class_name MapGenerator
 
-const X_DIST := 30
-const Y_DIST := 25
-const PLACEMENT_RANDOMNESS := 5
+### MAP VARIABLES ###
+const X_DIST := 200
+const Y_DIST := 150
+const PLACEMENT_RANDOMNESS := 50
 const FLOORS := 15
 const MAP_WIDTH := 7
 const PATHS := 6
+
+### ROOM WEIGHTS - ADJUST _setup_random_room_weights() IF CHANGING THIS ###
 const MONSTER_ROOM_WEIGHT := 10.0
 const SHOP_ROOM_WEIGHT := 2.5
 const CAMPFIRE_ROOM_WEIGHT := 4.0
-
-
-func _ready() -> void:
-	generate_map()
 
 
 var random_room_type_weights = {
@@ -36,18 +35,8 @@ func generate_map() -> Array[Array]:
 	_setup_boss_room()
 	_setup_random_room_weights()
 	_setup_room_types()
-	
-	### DEBUGGING ###
-	var i := 0
-	for floor in map_data:
-		print("floor %s" % i)
-		var used_rooms = floor.filter(
-			func(room: MapNode): return room.next_rooms.size() > 0
-		)
-		print(used_rooms)
-		i += 1
-		
-	return []
+
+	return map_data
 	
 func _generate_initial_grid() -> Array[Array]:
 	var result: Array[Array] = []
@@ -87,15 +76,13 @@ func _get_random_starting_points() -> Array[int]:
 	return y_coordinates
 
 func _setup_connection(i: int, j: int) -> int:
+	#print_debug("this is in fact happening")
 	var next_room: MapNode
 	var current_room := map_data[i][j] as MapNode
-	
 	while not next_room or _would_cross_existing_path(i, j, next_room):
 		var random_j := clampi(randi_range(j - 1, j + 1), 0, MAP_WIDTH -1)
 		next_room = map_data[i + 1][random_j]
-		
 	current_room.next_rooms.append(next_room)
-	
 	return next_room.column
 	
 func _would_cross_existing_path(i: int, j: int, room: MapNode) -> bool:

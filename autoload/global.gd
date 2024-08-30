@@ -51,6 +51,8 @@ func progress_map():
 ### General Helper Stuff That's Useful All Over ###
 
 var accepting_input = true
+@onready var viewport_width = get_viewport().size[0]
+@onready var viewport_height = get_viewport().size[1]
 
 ### MISC CARRYOVER HELP FUNCS - MAY NOT NEED BUT COULD BE USEFUL ### 
 

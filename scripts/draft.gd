@@ -2,7 +2,7 @@ extends Control
 
 #TODO: Add a skip button. Limit number of drafts to length of draft pool
 
-@onready var card_container = $Panel/CardContainer
+@onready var card_container = $DraftStuffHolder/Panel/CardContainer
 @onready var temp_draft_pool: Array[Card]
 var temp_pool_determined = false
 var which_pool: String
@@ -15,6 +15,7 @@ func _ready():
 	print_debug("### DRAFT SCENE ###")
 	print_debug("Cards in deck: ",len(Deck.meta_deck))
 	Events.draft_card_toggled.connect(reserve_toggled_card)
+	$".".position = Vector2(Global.viewport_width/2,Global.viewport_height/2)
 	if !temp_pool_determined:
 		determine_pool()
 
@@ -100,7 +101,7 @@ func _on_confirm_card_button_up():
 		if which_pool != "draft_reward": # ensures you can receive more than one of the same card, but you can't draft each card object twice
 			temp_draft_pool.erase(toggled_card)
 		print_debug("Cards in deck: ",len(Deck.meta_deck))
-		var open_cards = $Panel/CardContainer.get_children()
+		var open_cards = card_container.get_children()
 		for cards in open_cards:
 			cards.queue_free()
 		Events.card_chosen.emit()

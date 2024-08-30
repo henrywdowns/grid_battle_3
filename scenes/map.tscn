@@ -1,55 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://7lsk05fs210c"]
+[gd_scene load_steps=5 format=3 uid="uid://7lsk05fs210c"]
 
 [ext_resource type="Script" path="res://scripts/map.gd" id="1_fokwq"]
 [ext_resource type="Script" path="res://scenes/map_generator.gd" id="2_6cxj8"]
 
-[node name="Map" type="Control"]
-layout_mode = 3
+[sub_resource type="Gradient" id="Gradient_yoo5o"]
+colors = PackedColorArray(0.493761, 0.286608, 0.740903, 1, 0.0367292, 0.478343, 0.468444, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kt6dv"]
+gradient = SubResource("Gradient_yoo5o")
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_fokwq")
+
+[node name="DraftPosition" type="Marker2D" parent="."]
+
+[node name="Visuals" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Lines" type="Node2D" parent="Visuals"]
+unique_name_in_owner = true
+metadata/_edit_lock_ = true
+
+[node name="MapNodes" type="Node2D" parent="Visuals"]
+unique_name_in_owner = true
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(960, 540)
+metadata/_edit_lock_ = true
+
+[node name="MapGenerator" type="Node" parent="."]
+script = ExtResource("2_6cxj8")
+
+[node name="MapBackground" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="MapBackground"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_fokwq")
-
-[node name="MapNodes" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Encounter1" type="Button" parent="MapNodes"]
-layout_mode = 0
-offset_left = -52.0
-offset_top = 107.0
-offset_right = 49.0
-offset_bottom = 169.0
-text = "Encounter 1"
+texture = SubResource("GradientTexture1D_kt6dv")
 metadata/_edit_lock_ = true
-
-[node name="Encounter2" type="Button" parent="MapNodes"]
-layout_mode = 0
-offset_left = -52.0
-offset_top = -33.0
-offset_right = 49.0
-offset_bottom = 29.0
-text = "Encounter 2"
-metadata/_edit_lock_ = true
-
-[node name="Encounter3" type="Button" parent="MapNodes"]
-layout_mode = 0
-offset_left = -52.0
-offset_top = -173.0
-offset_right = 49.0
-offset_bottom = -111.0
-text = "Encounter 3"
-metadata/_edit_lock_ = true
-
-[node name="DraftPosition" type="Marker2D" parent="."]
-
-[node name="MapGenerator" type="Node" parent="."]
-script = ExtResource("2_6cxj8")

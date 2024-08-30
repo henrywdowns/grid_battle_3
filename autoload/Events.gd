@@ -27,3 +27,4 @@ signal i_died(dead_enemy)
 ### BATTLE SIGNALS ###
 signal you_win()
 signal card_ui_available()
+signal map_exited(room: MapNode)
