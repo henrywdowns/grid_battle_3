@@ -204,8 +204,10 @@ func chosen_hand_cleanup():
 	for card_inst in $MainPanel/ChosenPContainer/ChosenHand.get_children()+$MainPanel/DrawnPContainer/DrawnCards.get_children():
 		assert(card_inst is AbridgedCardNode)
 		card_inst.queue_free()
-	
-	print_debug("Player hand after cleanup: ",player_hand_node.player_hand)
+	if player_hand_node:
+		print_debug("Player hand after cleanup: ",player_hand_node.player_hand)
+	else:
+		print_debug("something fucky is going on here")
 
 func check_valid_card_choice(some_card:Card):
 	pass

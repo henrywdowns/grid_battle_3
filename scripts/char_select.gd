@@ -24,13 +24,16 @@ func button_behavior(index):
 
 func _on_confirm_pressed():
 	print_debug(Global.selected_character," selected.")
-	send_char_info_to_global()
-	Global.goto_scene("res://scenes/map.tscn")
+	var char_res = send_char_info_to_global()
+	Events.character_selected.emit(char_res)
+	Global.goto_scene("res://scenes/run_game.tscn")
 	
 func send_char_info_to_global(): # this is obsolete and I should be passing the character resource
 	var char_res = load("res://characters/%s.tres" % char_choice)
 	var char_stats = {}
 	var basic_attack_card = char_res.basic_attack
+	var stats_array = [char_res,basic_attack_card]
+	# These ones go to Global
 	char_stats["HP"] = char_res.HP
 	char_stats["basic_attack"] = char_res.basic_attack
 	char_stats["move_delay"] = char_res.move_delay
@@ -39,3 +42,5 @@ func send_char_info_to_global(): # this is obsolete and I should be passing the 
 	Global.meta_character_stats = char_stats
 	Global.char_res = char_res
 	Deck.basic_attack = basic_attack_card
+	# ...but they should go to GameData instead. i plan to pass an array through signal to make it happen
+	return char_res

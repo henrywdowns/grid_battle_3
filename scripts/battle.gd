@@ -7,8 +7,11 @@ var current_enemies = []
 func _ready():
 	print_debug("### BATTLE SCENE ###")
 	build_stage()
+	await Events.stop_awaiting
 	ready_char()
+	await Events.stop_awaiting
 	ready_enemy()
+	await Events.stop_awaiting
 	card_ui_init()
 	#Events.i_died.connect(check_if_all_dead)
 
@@ -51,6 +54,7 @@ func build_stage():
 		else:
 			panel_status[panel]["color"] = "red"
 	starting_point = gridpoints[4]
+	Events.stop_awaiting.emit()
 	
 func update_panel_status(new_panel=null,old_panel=null):
 	#TODO: WHEN READY - CONNECT EVENTS.ENTITY_MOVED(UPDATE_PANEL_STATUS)
@@ -66,6 +70,7 @@ var enemy_dict = {} ### THIS IS NOT BEING UPDATED WHEN ENEMIES DIE
 func ready_char():
 	Events.emit_node.connect(pass_gridpoints)
 	player_char = spawn_player(self)
+	Events.stop_awaiting.emit()
 
 func spawn_player(scene,loc: Marker2D=starting_point) -> Node2D:
 	var new_character := load("characters/base_character.tscn") #load character scene based on selection
@@ -96,6 +101,7 @@ func ready_enemy():
 	panel_status[temp_panel]['occupant']=Array(enemy_dict.keys())[0]
 	panel_status[temp_panel_2]['occupant']=Array(enemy_dict.keys())[1]
 	Events.i_died.connect(clean_up_enemy)
+	Events.stop_awaiting.emit()
 
 func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	var enemy := load("res://enemies/base_enemy.tscn")

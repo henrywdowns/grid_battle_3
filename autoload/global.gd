@@ -10,6 +10,7 @@ func _ready():
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count()-1)
 	
+### SCENE CHANGING ###
 
 func goto_scene(path):
 	call_deferred("_deferred_goto_scene",path) #uses the below function, but does so in a "deferred 

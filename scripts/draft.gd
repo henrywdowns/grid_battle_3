@@ -15,7 +15,7 @@ func _ready():
 	print_debug("### DRAFT SCENE ###")
 	print_debug("Cards in deck: ",len(Deck.meta_deck))
 	Events.draft_card_toggled.connect(reserve_toggled_card)
-	$".".position = Vector2(Global.viewport_width/2,Global.viewport_height/2)
+	#$".".position = Vector2(Global.viewport_width/2,Global.viewport_height/2)
 	if !temp_pool_determined:
 		determine_pool()
 

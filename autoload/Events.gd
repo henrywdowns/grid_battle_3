@@ -3,6 +3,13 @@ extends Node
 ### Events Bus ###
 # Autoload that holds signals so that they can easily be read across disparate nodes.
 
+### UTILITY/GENERIC SIGNALS ###
+signal stop_awaiting
+
+### SCENE SIGNALS ###
+signal start_game
+signal character_selected(character)
+
 ### CARD SIGNALS ###
 var card_placeholder: Card
 

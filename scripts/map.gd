@@ -25,6 +25,8 @@ var camera_edge_y: float
 func _ready():
 	camera_edge_y = MapGenerator.Y_DIST * (MapGenerator.FLOORS - 1)
 	if Global.current_encounter == 0:
+		if Global.current_map == 0:
+			await Events.character_selected
 		run_draft()
 
 func _input(event: InputEvent) -> void:

@@ -43,6 +43,13 @@ enum TargetType {
 	NEAREST, 
 	FURTHEST }
 
+enum CardRarity {
+	COMMON,
+	UNCOMMON,
+	RARE,
+	LEGENDARY
+}
+
 var card_arcana_list = [
 	"fool",
 	"magician",
@@ -82,6 +89,7 @@ var card_type_list = [
 @export var card_filename: String
 @export var arguments: Array
 @export var targeting: TargetType
+@export var card_rarity: CardRarity
 @export var flex_dict: Dictionary = {
 	'damage': 0,
 	'healing':0,
