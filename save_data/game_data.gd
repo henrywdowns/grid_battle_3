@@ -32,7 +32,10 @@ func update_character_data(char_res: character):
 	meta_character_stats["HP"] = char_res.HP
 	meta_character_stats["basic_attack"] = char_res.basic_attack
 	meta_character_stats["move_delay"] = char_res.move_delay
-
+	current_drafted_deck = Deck.meta_deck
+	current_draft_pool = Deck.draft_pool
+	
+	
 ### SAVE/LOAD FUNCTIONALITY ###
 
 func save_game(): ### WIP ### https://docs.godotengine.org/en/stable/tutorials/io/saving_games.html

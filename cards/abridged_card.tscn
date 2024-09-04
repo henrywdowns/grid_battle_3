@@ -4,6 +4,11 @@
 [ext_resource type="Theme" uid="uid://jvq42dohggaa" path="res://assets/Styleboxes/test_stylebox-1.tres" id="2_0jwey"]
 [ext_resource type="Texture2D" uid="uid://biv7uwux8kqdd" path="res://assets/Styleboxes/test-stylebox-abridged.png" id="4_i0j1b"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bpv47"]
+texture = ExtResource("4_i0j1b")
+region_rect = Rect2(-0.0718384, -0.465431, 149.952, 143.273)
+modulate_color = Color(0.847059, 0.847059, 0.847059, 1)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wi50d"]
 texture = ExtResource("4_i0j1b")
 region_rect = Rect2(0, 0, 150, 142.824)
@@ -12,11 +17,6 @@ region_rect = Rect2(0, 0, 150, 142.824)
 texture = ExtResource("4_i0j1b")
 region_rect = Rect2(0, 0, 150, 142.824)
 modulate_color = Color(0.643137, 0.643137, 0.643137, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bpv47"]
-texture = ExtResource("4_i0j1b")
-region_rect = Rect2(-0.0718384, -0.465431, 149.952, 143.273)
-modulate_color = Color(0.847059, 0.847059, 0.847059, 1)
 
 [node name="AbridgedCard" type="Control"]
 z_index = 1
@@ -39,12 +39,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_0jwey")
 theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
-theme_override_colors/icon_focus_color = Color(0.439216, 0.694118, 0.619608, 1)
 theme_override_colors/icon_pressed_color = Color(0.823529, 0.823529, 0.823529, 1)
 theme_override_colors/icon_hover_color = Color(0.803922, 0.254902, 0.462745, 1)
+theme_override_colors/icon_focus_color = Color(0.439216, 0.694118, 0.619608, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_bpv47")
 theme_override_styles/hover = SubResource("StyleBoxTexture_wi50d")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_61c0u")
-theme_override_styles/normal = SubResource("StyleBoxTexture_bpv47")
 
 [node name="CardName" type="Label" parent="CardSelect"]
 layout_mode = 0

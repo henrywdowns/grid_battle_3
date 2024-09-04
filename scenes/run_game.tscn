@@ -10,6 +10,9 @@ script = ExtResource("1_1od5r")
 [node name="GameData" type="Node" parent="."]
 script = ExtResource("4_nf4ow")
 
+[node name="GameData2" type="Node" parent="."]
+script = ExtResource("4_nf4ow")
+
 [node name="Map" parent="." instance=ExtResource("1_owcc7")]
 
 [node name="VisibleScene" type="Node" parent="."]

@@ -1,4 +1,5 @@
 extends Node2D
+class_name BaseEnemy
 
 var enemy_data:Enemy
 var enemy_hp: int

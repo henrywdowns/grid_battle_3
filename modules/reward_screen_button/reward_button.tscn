@@ -38,3 +38,5 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 text = "test reward"
 metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

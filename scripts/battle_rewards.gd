@@ -7,6 +7,8 @@ class_name CombatRewards
 @onready var rewards_v_container: VBoxContainer = $RewardsVContainer
 @onready var rewards: VBoxContainer = %Rewards
 
+var current_open_reward: RewardButton
+
 ### ASSETS ###
 var card_icon = preload("res://assets/Map/temp-card-reward-icon-small.png") 
 var card_text = "Pick a card..."
@@ -35,3 +37,10 @@ func _show_card_rewards():
 	$PickACard.run_draft()
 	await Events.card_chosen
 	$RewardsVContainer.visible = true
+
+func _hide_card_rewards():
+	pass
+
+
+func _on_continue_pressed():
+	Events.battle_reward_continue.emit()

@@ -8,6 +8,7 @@ class_name RewardButton
 @onready var custom_text: Label = $MarginContainer/HBoxContainer/Label
 
 
+
 func set_reward_icon(new_icon: Texture) -> void:
 	reward_icon = new_icon
 	
@@ -26,5 +27,5 @@ func set_reward_text(new_text: String) -> void:
 	custom_text.text = reward_text
 
 
-func _on_pressed() -> void:
+func _on_pressed():
 	queue_free()

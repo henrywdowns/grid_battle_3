@@ -64,3 +64,5 @@ theme_override_font_sizes/font_size = 50
 text = "Continue"
 
 [node name="PickACard" parent="." instance=ExtResource("2_2ax8e")]
+
+[connection signal="pressed" from="RewardsVContainer/MarginContainer/Continue" to="." method="_on_continue_pressed"]

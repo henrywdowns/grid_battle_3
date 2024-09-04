@@ -35,3 +35,15 @@ signal i_died(dead_enemy)
 signal you_win()
 signal card_ui_available()
 signal map_exited(room: MapNode)
+
+### BATTLE REWARD SIGNALS ###
+signal battle_reward_continue
+
+### SHOP SIGNALS ###
+signal shop_exited
+
+### TREASURE SIGNALS ###
+signal treasure_scene_exited
+
+### CAMPFIRE SIGNALS ###
+signal campfire_scene_exited

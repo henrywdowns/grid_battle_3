@@ -161,7 +161,8 @@ func shuffle_deck():
 	print_debug("Deck shuffled. Cards in deck: ",len(cards_in_deck)," Cards in discard: ",len(discard_pile))
 
 func refill_hand():
-	print("AAAAAAA REFILL PLEASE")
+	#print("AAAAAAA REFILL PLEASE")
+	#print_debug("Refilling: ",refilling_hand)
 	if refilling_hand == true:
 		shuffle_deck()
 		refilling_hand = false
@@ -173,8 +174,9 @@ func refill_hand():
 	# Deck will be back to full the turn after.
 
 func discard_played_card(discarded_card:Card):
-	discard_pile.append(discarded_card)
-	print_debug(len(discard_pile))
+	if discarded_card.card_name.to_lower() != "basic attack":
+		discard_pile.append(discarded_card)
+		print_debug(len(discard_pile))
 
 func change_card_zone(some_card: Node, starting_location: Array[Card],destination: Array[Card]):
 	var some_card_data: Card = some_card.card_data

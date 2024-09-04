@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://bst6gyfwcik8v"]
+
+[ext_resource type="Script" path="res://map_node_rooms/campfire.gd" id="1_5i4kn"]
+
+[sub_resource type="Gradient" id="Gradient_5fhcx"]
+colors = PackedColorArray(0.278431, 0, 0, 1, 0.485703, 0.485704, 0.485703, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cuag5"]
+gradient = SubResource("Gradient_5fhcx")
+
+[node name="Campfire" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5i4kn")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_cuag5")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "campfire scene"
+
+[node name="Exit" type="Button" parent="."]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -367.0
+offset_right = 150.0
+offset_bottom = -167.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+text = "Exit"
+
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

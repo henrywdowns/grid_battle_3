@@ -49,12 +49,12 @@ func draft_cards():
 					return
 				random_card = randi_range(0,len(temp_draft_pool)-1)
 			card_pack.append(random_card)
+			print_debug(temp_draft_pool[random_card])
 			gen_card(temp_draft_pool[random_card])
 	else:
 		print_debug("This would have probably thrown an error")
 
 func draft_multiple(rounds: int=1):
-	print_debug("### DRAFT MULTIPLE ###")
 	var card_count = 0
 	var max_rounds = rounds
 	if rounds > len(temp_draft_pool):
@@ -64,7 +64,6 @@ func draft_multiple(rounds: int=1):
 		draft_cards()
 		await Events.card_chosen
 	Events.draft_over.emit()
-	print_debug("### END DRAFT ###")
 	$".".queue_free()
 
 func add_card_to_deck(card_res: Card):
@@ -86,8 +85,7 @@ func determine_pool(selected_pool = "draft_reward"):
 		for cardname in temp_draft_pool:
 			if cardname is Card:
 				pool_card_names.append(cardname.card_name)
-	print_debug("### POOL DETERMINED ###\n",len(temp_draft_pool))
-	print_debug("	",pool_card_names)
+	print_debug("	Cards in pool: ",pool_card_names)
 
 ### CONFIRM BUTTON BEHAVIOR ###
 

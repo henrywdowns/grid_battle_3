@@ -1,16 +1,18 @@
 extends Node
 
-### SCENE SWITCHER ###
+### SCENE MANAGEMENT ###
 
 var current_scene = null
 var battle_gridpoints = []
 var battle_grid_coords = []
+var run_game_node: Node
+var visible_scene_node: Node
 
 func _ready():
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count()-1)
 	
-### SCENE CHANGING ###
+### SCENE MANAGEMENT ###
 
 func goto_scene(path):
 	call_deferred("_deferred_goto_scene",path) #uses the below function, but does so in a "deferred 
@@ -27,7 +29,7 @@ func _deferred_goto_scene(path): #don't call this scene - call goto_scene(), whi
 	get_tree().root.add_child(current_scene) #add new scene as child
 	get_tree().current_scene = current_scene #make the new scene the current scene
 
-### Character Management ###
+### CHARACTER MANAGEMENT ###
 
 var selected_character = null
 var selected_character_tres = character

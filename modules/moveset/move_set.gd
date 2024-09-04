@@ -80,7 +80,6 @@ func _input(_event):
 ### CARD USAGE ###
 
 func use_card(card: Card):
-	print_debug("	### USE_CARD ###")
 	print_debug("Card Node -- ",card)
 	if card:
 		print_debug("Card targeting enum type -- ",card.targeting)
@@ -96,12 +95,10 @@ func use_card(card: Card):
 		Events.card_played.emit(card)
 	else:
 		print_debug("Error no card")
-	print_debug("	### END USE_CARD ###")
 
 ### TARGET LOCATION -- THIS ONE WILL BE LONG AND BRUTAL ###
 
 func determine_target(target_type) -> Array:
-	print_debug("	### DETERMINE_TARGET ###")
 	var player_location_coords = get_parent().character_coords
 	var target_result = []
 	print_debug("Node playing card -- ",get_parent())
@@ -109,7 +106,6 @@ func determine_target(target_type) -> Array:
 	var player_location_gridpoint = get_parent().character_gridpoint
 	match target_type:
 		TargetType.HITSCAN:
-			print_debug(	"### HITSCAN ###")
 			target_result.append(perform_hitscan(player_location_coords))
 		TargetType.PROJECTILE:
 			perform_projectile(player_location_gridpoint)
@@ -118,11 +114,9 @@ func determine_target(target_type) -> Array:
 		TargetType.SELF:
 			target_result.append(get_parent())
 		TargetType.PIERCE:
-			print_debug(	"### PIERCE ###")
 			var pierce_result = perform_pierce(player_location_coords)
 			if pierce_result:
 				target_result += pierce_result
-	print_debug("	### END DETERMINE_TARGET ###")
 	return target_result
 
 func perform_hitscan(start_position: Vector2, direction: Vector2 = Vector2.RIGHT):
@@ -131,7 +125,7 @@ func perform_hitscan(start_position: Vector2, direction: Vector2 = Vector2.RIGHT
 	for x in range(6):
 		hitscan_pointer += direction
 		var pointer_grid_point = translate_coords_to_points(hitscan_pointer)
-		if panel_data[pointer_grid_point]["occupant"]:
+		if is_instance_valid(panel_data[pointer_grid_point]["occupant"]):
 			return panel_data[pointer_grid_point]["occupant"]
 	print_debug("missed")
 
@@ -141,10 +135,10 @@ func perform_pierce(start_position: Vector2, direction: Vector2 = Vector2.RIGHT)
 	var pierce_targets = []
 	for x in range(6):
 		pierce_pointer += direction
-		print_debug("Pointer -- ",pierce_pointer)
+		#print_debug("Pointer -- ",pierce_pointer)
 		var pointer_grid_point = translate_coords_to_points(pierce_pointer)
 		if panel_data[pointer_grid_point]["occupant"]:
-			print_debug("Occupant found -- ",panel_data[pointer_grid_point]["occupant"])
+			#print_debug("Occupant found -- ",panel_data[pointer_grid_point]["occupant"])
 			pierce_targets.append(panel_data[pointer_grid_point]["occupant"])
 	if len(pierce_targets) > 0:
 		print_debug(pierce_targets)

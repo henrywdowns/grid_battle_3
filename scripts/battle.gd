@@ -113,7 +113,8 @@ func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	#panel_status[loc]["occupant"]=enemy_node
 	return enemy_node
 
-func clean_up_enemy(target_enemy):
+func clean_up_enemy(target_enemy:BaseEnemy):
+	enemy_dict.erase(target_enemy)
 	check_if_all_dead()
 	for panel in panel_status:
 		if panel_status[panel]["occupant"] == target_enemy:
@@ -128,15 +129,17 @@ func clean_up_enemy(target_enemy):
 func you_win():
 	print_debug("### You Win ###")
 	Events.you_win.emit()
-	$"PickACard".run_draft()
+	#$"PickACard".run_draft()
 	await Events.card_chosen
-	Global.progress_map()
-	Global.goto_scene("res://scenes/map.tscn")
+	#Global.progress_map()
+	#Global.goto_scene("res://scenes/map.tscn")
 
 func check_if_all_dead():
+	print_debug("checking if they're all dead...")
 	var enemies_left = len(Array(enemy_dict.keys()))
 	print_debug("Number of enemies: ",enemies_left)
 	if enemies_left <= 0:
+		print("none left")
 		you_win()
 
 func _on_button_pressed():
