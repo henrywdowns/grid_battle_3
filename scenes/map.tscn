@@ -13,6 +13,7 @@ gradient = SubResource("Gradient_yoo5o")
 script = ExtResource("1_fokwq")
 
 [node name="DraftPosition" type="Marker2D" parent="."]
+position = Vector2(960, 540)
 
 [node name="Visuals" type="Node2D" parent="."]
 metadata/_edit_lock_ = true

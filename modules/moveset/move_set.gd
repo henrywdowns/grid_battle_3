@@ -9,10 +9,12 @@ var panel_data = {} # Will populate with data from battle.tscn
 
 func _ready():
 	print_debug("	move_set node is ready.")
+	await Events.stop_awaiting
 	call_deferred("_initialize")
 
 func _initialize():
-	var battle_scene = get_tree().current_scene
+	var battle_scene = get_tree().current_scene.get_node("VisibleScene").get_node("Battle")
+	print_debug(battle_scene)
 	if battle_scene:
 		panel_data = battle_scene.panel_status
 	grid_points = Array(panel_data.keys())
@@ -52,7 +54,7 @@ func translate_coords_to_points(coords):
 	return grid_points[target_index]
 #
 func translate_points_to_coords(points):
-	var target_index =grid_points.find(points)
+	var target_index = grid_points.find(points)
 	return grid_coords[target_index]
 
 ### CONTROLS ### 

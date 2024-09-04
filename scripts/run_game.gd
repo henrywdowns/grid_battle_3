@@ -15,12 +15,11 @@ const SHOP_SCENE = 'asdf'
 
 
 @onready var map: Map = $Map
-@onready var char_select: Control = $CharSelect
 @onready var current_view: Node = $VisibleScene
 @onready var game_data: Node = $GameData
 @onready var battle_button: Button = %BattleButton
 @onready var map_button: Button = %MapButton
-@onready var shop_button: Button = %shopButton
+@onready var shop_button: Button = %ShopButton
 @onready var treasure_button: Button = %TreasureButton
 @onready var rewards_button: Button = %RewardsButton
 @onready var campfire_button: Button = %CampfireButton
@@ -60,7 +59,7 @@ func _show_map() -> void:
 ### SCENE RUNNING BEHAVIOR ### 
 func _setup_scene_transitions() -> void:
 	Events.you_win.connect(_change_visible_scene.bind(BATTLE_REWARD_SCENE))
-	#Events.map_exited.connect(_on_map_exited)
+	Events.map_exited.connect(_on_map_exited)
 	#TODO: Events.battle_reward_exited.connect(_show_map)
 	#TODO: Events.campfire_exited.connect(_show_map)
 	#TODO: Events.shop_exited.connect(_show_map)
@@ -73,8 +72,13 @@ func _setup_scene_transitions() -> void:
 	#TODO: shop_button.pressed.connect(_change_visible_scene.bind(SHOP_SCENE))
 	#TODO: treasure_button.pressed.connect(_change_visible_scene.bind(TREASURE_SCENE))
 
-func _on_map_exited() -> void:
+func _on_map_exited(room) -> void:
 	print("TODO: from the MAP, change view based on MapNodeType")
+	print_debug("Room: ",room,"\nRoom type: ",room.map_node_type)
+	match room.map_node_type:
+		MapNode.MapNodeType.COMBAT:
+			print_debug("changing to combat scene")
+			_change_visible_scene(BATTLE_SCENE)
 
 func run_char_select():
 	pass # TODO: 

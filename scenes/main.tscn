@@ -37,9 +37,14 @@ theme_override_font_sizes/font_size = 46
 text = "Start Game"
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
-layout_mode = 0
-offset_right = 906.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -453.0
+offset_right = 453.0
 offset_bottom = 204.0
+grow_horizontal = 2
 color = Color(0.211765, 0.211765, 0.211765, 1)
 
 [node name="Label" type="Label" parent="Control/ColorRect"]
@@ -50,8 +55,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "TODO: 
+- END OF BATTLE PROCEDURE
+
+------
 ENEMY DEATH STUFF
-- GENERALLY ADD DEATH HANDLING AS A COMPOSITION NODE TO ENEMIES
-- WEIRD DRAFT BEHAVIOR WHEN LESS THAN 3 CARDS"
+- GENERALLY ADD DEATH HANDLING AS A COMPOSITION NODE TO ENEMIES"
 
 [connection signal="button_up" from="Control/Button" to="." method="_on_button_button_up"]

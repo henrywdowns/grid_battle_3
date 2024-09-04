@@ -7,11 +7,10 @@ var current_enemies = []
 func _ready():
 	print_debug("### BATTLE SCENE ###")
 	build_stage()
-	await Events.stop_awaiting
+	#await Events.stop_awaiting
+	#print_debug("stop_awaiting received")
 	ready_char()
-	await Events.stop_awaiting
 	ready_enemy()
-	await Events.stop_awaiting
 	card_ui_init()
 	#Events.i_died.connect(check_if_all_dead)
 
@@ -54,7 +53,8 @@ func build_stage():
 		else:
 			panel_status[panel]["color"] = "red"
 	starting_point = gridpoints[4]
-	Events.stop_awaiting.emit()
+	Events.call_deferred("emit_signal", "stop_awaiting")
+	print_debug("stop awaiting emitted")
 	
 func update_panel_status(new_panel=null,old_panel=null):
 	#TODO: WHEN READY - CONNECT EVENTS.ENTITY_MOVED(UPDATE_PANEL_STATUS)
@@ -110,23 +110,14 @@ func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	enemy_node.global_position = loc.global_position
 	scene.add_child(enemy_node)
 	enemy_dict[enemy_node] = enemy_node.enemy_hp
-	print_debug("New enemy spawned. Dict updated -- %s" % enemy_dict)
 	#panel_status[loc]["occupant"]=enemy_node
 	return enemy_node
 
 func clean_up_enemy(target_enemy):
-	print_debug("CLEANING UP ",target_enemy)
-	print_debug(panel_status)
-	print_debug(enemy_dict)
-	print_debug(enemy_dict.erase(target_enemy))
-	print_debug(enemy_dict)
 	check_if_all_dead()
 	for panel in panel_status:
 		if panel_status[panel]["occupant"] == target_enemy:
-			print_debug("Panel -- ", panel_status[panel])
-			print_debug("Cleaning up enemy %s" % target_enemy)
 			panel_status[panel]["occupant"] = null
-			print_debug("Panel after cleanup -- ",panel_status[panel])
 			return
 			
 	print_debug("Error -- enemy not found")

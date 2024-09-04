@@ -1,8 +1,8 @@
 extends Node2D
 class_name Map
 ### DEBUG STUFF ###
-var num_of_map_drafts = 6 # adjust this in run_draft() later
-
+var num_of_map_drafts = 3 # adjust this in run_draft() later
+var map_drafting: bool = false
 ### INIT STUFF ###
 #@onready var map_node_array = $MapNodes.get_children()
 var draft_path = preload("res://scenes/draft.tscn")
@@ -23,10 +23,13 @@ var last_room: MapNode
 var camera_edge_y: float
 
 func _ready():
+	#Events.card_chosen.connect(show_map_after_draft)
 	camera_edge_y = MapGenerator.Y_DIST * (MapGenerator.FLOORS - 1)
 	if Global.current_encounter == 0:
 		if Global.current_map == 0:
-			await Events.character_selected
+			#await Events.character_selected
+			#print_debug("done awaiting")
+			pass
 		run_draft()
 
 func _input(event: InputEvent) -> void:
@@ -88,7 +91,7 @@ func _connect_lines(room: MapNode) -> void:
 	for next: MapNode in room.next_rooms:
 		#print_debug("###### Next: ",next, " next rooms: ",room.next_rooms)
 		var new_map_line := MAP_LINE.instantiate() as Line2D
-		print("Room: ",room, " Room line start: ",room.position, " Next: ",next, " Next line end: ",next.position)
+		#print("Room: ",room, " Room line start: ",room.position, " Next: ",next, " Next line end: ",next.position)
 		new_map_line.add_point(room.position)
 		new_map_line.add_point(next.position)
 		lines.add_child(new_map_line)
@@ -102,15 +105,6 @@ func _on_map_room_selected(room: MapNode) -> void:
 	floors_climbed += 1
 	Events.map_exited.emit(room)
 
-#func show_nodes_after_draft():
-	#if !$MapNodes.visible:
-		#$MapNodes.visible = true
-	#else:
-		#print_debug("Map Nodes already visible")
-
-#func button_behavior(_index=0):
-	#Global.goto_scene("res://scenes/battle.tscn")
-
 func run_draft(): # THE MAP DRAFT SHOULD BE A FULL-ON DRAFT FROM AVAILABLE CARD-POOL. NEED TO REWORK
 	var draft_scene = draft_path.instantiate() #this is where i call draft. i think i just want this
 	# at the beginning of the map, not at every node.
@@ -118,4 +112,10 @@ func run_draft(): # THE MAP DRAFT SHOULD BE A FULL-ON DRAFT FROM AVAILABLE CARD-
 	draft_scene.determine_pool("map_draft")
 	$".".add_child(draft_scene)
 	draft_scene.draft_multiple(num_of_map_drafts)
-	$Visuals.visible = false
+	map_drafting = true
+	#$Visuals.visible = false
+
+func show_map_after_draft():
+	if map_drafting == true:
+		$Visuals.visible = true
+		map_drafting = false

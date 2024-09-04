@@ -16,6 +16,7 @@ card_arcana = 0
 card_filename = "attack_1"
 arguments = []
 targeting = 0
+card_rarity = 0
 flex_dict = {
 "block": 0,
 "damage": 5,
