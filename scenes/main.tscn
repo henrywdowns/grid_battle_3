@@ -43,7 +43,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -453.0
 offset_right = 453.0
-offset_bottom = 204.0
+offset_bottom = 439.0
 grow_horizontal = 2
 color = Color(0.211765, 0.211765, 0.211765, 1)
 
@@ -55,11 +55,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "TODO: 
+- GENERALLY ADD COMPOSITION NODES TO ENEMIES:
+-- Death handling
+-- Combat logic
 
-- New MapNode rooms
-
-------
-ENEMY DEATH STUFF
-- GENERALLY ADD DEATH HANDLING AS A COMPOSITION NODE TO ENEMIES"
+- COMBAT ENEMY GROUPINGS
+- EVENT ROOMS
+- BOSS LOGIC
+- DRAFT PACKS & POD DRAFT AI
+- EXPAND CARD TARGETING
+- EXPAND CARD EFFECTS
+- SAVE/LOAD LOGIC
+- SEEDING/RANDOMIZATION CONTROL"
 
 [connection signal="button_up" from="Control/Button" to="." method="_on_button_button_up"]
