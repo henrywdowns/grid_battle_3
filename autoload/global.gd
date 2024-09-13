@@ -7,6 +7,7 @@ var battle_gridpoints = []
 var battle_grid_coords = []
 var run_game_node: Node
 var visible_scene_node: Node
+var battle_node: Node2D
 
 func _ready():
 	var root = get_tree().root

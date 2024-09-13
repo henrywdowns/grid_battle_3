@@ -126,7 +126,8 @@ func perform_hitscan(start_position: Vector2, direction: Vector2 = Vector2.RIGHT
 		hitscan_pointer += direction
 		var pointer_grid_point = translate_coords_to_points(hitscan_pointer)
 		if is_instance_valid(panel_data[pointer_grid_point]["occupant"]):
-			return panel_data[pointer_grid_point]["occupant"]
+			if !panel_data[pointer_grid_point]["occupant"].is_dead:
+				return panel_data[pointer_grid_point]["occupant"]
 	print_debug("missed")
 
 func perform_pierce(start_position: Vector2, direction: Vector2 = Vector2.RIGHT):

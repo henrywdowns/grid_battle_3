@@ -12,6 +12,7 @@ func _ready():
 	ready_char()
 	ready_enemy()
 	card_ui_init()
+	Global.battle_node = $"."
 	#Events.i_died.connect(check_if_all_dead)
 
 func _process(_delta):
@@ -128,6 +129,7 @@ func clean_up_enemy(target_enemy:BaseEnemy):
 
 func you_win():
 	print_debug("### You Win ###")
+	Global.battle_node = null
 	Events.you_win.emit()
 	#$"PickACard".run_draft()
 	await Events.card_chosen

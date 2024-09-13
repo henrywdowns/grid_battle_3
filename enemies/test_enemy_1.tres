@@ -7,4 +7,5 @@ resource_local_to_scene = true
 script = ExtResource("1_vnckp")
 enemy_name = "Test Enemy 1"
 enemy_hp = 15
-enemy_color = Color(0.0470588, 0.509804, 0.647059, 1)
+combat_wait_time = 0.75
+movement_wait_time = 0.75

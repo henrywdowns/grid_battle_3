@@ -59,6 +59,7 @@ text = "TODO:
 -- Death handling
 -- Combat logic
 
+- PLAYER HP AND DAMAGE LOGIC
 - COMBAT ENEMY GROUPINGS
 - EVENT ROOMS
 - BOSS LOGIC
