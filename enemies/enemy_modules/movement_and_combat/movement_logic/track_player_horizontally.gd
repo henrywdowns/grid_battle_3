@@ -10,17 +10,14 @@ func _move_pattern(_enemy):
 	
 	print("Enemy y: ", enemy_y, "\nPlayer y: ", player_y)
 	
-	# Check if the enemy needs to move vertically
 	if enemy_y > player_y:
-		# Enemy is below the player, so move up
-		var pre_coords = _enemy.enemy_coords
-		_enemy.enemy_coords += Vector2(0, -1)  # Move up (negative y)
-		print("Enemy moved up from coords ", pre_coords, " to coords ", _enemy.enemy_coords)
+		var temp_coords = _enemy.enemy_coords
+		move_up(_enemy)
+		print("Enemy moved up from coords ", temp_coords, " to coords ", _enemy.enemy_coords)
 	elif enemy_y < player_y:
-		# Enemy is above the player, so move down
-		var pre_coords = _enemy.enemy_coords
-		_enemy.enemy_coords += Vector2(0, 1)  # Move down (positive y)
-		print("Enemy moved down from coords ", pre_coords, " to coords ", _enemy.enemy_coords)
+		var temp_coords = _enemy.enemy_coords
+		move_down(_enemy)
+		print("Enemy moved down from coords ", temp_coords, " to coords ", _enemy.enemy_coords)
 
 	# Update the enemy's global position based on its new coordinates
 	_enemy.global_position = Global.translate_coords_to_points(_enemy.enemy_coords).global_position
