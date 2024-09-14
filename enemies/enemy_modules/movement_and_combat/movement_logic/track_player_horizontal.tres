@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="TrackHorizontal" load_steps=2 format=3 uid="uid://lpnkp1dwbtjg"]
+
+[ext_resource type="Script" path="res://enemies/enemy_modules/movement_and_combat/movement_logic/track_player_horizontally.gd" id="1_8j5sc"]
+
+[resource]
+script = ExtResource("1_8j5sc")
+combat_or_movement = 1

@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dwsyyilobo4q8"]
+[gd_scene load_steps=11 format=3 uid="uid://dwsyyilobo4q8"]
 
 [ext_resource type="Script" path="res://enemies/base_enemy.gd" id="1_tp8bt"]
 [ext_resource type="PackedScene" uid="uid://b5s27hrxrujwy" path="res://enemies/enemy_modules/enemy_spawn_handler/enemy_spawn_handler.tscn" id="2_gck60"]
+[ext_resource type="Resource" uid="uid://lpnkp1dwbtjg" path="res://enemies/enemy_modules/movement_and_combat/movement_logic/track_player_horizontal.tres" id="2_u4pow"]
 [ext_resource type="Texture2D" uid="uid://gg5uya7qq4u1" path="res://assets/enemies/test_enemy/test-enemy-sprite.png" id="3_1hb6m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6dg3i"]
@@ -26,21 +27,6 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="Animation" id="Animation_fbs43"]
-resource_name = "death_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333, 0.433333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_absi7"]
 length = 0.001
 tracks/0/type = "value"
@@ -56,6 +42,21 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_fbs43"]
+resource_name = "death_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_okcn3"]
 _data = {
 "RESET": SubResource("Animation_absi7"),
@@ -64,6 +65,7 @@ _data = {
 
 [node name="BaseEnemy" type="Node2D"]
 script = ExtResource("1_tp8bt")
+movement_pattern = ExtResource("2_u4pow")
 
 [node name="EnemyHP" type="Label" parent="."]
 anchors_preset = 7
@@ -93,11 +95,9 @@ libraries = {
 "": SubResource("AnimationLibrary_okcn3")
 }
 
-[node name="CombatTimer" type="Timer" parent="."]
-
-[node name="MovementTimer" type="Timer" parent="."]
+[node name="UtilityTimer" type="Timer" parent="."]
+wait_time = 0.1
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="timeout" from="CombatTimer" to="." method="_on_combat_timer_timeout"]
-[connection signal="timeout" from="MovementTimer" to="." method="_on_movement_timer_timeout"]
+[connection signal="timeout" from="UtilityTimer" to="." method="_on_utility_timer_timeout"]

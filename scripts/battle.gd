@@ -54,6 +54,8 @@ func build_stage():
 		else:
 			panel_status[panel]["color"] = "red"
 	starting_point = gridpoints[4]
+	Global.battle_gridpoints = gridpoints
+	Global.battle_grid_coords = grid_coords
 	Events.call_deferred("emit_signal", "stop_awaiting")
 	print_debug("stop awaiting emitted")
 	
@@ -97,10 +99,10 @@ func pass_gridpoints(dest_node,spawning=true):
 func ready_enemy():
 	current_enemies.append(spawn_enemy(self,gridpoints[13],"test_enemy_1"))
 	var temp_panel = Array(panel_status.keys())[13]
-	current_enemies.append(spawn_enemy(self,gridpoints[16],"test_enemy_2"))
-	var temp_panel_2 = Array(panel_status.keys())[16]
+	#current_enemies.append(spawn_enemy(self,gridpoints[16],"test_enemy_2"))
+	#var temp_panel_2 = Array(panel_status.keys())[16]
 	panel_status[temp_panel]['occupant']=Array(enemy_dict.keys())[0]
-	panel_status[temp_panel_2]['occupant']=Array(enemy_dict.keys())[1]
+	#panel_status[temp_panel_2]['occupant']=Array(enemy_dict.keys())[1]
 	Events.i_died.connect(clean_up_enemy)
 	Events.stop_awaiting.emit()
 
@@ -109,6 +111,7 @@ func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	var enemy_node = enemy.instantiate()
 	enemy_node.generate_enemy(intended_enemy)
 	enemy_node.global_position = loc.global_position
+	enemy_node.enemy_coords = Global.translate_points_to_coords(loc)
 	scene.add_child(enemy_node)
 	enemy_dict[enemy_node] = enemy_node.enemy_hp
 	#panel_status[loc]["occupant"]=enemy_node

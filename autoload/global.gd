@@ -7,7 +7,7 @@ var battle_gridpoints = []
 var battle_grid_coords = []
 var run_game_node: Node
 var visible_scene_node: Node
-var battle_node: Node2D
+var battle_node: Control
 
 func _ready():
 	var root = get_tree().root
@@ -66,6 +66,10 @@ func translate_coords_to_points(coords):
 #
 func translate_points_to_coords(points):
 	var target_index = battle_gridpoints.find(points)
+	print(points)
+	print(battle_gridpoints)
+	print(battle_gridpoints.find(points))
+	print(battle_grid_coords[target_index])
 	return battle_grid_coords[target_index]
 
 #func check_balance_sheet():

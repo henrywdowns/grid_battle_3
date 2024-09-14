@@ -32,6 +32,7 @@ window/stretch/mode="viewport"
 folder_colors={
 "res://cards/": "red",
 "res://characters/": "orange",
+"res://enemies/": "purple",
 "res://resources/": "yellow",
 "res://scenes/": "green",
 "res://scripts/": "teal"

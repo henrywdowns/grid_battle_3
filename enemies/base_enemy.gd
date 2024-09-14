@@ -11,16 +11,32 @@ var enemy_coords: Vector2 #TODO: UPDATE ENEMY_COORDS ON MOVE AND SPAWN
 var can_combat: bool = true
 var can_move: bool = true
 
+### TIMER STUFF ###
+
+var init_timer: bool = true
+var combat_timer: float = 0.0
+var combat_elapsed: float = 0.0
+var movement_timer: float = 0.0
+var movement_elapsed: float = 0.0
+
 ### COMBAT & MOVEMENT VARS ###
 @export var movement_pattern: MovementBehavior
 @export var combat_pattern: CombatBehavior # may want to change how I do this so that I can have several combat patterns
 
 
 func _ready():
-	movement_pattern.enemy_node = self
-	combat_pattern.enemy_node = self
-	$CombatTimer.wait_time = enemy_data.combat_wait_time
-	$MovementTimer.wait_time = enemy_data.movement_wait_time
+	call_deferred("_assign_movement_and_combat")
+	
+func _process(_delta):
+	combat_elapsed += _delta
+	movement_elapsed += _delta
+	if enemy_data.combat_logic and combat_elapsed > combat_timer:
+		combat_elapsed = 0.0
+		enemy_data.combat_logic._combat_pattern(self)
+		await enemy_data.combat_logic.attack_complete
+	if enemy_data.movement_logic and movement_elapsed > movement_timer:
+		movement_elapsed = 0.0
+		enemy_data.movement_logic._move_pattern(self)
 
 func generate_enemy(enemy_tres):
 	var enemy = load("res://enemies/%s.tres" % enemy_tres)
@@ -50,8 +66,14 @@ func enemy_killed():
 
 
 ### COMBAT / MOVEMENT BEHAVIOR ###
-func _on_combat_timer_timeout() -> void:
-	combat_pattern._combat_pattern(self)
 
-func _on_movement_timer_timeout() -> void:
-	movement_pattern._movement_pattern(self)
+func _assign_movement_and_combat():
+	if enemy_data.movement_logic:
+		enemy_data.movement_logic.enemy_node = self
+		print(enemy_data.movement_logic.test_node)
+	if enemy_data.combat_logic:
+		enemy_data.combat_logic.enemy_node = self
+	print(enemy_data.combat_wait_time)
+	print(enemy_data.movement_wait_time)
+	combat_timer = enemy_data.combat_wait_time
+	movement_timer = enemy_data.movement_wait_time

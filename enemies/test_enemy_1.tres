@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Enemy" load_steps=2 format=3 uid="uid://dphc7blbep14t"]
+[gd_resource type="Resource" script_class="Enemy" load_steps=3 format=3 uid="uid://dphc7blbep14t"]
 
+[ext_resource type="Resource" uid="uid://lpnkp1dwbtjg" path="res://enemies/enemy_modules/movement_and_combat/movement_logic/track_player_horizontal.tres" id="1_8yd4e"]
 [ext_resource type="Script" path="res://resources/enemy_resource.gd" id="1_vnckp"]
 
 [resource]
@@ -7,5 +8,6 @@ resource_local_to_scene = true
 script = ExtResource("1_vnckp")
 enemy_name = "Test Enemy 1"
 enemy_hp = 15
+movement_logic = ExtResource("1_8yd4e")
 combat_wait_time = 0.75
 movement_wait_time = 0.75
