@@ -40,28 +40,36 @@ var grid_partition = 2	#represents furthest right player can go. want to declare
 
 func build_stage():
 	var x = 0
+	Global.battle_gridpoints = gridpoints
+	Global.battle_grid_coords = grid_coords
 	for panel in $"Arena Panels".get_children():
 		#this works its way down vertically left horizontally. ie x0y1 -> x0y2 -> x1y0
 		panels.append(panel)
 		gridpoints.append(panel.get_children()[0])
 		panel_status[panel] = {
-			"status":"normal",
-			"occupant":null
+			"status":"normal", # for terrain changes, normal by default
+			"occupant":null # empty by default
 		}
 		panel_status[panel]["panel_id"] = x
 		if x < 9: 
-			panel_status[panel]["color"] = "blue"
+			panel_status[panel]["color"] = "blue" # first 9 panels are player panels
 		else:
-			panel_status[panel]["color"] = "red"
+			panel_status[panel]["color"] = "red" # last 9 are enemy panels
+		x += 1
+		panel_status[panel]["panel_coords"] = Vector2(int(String(panel.name)[1]),int(String(panel.name)[3])) # vector2 of panel_coords for easy reference
+		panel_status[panel]["panel_gridpoint"] = Global.translate_coords_to_points(panel_status[panel]["panel_coords"])
+		print(panel_status[panel])
 	starting_point = gridpoints[4]
-	Global.battle_gridpoints = gridpoints
-	Global.battle_grid_coords = grid_coords
 	Events.call_deferred("emit_signal", "stop_awaiting")
+	Events.entity_moved.connect(update_panel_status)
 	print_debug("stop awaiting emitted")
 	
-func update_panel_status(new_panel=null,old_panel=null):
+func update_panel_status(entity,old_panel:Sprite2D=null,new_panel:Sprite2D=null):
 	#TODO: WHEN READY - CONNECT EVENTS.ENTITY_MOVED(UPDATE_PANEL_STATUS)
-	pass
+	var _occupant = panel_status[old_panel]["occupant"]
+	panel_status[old_panel]["occupant"] = null
+	panel_status[new_panel]["occupant"] = _occupant
+
 
 ### BATTLE-SPECIFIC CHARACTER MANAGEMENT ###
 # Incl. Spawning & Stats
@@ -118,6 +126,8 @@ func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	return enemy_node
 
 func clean_up_enemy(target_enemy:BaseEnemy):
+	#print(panel_status)
+	#print(panel_status.keys())
 	enemy_dict.erase(target_enemy)
 	check_if_all_dead()
 	for panel in panel_status:

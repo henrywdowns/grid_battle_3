@@ -70,10 +70,10 @@ func enemy_killed():
 func _assign_movement_and_combat():
 	if enemy_data.movement_logic:
 		enemy_data.movement_logic.enemy_node = self
-		print(enemy_data.movement_logic.test_node)
+		#print(enemy_data.movement_logic.test_node)
 	if enemy_data.combat_logic:
 		enemy_data.combat_logic.enemy_node = self
-	print(enemy_data.combat_wait_time)
-	print(enemy_data.movement_wait_time)
+	#print(enemy_data.combat_wait_time)
+	#print(enemy_data.movement_wait_time)
 	combat_timer = enemy_data.combat_wait_time
 	movement_timer = enemy_data.movement_wait_time

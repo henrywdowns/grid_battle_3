@@ -23,7 +23,7 @@ signal card_ui_card_clicked(card:Card)
 signal card_ui_debug_update_cards()
 
 ### PLAYER SIGNALS ###
-signal entity_moved(new_pos: Marker2D,old_pos: Marker2D)
+signal entity_moved(entity,new_pos: Marker2D,old_pos: Marker2D)
 
 ### SETTERS ###
 signal partition_updated(new_value)
