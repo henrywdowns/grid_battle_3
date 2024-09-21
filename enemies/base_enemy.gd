@@ -23,7 +23,6 @@ var movement_elapsed: float = 0.0
 @export var movement_pattern: MovementBehavior
 @export var combat_pattern: CombatBehavior # may want to change how I do this so that I can have several combat patterns
 
-
 func _ready():
 	call_deferred("_assign_movement_and_combat")
 	

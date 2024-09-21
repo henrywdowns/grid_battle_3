@@ -7,4 +7,5 @@ resource_local_to_scene = true
 script = ExtResource("1_b3a4q")
 enemy_name = "Test Enemy 2"
 enemy_hp = 20
-enemy_color = Color(0.168627, 0.537255, 0.403922, 1)
+combat_wait_time = 0.0
+movement_wait_time = 0.0
