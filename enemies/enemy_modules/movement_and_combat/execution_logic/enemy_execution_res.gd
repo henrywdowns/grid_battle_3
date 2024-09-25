@@ -1,6 +1,9 @@
 extends Resource
 class_name EnemyExecution
 
+signal execute_start
+signal execute_complete
+
 ### MOVEMENT / COMBAT ARRAYS ###
 @export var sequence: Array[AIBehavior]
 
@@ -21,41 +24,30 @@ var m_timer_on := false
 
 ### MAIN METHODS ###
 
-func _process(_delta: float):
-	if p_timer_on:
-		pattern_timer += _delta
-	if a_timer_on:
-		attack_timer += _delta
-	if m_timer_on:
-		move_timer += _delta
-	if is_executing and pattern_timer >= pattern_timer_interval:
-		execute_combat_and_movement(enemy_node)
-
-func _start(entity: Node) -> void:
+func _start() -> void:
+	execute_start.emit()
 	current_index = 0
 	is_executing = true
-	p_timer_on = true
 
 func _finish() -> void:
 	is_executing = false
-	p_timer_on = false
-	a_timer_on = false
-	m_timer_on = false
+	execute_complete.emit()
 
-func execute_combat_and_movement(_enemy) -> String:
-	if sequence and is_instance_valid(sequence[current_index]):
-		sequence[current_index].movement_pattern(_enemy)
-		current_index += 1
-	else:
-		_finish()
-	return "error"# space to define how and when enemy moves or attacks
+func execute_combat_and_movement(_enemy) -> void:
+	print_debug(current_index)
+	_start()
+	for action in sequence:
+		if sequence and is_instance_valid(sequence[current_index]):
+			pattern_timer = 0.0
+			sequence[current_index]._action_pattern(_enemy)
+			current_index += 1
+	_finish()
 
 ### UTILITY METHODS ###
 
 func _locate_player_pos() -> Vector2:
 	assert(Global.battle_node)
 	assert(Global.battle_node.player_char)
-	#print("Player character exists: ", Global.battle_node.player_char)
 	if Global.battle_node.player_char.character_coords == null:
 		print_debug("Warning no coords for some reason")
 		print_debug(Global.battle_node.player_char.character_coords)

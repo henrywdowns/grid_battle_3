@@ -60,14 +60,31 @@ func build_stage():
 		x += 1
 		panel_status[panel]["panel_coords"] = Vector2(int(String(panel.name)[1]),int(String(panel.name)[3])) # vector2 of panel_coords for easy reference
 		panel_status[panel]["panel_gridpoint"] = Global.translate_coords_to_points(panel_status[panel]["panel_coords"])
-		print(panel_status[panel])
 	starting_point = gridpoints[4]
 	Events.call_deferred("emit_signal", "stop_awaiting")
 	Events.entity_moved.connect(update_panel_status)
 	print_debug("stop awaiting emitted")
 	
-func update_panel_status(entity,old_panel:Sprite2D=null,new_panel:Sprite2D=null):
-	#TODO: WHEN READY - CONNECT EVENTS.ENTITY_MOVED(UPDATE_PANEL_STATUS)
+#func update_panel_status(entity,old_panel:Sprite2D=null,new_panel:Sprite2D=null):
+	#print(entity,old_panel,new_panel)
+	#var _occupant = panel_status[old_panel]["occupant"]
+	#panel_status[old_panel]["occupant"] = null
+	#panel_status[new_panel]["occupant"] = _occupant
+
+func update_panel_status(entity, old_panel:Sprite2D=null, new_panel:Sprite2D=null):
+	print("Entity:", entity)
+	print("Old Panel:", old_panel, "Type:", typeof(old_panel))  # Print type and value of old_panel
+	print("New Panel:", new_panel, "Type:", typeof(new_panel))  # Print type and value of new_panel
+	
+	# Check if old_panel and new_panel are either null or Sprite2D
+	if old_panel != null and !(old_panel is Sprite2D):
+		print("Error: old_panel is not a Sprite2D!")
+		return
+	if new_panel != null and !(new_panel is Sprite2D):
+		print("Error: new_panel is not a Sprite2D!")
+		return
+
+	# Proceed with logic if everything is valid
 	var _occupant = panel_status[old_panel]["occupant"]
 	panel_status[old_panel]["occupant"] = null
 	panel_status[new_panel]["occupant"] = _occupant
@@ -128,8 +145,6 @@ func spawn_enemy(scene,loc,intended_enemy) -> Node2D:
 	return enemy_node
 
 func clean_up_enemy(target_enemy:BaseEnemy):
-	#print(panel_status)
-	#print(panel_status.keys())
 	enemy_dict.erase(target_enemy)
 	check_if_all_dead()
 	for panel in panel_status:

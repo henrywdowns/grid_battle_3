@@ -44,6 +44,6 @@ func move_char(dir):
 		var target_panel_index = grid_coords.find(target_panel)
 		player_current_panel = target_panel
 		player_char.character_gridpoint = gridpoints[target_panel_index]
-		Events.entity_moved.emit(player_char.character_gridpoint,player_current_panel_gridpoint)
+		Events.entity_moved.emit(player_char,player_char.character_gridpoint,player_current_panel_gridpoint)
 		player_char.character_coords = player_current_panel
 		player_char.global_position = gridpoints[target_panel_index].global_position

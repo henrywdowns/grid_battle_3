@@ -16,27 +16,63 @@ var can_move: bool = true
 ### TIMER STUFF ###
 
 var init_timer: bool = true
+var gen_purpose_timer_running: bool = true
+@export var c_timer_running: bool = true
+@export var m_timer_running: bool = true
+@export var e_timer_running: bool = true
 var combat_timer: float = 0.0
 var combat_elapsed: float = 0.0
 var movement_timer: float = 0.0
 var movement_elapsed: float = 0.0
+var execute_interval: float = 5.0
+var execute_timer: float = 0.0
+var execute_elapsed: float = 0.0
+
+func stop_timers() -> void:
+	c_timer_running = false
+	m_timer_running = false
+	e_timer_running = false
+
+func start_timers() -> void:
+	c_timer_running = true
+	m_timer_running = true
+	e_timer_running = true
+
+func reset_timers() -> void:
+	combat_timer = 0.0
+	movement_timer = 0.0
+	execute_timer = 0.0
 
 ### COMBAT & MOVEMENT VARS ###
-@export var execution_pattern: EnemyExecution
-@export var movement_pattern: MovementBehavior
-@export var combat_pattern: Array[CombatBehavior] # may want to change how I do this so that I can have several combat patterns
+var execution_patterns: Array[EnemyExecution]
+var movement_pattern: MovementBehavior
+var combat_pattern: CombatBehavior # may want to change how I do this so that I can have several combat patterns
 
 func _ready():
 	call_deferred("_assign_movement_and_combat")
 	
 func _process(_delta):
-	combat_elapsed += _delta
-	movement_elapsed += _delta
-	if enemy_data.combat_logic and combat_elapsed > combat_timer:
+	if c_timer_running:
+		combat_elapsed += _delta
+	if m_timer_running:
+		movement_elapsed += _delta
+	if e_timer_running:
+		execute_elapsed += _delta
+	if enemy_data.execution_logic and execute_timer > execute_interval:
+		print_debug("executing...")
+		stop_timers()
+		reset_timers()
+		### THIS NEEDS TO CHANGE TO BE MORE MODULAR ###
+	
+		execution_patterns[0].execute_combat_and_movement(self)
+		await execution_patterns[0].execution_logic.execute_complete
+		start_timers()
+		
+	elif enemy_data.combat_logic and combat_elapsed > combat_timer:
 		combat_elapsed = 0.0
 		enemy_data.combat_logic._action_pattern(self)
 		await enemy_data.combat_logic.attack_complete
-	if enemy_data.movement_logic and movement_elapsed > movement_timer:
+	elif enemy_data.movement_logic and movement_elapsed > movement_timer:
 		movement_elapsed = 0.0
 		enemy_data.movement_logic._action_pattern(self)
 
@@ -71,11 +107,15 @@ func enemy_killed():
 
 func _assign_movement_and_combat():
 	if enemy_data.movement_logic:
+		movement_pattern = enemy_data.movement_logic
 		enemy_data.movement_logic.enemy_node = self
-		#print(enemy_data.movement_logic.test_node)
 	if enemy_data.combat_logic:
+		combat_pattern = enemy_data.combat_logic
 		enemy_data.combat_logic.enemy_node = self
-	#print(enemy_data.combat_wait_time)
-	#print(enemy_data.movement_wait_time)
+	if enemy_data.execution_logic:
+		assert(enemy_data.execution_logic is Array)
+		execution_patterns = enemy_data.execution_logic
+		for pattern in execution_patterns:
+			pattern.enemy_node = self
 	combat_timer = enemy_data.combat_wait_time
 	movement_timer = enemy_data.movement_wait_time

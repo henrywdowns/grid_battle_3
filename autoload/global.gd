@@ -70,10 +70,6 @@ func translate_coords_to_points(coords):
 #
 func translate_points_to_coords(points):
 	var target_index = battle_gridpoints.find(points)
-	print(points)
-	print(battle_gridpoints)
-	print(battle_gridpoints.find(points))
-	print(battle_grid_coords[target_index])
 	return battle_grid_coords[target_index]
 
 #func check_balance_sheet():

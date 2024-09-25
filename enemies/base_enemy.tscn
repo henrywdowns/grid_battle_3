@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dwsyyilobo4q8"]
+[gd_scene load_steps=10 format=3 uid="uid://dwsyyilobo4q8"]
 
 [ext_resource type="Script" path="res://enemies/base_enemy.gd" id="1_tp8bt"]
 [ext_resource type="PackedScene" uid="uid://b5s27hrxrujwy" path="res://enemies/enemy_modules/enemy_spawn_handler/enemy_spawn_handler.tscn" id="2_gck60"]
-[ext_resource type="Resource" uid="uid://lpnkp1dwbtjg" path="res://enemies/enemy_modules/movement_and_combat/movement_logic/track_vertically/track_player_vertically.tres" id="2_u4pow"]
 [ext_resource type="Texture2D" uid="uid://gg5uya7qq4u1" path="res://assets/enemies/test_enemy/test-enemy-sprite.png" id="3_1hb6m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6dg3i"]
@@ -65,7 +64,6 @@ _data = {
 
 [node name="BaseEnemy" type="Node2D"]
 script = ExtResource("1_tp8bt")
-movement_pattern = ExtResource("2_u4pow")
 
 [node name="EnemyHP" type="Label" parent="."]
 anchors_preset = 7

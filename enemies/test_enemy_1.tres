@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Enemy" load_steps=5 format=3 uid="uid://dphc7blbep14t"]
+[gd_resource type="Resource" script_class="Enemy" load_steps=6 format=3 uid="uid://dphc7blbep14t"]
 
 [ext_resource type="Script" path="res://resources/card_resource.gd" id="1_q16ca"]
 [ext_resource type="Script" path="res://resources/enemy_resource.gd" id="1_vnckp"]
 [ext_resource type="Resource" uid="uid://d4gawxkra46qq" path="res://enemies/enemy_modules/movement_and_combat/execution_logic/test_print_execution.tres" id="2_qr36n"]
+[ext_resource type="Script" path="res://enemies/enemy_modules/movement_and_combat/execution_logic/enemy_execution_res.gd" id="3_jhqm2"]
 [ext_resource type="Resource" uid="uid://lpnkp1dwbtjg" path="res://enemies/enemy_modules/movement_and_combat/movement_logic/track_vertically/track_player_vertically.tres" id="3_k25ai"]
 
 [resource]
@@ -13,5 +14,5 @@ enemy_hp = 15
 movement_logic = ExtResource("3_k25ai")
 combat_wait_time = 0.75
 movement_wait_time = 0.75
-execution_logic = ExtResource("2_qr36n")
+execution_logic = Array[ExtResource("3_jhqm2")]([ExtResource("2_qr36n")])
 attacks = Array[ExtResource("1_q16ca")]([])

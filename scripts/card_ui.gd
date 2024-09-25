@@ -32,7 +32,6 @@ var card_ui_open := false
 func _ready():
 	z_index = 15
 	$".".visible = false
-	print("Visibility: ",$".".visible)
 	$".".process_mode = Node.PROCESS_MODE_ALWAYS
 	print_debug($".".process_mode)
 	init_timer()

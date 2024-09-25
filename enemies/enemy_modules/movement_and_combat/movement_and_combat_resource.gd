@@ -31,7 +31,6 @@ func _action_pattern(_enemy):
 func _locate_player_pos() -> Vector2:
 	assert(Global.battle_node)
 	assert(Global.battle_node.player_char)
-	#print("Player character exists: ", Global.battle_node.player_char)
 	if Global.battle_node.player_char.character_coords == null:
 		print_debug("Warning no coords for some reason")
 		print_debug(Global.battle_node.player_char.character_coords)
