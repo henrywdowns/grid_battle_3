@@ -53,8 +53,10 @@ func build_stage():
 		panel_status[panel]["panel_id"] = x
 		if x < 9: 
 			panel_status[panel]["color"] = "blue" # first 9 panels are player panels
+			Global.player_panels.append(panel)
 		else:
 			panel_status[panel]["color"] = "red" # last 9 are enemy panels
+			Global.enemy_panels.append(panel)
 		x += 1
 		panel_status[panel]["panel_coords"] = Vector2(int(String(panel.name)[1]),int(String(panel.name)[3])) # vector2 of panel_coords for easy reference
 		panel_status[panel]["panel_gridpoint"] = Global.translate_coords_to_points(panel_status[panel]["panel_coords"])

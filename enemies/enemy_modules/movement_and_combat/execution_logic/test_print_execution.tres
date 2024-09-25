@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EnemyExecution" load_steps=5 format=3 uid="uid://d4gawxkra46qq"]
+
+[ext_resource type="Script" path="res://enemies/enemy_modules/movement_and_combat/execution_logic/enemy_execution_res.gd" id="1_h7ro7"]
+[ext_resource type="Script" path="res://enemies/enemy_modules/movement_and_combat/movement_and_combat_resource.gd" id="2_agh77"]
+[ext_resource type="Resource" uid="uid://cw71fkot1nbxi" path="res://enemies/enemy_modules/movement_and_combat/movement_logic/jump_to_random_panel/jump_random_enemy_panel.tres" id="3_dt3pr"]
+[ext_resource type="Resource" uid="uid://b0ua1683gbhiq" path="res://enemies/enemy_modules/movement_and_combat/combat_logic/test_print_attack.tres" id="4_0xlft"]
+
+[resource]
+script = ExtResource("1_h7ro7")
+sequence = Array[ExtResource("2_agh77")]([ExtResource("3_dt3pr"), ExtResource("3_dt3pr"), ExtResource("3_dt3pr"), ExtResource("4_0xlft")])
+exec_name = "print_attack"
+pattern_timer_interval = 0.0

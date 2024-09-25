@@ -1,10 +1,9 @@
 extends MovementBehavior
-class_name TrackHorizontal
+class_name TrackVertical
 
 #TODO: NEED SLIGHT DELAY BETWEEN PLAYER MOVEMENT AND ENEMY MOVEMENT
 
-func _move_pattern(_enemy):
-	attack_start.emit()
+func _action_pattern(_enemy):
 	var enemy_y = _enemy.enemy_coords[1]  # Enemy's vertical (y-axis) position
 	var player_y = _locate_player_pos()[1]  # Player's vertical (y-axis) position
 	
@@ -18,8 +17,6 @@ func _move_pattern(_enemy):
 
 	# Update the enemy's global position based on its new coordinates
 	_enemy.global_position = Global.translate_coords_to_points(_enemy.enemy_coords).global_position
-	
-	attack_complete.emit()
 
 
 func _check_if_legal_move():

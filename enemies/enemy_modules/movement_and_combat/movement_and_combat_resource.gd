@@ -3,16 +3,15 @@ class_name AIBehavior
 
 ### NODE REF ###
 var enemy_node: Node2D
-var test_node = " ========================= test"
 
 ### LOGIC INIT ###
 enum CombatOrMovement { COMBAT, MOVEMENT }
 @export var combat_or_movement: CombatOrMovement
+@export var pattern_name: String
 signal attack_start
 signal attack_complete
 signal move_start
 signal move_complete
-
 
 
 func _ready():
@@ -23,10 +22,7 @@ func _process(_delta) -> void:
 
 ### CHARACTERISTIC METHODS ###
 
-func _move_pattern(_enemy):
-	pass
-	
-func _combat_pattern(_enemy):
+func _action_pattern(_enemy):
 	pass
 
 
@@ -47,6 +43,7 @@ func _get_self_coords() -> Vector2:
 	return enemy_node.enemy_coords #s node that owns this needs to adjust var enemy_node in its ready()
 
 func move_up(_enemy):
+	move_start.emit()
 	var target_panel = _enemy.enemy_coords + Vector2.UP
 	if _check_if_legal_space(_enemy.enemy_coords + Vector2.UP):
 		Events.entity_moved.emit(enemy_node,Global.translate_coords_to_points(_enemy.enemy_coords).get_parent(),Global.translate_coords_to_points(target_panel).get_parent())
@@ -54,8 +51,10 @@ func move_up(_enemy):
 		_enemy.global_position = Global.translate_coords_to_points(_enemy.enemy_coords).global_position
 	else:
 		print_debug("Attempt to move Vector2.UP failed; illegal target panel")
+	move_complete.emit()
 
 func move_down(_enemy):
+	move_start.emit()
 	var target_panel = _enemy.enemy_coords + Vector2.DOWN
 	if _check_if_legal_space(target_panel):
 		Events.entity_moved.emit(enemy_node,Global.translate_coords_to_points(_enemy.enemy_coords).get_parent(),Global.translate_coords_to_points(target_panel).get_parent())
@@ -63,8 +62,10 @@ func move_down(_enemy):
 		_enemy.global_position = Global.translate_coords_to_points(_enemy.enemy_coords).global_position
 	else:
 		print_debug("Attempt to move Vector2.DOWN failed; illegal target panel")
+	move_complete.emit()
 
 func move_left(_enemy):
+	move_start.emit()
 	var target_panel = _enemy.enemy_coords + Vector2.LEFT
 	if _check_if_legal_space(target_panel):
 		Events.entity_moved.emit(enemy_node,Global.translate_coords_to_points(_enemy.enemy_coords).get_parent(),Global.translate_coords_to_points(target_panel).get_parent())
@@ -72,8 +73,10 @@ func move_left(_enemy):
 		_enemy.global_position = Global.translate_coords_to_points(_enemy.enemy_coords).global_position
 	else:
 		print_debug("Attempt to move Vector2.LEFT failed; illegal target panel")
+	move_complete.emit()
 
 func move_right(_enemy):
+	move_start.emit()
 	var target_panel = _enemy.enemy_coords + Vector2.RIGHT
 	if _check_if_legal_space(target_panel):
 		Events.entity_moved.emit(enemy_node,Global.translate_coords_to_points(_enemy.enemy_coords).get_parent(),Global.translate_coords_to_points(target_panel).get_parent())
@@ -81,14 +84,17 @@ func move_right(_enemy):
 		_enemy.global_position = Global.translate_coords_to_points(_enemy.enemy_coords).global_position
 	else:
 		print_debug("Attempt to move Vector2.RIGHT failed; illegal target panel")
+	move_complete.emit()
 
 func move_to(_enemy,target_coords: Vector2):
+	move_start.emit()
 	if _check_if_legal_space(target_coords):
 		Events.entity_moved.emit(enemy_node,Global.translate_coords_to_points(_enemy.enemy_coords).get_parent(),Global.translate_coords_to_points(target_coords).get_parent())
 		_enemy.enemy_coords = target_coords
 		_enemy.global_position = Global.translate_coords_to_points(_enemy.enemy_coords).global_position
 	else:
 		print_debug("Attempt to move to target coords %s failed; illegal target panel" % target_coords)
+	move_complete.emit()
 
 func _check_if_legal_space(_target_panel: Vector2) -> bool:
 	var _panel_nodes = Global.battle_node.get_node("Arena Panels").get_children()

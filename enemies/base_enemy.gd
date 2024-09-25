@@ -1,6 +1,8 @@
 extends Node2D
 class_name BaseEnemy
 
+### TODO: IMPLEMENT TEST_PRINT_EXECUTION.TRES
+
 ### ENEMY INIT VARS ###
 var enemy_data:Enemy
 var enemy_hp: int
@@ -20,8 +22,9 @@ var movement_timer: float = 0.0
 var movement_elapsed: float = 0.0
 
 ### COMBAT & MOVEMENT VARS ###
+@export var execution_pattern: EnemyExecution
 @export var movement_pattern: MovementBehavior
-@export var combat_pattern: CombatBehavior # may want to change how I do this so that I can have several combat patterns
+@export var combat_pattern: Array[CombatBehavior] # may want to change how I do this so that I can have several combat patterns
 
 func _ready():
 	call_deferred("_assign_movement_and_combat")
@@ -31,11 +34,11 @@ func _process(_delta):
 	movement_elapsed += _delta
 	if enemy_data.combat_logic and combat_elapsed > combat_timer:
 		combat_elapsed = 0.0
-		enemy_data.combat_logic._combat_pattern(self)
+		enemy_data.combat_logic._action_pattern(self)
 		await enemy_data.combat_logic.attack_complete
 	if enemy_data.movement_logic and movement_elapsed > movement_timer:
 		movement_elapsed = 0.0
-		enemy_data.movement_logic._move_pattern(self)
+		enemy_data.movement_logic._action_pattern(self)
 
 func generate_enemy(enemy_tres):
 	var enemy = load("res://enemies/%s.tres" % enemy_tres)

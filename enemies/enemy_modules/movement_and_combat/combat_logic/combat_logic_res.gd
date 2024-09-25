@@ -7,7 +7,9 @@ class_name CombatBehavior
 func _ready():
 	combat_or_movement = CombatOrMovement.COMBAT
 
+func _action_pattern(_enemy):
+	pass
 
 ### COMBAT METHODS ###
 func _basic_attack(enemy_attack):
-	
+	pass

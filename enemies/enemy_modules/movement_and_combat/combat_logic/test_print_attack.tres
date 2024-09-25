@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TestPrintAttack" load_steps=3 format=3 uid="uid://b0ua1683gbhiq"]
+
+[ext_resource type="Script" path="res://resources/card_resource.gd" id="1_kccsy"]
+[ext_resource type="Script" path="res://enemies/enemy_modules/movement_and_combat/combat_logic/test_print_attack.gd" id="2_2asqy"]
+
+[resource]
+script = ExtResource("2_2asqy")
+attack_array = Array[ExtResource("1_kccsy")]([])
+combat_or_movement = 0
+pattern_name = ""

@@ -3,11 +3,15 @@ extends Node
 ### SCENE MANAGEMENT ###
 
 var current_scene = null
-var battle_gridpoints = []
-var battle_grid_coords = []
 var run_game_node: Node
 var visible_scene_node: Node
 var battle_node: Control
+
+### GRID/PANEL MANAGEMENT ###
+var battle_gridpoints = []
+var battle_grid_coords = []
+var enemy_panels: Array
+var player_panels: Array
 
 func _ready():
 	var root = get_tree().root
