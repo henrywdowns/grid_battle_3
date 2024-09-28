@@ -3,6 +3,7 @@ class_name EnemyExecution
 
 signal execute_start
 signal execute_complete
+signal p_timer_timeout
 
 ### MOVEMENT / COMBAT ARRAYS ###
 @export var sequence: Array[AIBehavior]
@@ -24,23 +25,42 @@ var m_timer_on := false
 
 ### MAIN METHODS ###
 
+func _process(_delta): # I DONT THINK I CAN USE PROCESS HERE
+	if p_timer_on and is_executing:
+		pattern_timer += _delta
+		if pattern_timer > pattern_timer_interval:
+			p_timer_timeout.emit()
+			pattern_timer = 0.0
+
 func _start() -> void:
 	execute_start.emit()
 	current_index = 0
+	p_timer_on = true
 	is_executing = true
 
 func _finish() -> void:
 	is_executing = false
+	current_index = 0
+	p_timer_on = false
 	execute_complete.emit()
 
 func execute_combat_and_movement(_enemy) -> void:
-	print_debug(current_index)
+	print_debug("Current execute index: ",current_index)
+
 	_start()
 	for action in sequence:
+		if current_index > 0:
+			print_debug("Awaiting...")
+			await p_timer_timeout
 		if sequence and is_instance_valid(sequence[current_index]):
 			pattern_timer = 0.0
 			sequence[current_index]._action_pattern(_enemy)
 			current_index += 1
+		elif sequence:
+			print_debug("Invalid sequence index")
+		else:
+			print_debug("No sequence or invalid sequence")
+		print_debug("Action iteration over")
 	_finish()
 
 ### UTILITY METHODS ###

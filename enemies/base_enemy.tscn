@@ -80,6 +80,21 @@ grow_vertical = 0
 text = "HP placeholder"
 horizontal_alignment = 1
 
+[node name="ExeTimer" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 56.0
+offset_top = -90.0
+offset_right = 174.0
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "execute timer placeholder"
+horizontal_alignment = 1
+
 [node name="EnemySpawnHandler" parent="." instance=ExtResource("2_gck60")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

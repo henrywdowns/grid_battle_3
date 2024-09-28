@@ -16,16 +16,15 @@ var can_move: bool = true
 ### TIMER STUFF ###
 
 var init_timer: bool = true
-var gen_purpose_timer_running: bool = true
-@export var c_timer_running: bool = true
-@export var m_timer_running: bool = true
+@export var c_timer_running: bool = false # just use one of these usually, but some enemies may need to track multiple kinds of actions at once
+@export var m_timer_running: bool = false
 @export var e_timer_running: bool = true
-var combat_timer: float = 0.0
-var combat_elapsed: float = 0.0
+var combat_timer: float = 0.0 # how long should it take?
+var combat_elapsed: float = 0.0 # the actual timer that counts up to timer
 var movement_timer: float = 0.0
 var movement_elapsed: float = 0.0
-var execute_interval: float = 5.0
-var execute_timer: float = 0.0
+var execute_interval: float = 0.5 # time *in between* execute steps, not the timer length
+var execute_timer: float = 2.0
 var execute_elapsed: float = 0.0
 
 func stop_timers() -> void:
@@ -39,14 +38,14 @@ func start_timers() -> void:
 	e_timer_running = true
 
 func reset_timers() -> void:
-	combat_timer = 0.0
-	movement_timer = 0.0
-	execute_timer = 0.0
+	combat_elapsed = 0.0
+	movement_elapsed = 0.0
+	execute_elapsed = 0.0
 
 ### COMBAT & MOVEMENT VARS ###
-var execution_patterns: Array[EnemyExecution]
+var execution_patterns: Array[EnemyExecution] # if several combat patterns or want to incorporate movement, use this
 var movement_pattern: MovementBehavior
-var combat_pattern: CombatBehavior # may want to change how I do this so that I can have several combat patterns
+var combat_pattern: CombatBehavior
 
 func _ready():
 	call_deferred("_assign_movement_and_combat")
@@ -58,16 +57,15 @@ func _process(_delta):
 		movement_elapsed += _delta
 	if e_timer_running:
 		execute_elapsed += _delta
-	if enemy_data.execution_logic and execute_timer > execute_interval:
+		$ExeTimer.text = str(snapped(execute_elapsed,0.01))
+	if enemy_data.execution_logic and execute_elapsed > execute_timer:
 		print_debug("executing...")
 		stop_timers()
 		reset_timers()
 		### THIS NEEDS TO CHANGE TO BE MORE MODULAR ###
-	
 		execution_patterns[0].execute_combat_and_movement(self)
-		await execution_patterns[0].execution_logic.execute_complete
+		await execution_patterns[0].execute_complete # i don't think this is necessary since i'm stopping the timers
 		start_timers()
-		
 	elif enemy_data.combat_logic and combat_elapsed > combat_timer:
 		combat_elapsed = 0.0
 		enemy_data.combat_logic._action_pattern(self)

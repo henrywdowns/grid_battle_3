@@ -9,4 +9,4 @@
 script = ExtResource("1_h7ro7")
 sequence = Array[ExtResource("2_agh77")]([ExtResource("3_dt3pr"), ExtResource("3_dt3pr"), ExtResource("3_dt3pr"), ExtResource("4_0xlft")])
 exec_name = "print_attack"
-pattern_timer_interval = 0.0
+pattern_timer_interval = 0.1
