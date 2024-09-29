@@ -25,6 +25,7 @@ var panels = []
 var starting_point: Marker2D
 var enemy_starting_point: Marker2D #for testing. plan for automatically generated start points down the line
 var panel_status = {}
+# 
 
 var grid_coords = [
 	Vector2(0, 0), Vector2(0, 1), Vector2(0, 2),
@@ -56,20 +57,21 @@ func build_stage():
 			Global.player_panels.append(panel)
 		else:
 			panel_status[panel]["color"] = "red" # last 9 are enemy panels
-			Global.enemy_panels.append(panel)
+			Global.enemy_panels.append(panel.get_node("Marker2D"))
 		x += 1
 		panel_status[panel]["panel_coords"] = Vector2(int(String(panel.name)[1]),int(String(panel.name)[3])) # vector2 of panel_coords for easy reference
 		panel_status[panel]["panel_gridpoint"] = Global.translate_coords_to_points(panel_status[panel]["panel_coords"])
 	starting_point = gridpoints[4]
+	print_debug("Panel status: ",panel_status)
+	print_debug(Global.battle_points_to_panels)
+	for panel in panel_status.keys():
+		Global.battle_points_to_panels[panel_status[panel]["panel_gridpoint"]] = panel
+	print(Global.battle_points_to_panels)
 	Events.call_deferred("emit_signal", "stop_awaiting")
 	Events.entity_moved.connect(update_panel_status)
 	print_debug("stop awaiting emitted")
 	
-#func update_panel_status(entity,old_panel:Sprite2D=null,new_panel:Sprite2D=null):
-	#print(entity,old_panel,new_panel)
-	#var _occupant = panel_status[old_panel]["occupant"]
-	#panel_status[old_panel]["occupant"] = null
-	#panel_status[new_panel]["occupant"] = _occupant
+
 
 func update_panel_status(entity, old_panel:Sprite2D=null, new_panel:Sprite2D=null):
 	print("Entity:", entity)

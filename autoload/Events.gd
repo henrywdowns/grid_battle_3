@@ -35,7 +35,7 @@ signal card_ui_debug_update_cards()
 
 ### PLAYER SIGNALS ###
 @warning_ignore("unused_signal")
-signal entity_moved(entity,new_pos: Marker2D,old_pos: Marker2D)
+signal entity_moved(entity,new_pos: Sprite2D,old_pos: Sprite2D)
 
 ### SETTERS ###
 @warning_ignore("unused_signal")
@@ -68,3 +68,7 @@ signal treasure_scene_exited
 ### CAMPFIRE SIGNALS ###
 @warning_ignore("unused_signal")
 signal campfire_scene_exited
+
+### SEQUENCE EXECUTION SIGNALS ###
+@warning_ignore("unused_signal")
+signal execute_complete

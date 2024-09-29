@@ -2,6 +2,8 @@ extends Node2D
 class_name BaseEnemy
 
 ### TODO: IMPLEMENT TEST_PRINT_EXECUTION.TRES
+### DEBUG VARS - TEMP, DELETE WHEN YOU HAVE A BETTER PLAN ###
+var current_execution: EnemyExecution
 
 ### ENEMY INIT VARS ###
 var enemy_data:Enemy
@@ -17,15 +19,21 @@ var can_move: bool = true
 
 var init_timer: bool = true
 @export var c_timer_running: bool = false # just use one of these usually, but some enemies may need to track multiple kinds of actions at once
-@export var m_timer_running: bool = false
+@export var m_timer_running: bool = true
 @export var e_timer_running: bool = true
 var combat_timer: float = 0.0 # how long should it take?
 var combat_elapsed: float = 0.0 # the actual timer that counts up to timer
 var movement_timer: float = 0.0
 var movement_elapsed: float = 0.0
 var execute_interval: float = 0.5 # time *in between* execute steps, not the timer length
-var execute_timer: float = 2.0
+var execute_timer: float = 3.0
 var execute_elapsed: float = 0.0
+# the below ones are for executing the sequence steps inside the resource
+var sequence_timer: float = 0.0
+var sequence_elapsed: float = 0.0
+var is_executing = false
+var sequence_index: int = 0
+var sequence_length: int = 0
 
 func stop_timers() -> void:
 	c_timer_running = false
@@ -46,6 +54,7 @@ func reset_timers() -> void:
 var execution_patterns: Array[EnemyExecution] # if several combat patterns or want to incorporate movement, use this
 var movement_pattern: MovementBehavior
 var combat_pattern: CombatBehavior
+var safety: int = 0
 
 func _ready():
 	call_deferred("_assign_movement_and_combat")
@@ -58,18 +67,25 @@ func _process(_delta):
 	if e_timer_running:
 		execute_elapsed += _delta
 		$ExeTimer.text = str(snapped(execute_elapsed,0.01))
+	if is_executing:
+		sequence_elapsed += _delta
+		if sequence_elapsed > sequence_timer:
+			execute_sequence(current_execution)
+			sequence_elapsed = 0.0
+			safety += 1
+			if safety > 10:
+				print_debug("safety triggered")
+				sequence_end()
 	if enemy_data.execution_logic and execute_elapsed > execute_timer:
 		print_debug("executing...")
-		stop_timers()
+		sequence_index = 0
 		reset_timers()
-		### THIS NEEDS TO CHANGE TO BE MORE MODULAR ###
-		execution_patterns[0].execute_combat_and_movement(self)
-		await execution_patterns[0].execute_complete # i don't think this is necessary since i'm stopping the timers
-		start_timers()
+		stop_timers()
+		is_executing = true
 	elif enemy_data.combat_logic and combat_elapsed > combat_timer:
 		combat_elapsed = 0.0
 		enemy_data.combat_logic._action_pattern(self)
-		await enemy_data.combat_logic.attack_complete
+		#await enemy_data.combat_logic.attack_complete
 	elif enemy_data.movement_logic and movement_elapsed > movement_timer:
 		movement_elapsed = 0.0
 		enemy_data.movement_logic._action_pattern(self)
@@ -103,6 +119,26 @@ func enemy_killed():
 
 ### COMBAT / MOVEMENT BEHAVIOR ###
 
+func execute_sequence(_execution):
+	sequence_length = len(_execution.sequence)
+	if sequence_index < sequence_length:
+		is_executing = true
+		print_debug("Executing Sequence Index: ", sequence_index)
+		sequence_timer = _execution.pattern_timer_interval
+		
+		# Execute the current behavior in the sequence
+		_execution.execute_combat_and_movement(self, sequence_index)
+		sequence_index += 1  # Move to the next index
+	else:
+		sequence_end()  # If the index exceeds the length, call sequence_end()
+
+func sequence_end():
+	print_debug("sequence ending")
+	is_executing = false
+	sequence_index = 0
+	print("sequence index: ",sequence_index)
+	start_timers()
+
 func _assign_movement_and_combat():
 	if enemy_data.movement_logic:
 		movement_pattern = enemy_data.movement_logic
@@ -113,6 +149,8 @@ func _assign_movement_and_combat():
 	if enemy_data.execution_logic:
 		assert(enemy_data.execution_logic is Array)
 		execution_patterns = enemy_data.execution_logic
+		print_debug(execution_patterns)
+		current_execution = execution_patterns[0]
 		for pattern in execution_patterns:
 			pattern.enemy_node = self
 	combat_timer = enemy_data.combat_wait_time

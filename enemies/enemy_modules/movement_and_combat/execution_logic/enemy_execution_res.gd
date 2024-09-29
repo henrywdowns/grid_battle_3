@@ -10,58 +10,33 @@ signal p_timer_timeout
 
 ### GENERAL VARS ###
 var enemy_node: Node2D # for node ref
-var current_index: int = 0
 var is_executing: bool = false
 @export var exec_name: String
 
 ### TIMERS ###
 @export var pattern_timer_interval: float
-var pattern_timer := 0.00
-var p_timer_on := false
-var attack_timer := 0.00
-var a_timer_on := false
-var move_timer := 0.00
-var m_timer_on := false
 
 ### MAIN METHODS ###
 
-func _process(_delta): # I DONT THINK I CAN USE PROCESS HERE
-	if p_timer_on and is_executing:
-		pattern_timer += _delta
-		if pattern_timer > pattern_timer_interval:
-			p_timer_timeout.emit()
-			pattern_timer = 0.0
-
 func _start() -> void:
 	execute_start.emit()
-	current_index = 0
-	p_timer_on = true
-	is_executing = true
 
 func _finish() -> void:
-	is_executing = false
-	current_index = 0
-	p_timer_on = false
 	execute_complete.emit()
 
-func execute_combat_and_movement(_enemy) -> void:
-	print_debug("Current execute index: ",current_index)
+func execute_combat_and_movement(_enemy,seq_index) -> void:
+	print_debug("Current execute index: ",seq_index)
 
 	_start()
-	for action in sequence:
-		if current_index > 0:
-			print_debug("Awaiting...")
-			await p_timer_timeout
-		if sequence and is_instance_valid(sequence[current_index]):
-			pattern_timer = 0.0
-			sequence[current_index]._action_pattern(_enemy)
-			current_index += 1
-		elif sequence:
-			print_debug("Invalid sequence index")
-		else:
-			print_debug("No sequence or invalid sequence")
-		print_debug("Action iteration over")
-	_finish()
+	if sequence and seq_index >= 0 and seq_index < sequence.size() and is_instance_valid(sequence[seq_index]):
+		sequence[seq_index]._action_pattern(_enemy)
+	elif seq_index == len(sequence):
+		print_debug("sequence_finished")
+		_finish()
+	elif sequence:
+		print_debug("Invalid sequence index")
+	else:
+		print_debug("No sequence or invalid sequence")
 
 ### UTILITY METHODS ###
 

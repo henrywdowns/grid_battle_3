@@ -10,6 +10,7 @@ var battle_node: Control
 ### GRID/PANEL MANAGEMENT ###
 var battle_gridpoints = []
 var battle_grid_coords = []
+var battle_points_to_panels = {}
 var enemy_panels: Array
 var player_panels: Array
 

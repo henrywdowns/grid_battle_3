@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CornerJump" load_steps=2 format=3 uid="uid://lerrxv8cpn38"]
+
+[ext_resource type="Script" path="res://enemies/enemy_modules/movement_and_combat/movement_logic/corner_jump_test/corner_jump_test.gd" id="1_cbgt4"]
+
+[resource]
+script = ExtResource("1_cbgt4")
+combat_or_movement = 0
+pattern_name = ""
