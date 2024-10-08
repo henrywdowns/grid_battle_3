@@ -1,26 +1,34 @@
 extends Node2D
+class_name BaseProjectile
 
 ### INTENT ###
 # Here's the idea: enemy or card spawns projectile object
 # object contains movement, damage, effect data, performs its
 # job, and frees itself from the queue.
 
+# sprite should be able to spawn into the center of the tile in front.
+# user some trickery to make the tail look like it's protruding from previous 
+# tile as well as attack animation from character
 
 var projectile_resource: Projectile
 var movement_speed: float
 var damage: int
 var sprite: Texture
-var contact_animation: Texture
+var entry_animation: Texture
+var exit_animation: Texture
 var applied_effect: CardEffect
 var movement_pattern: MovementBehavior
+var pixels_moved := Vector2(0,0)
 
 func _ready() -> void:
 	if projectile_resource.movement_speed:
 		movement_speed = projectile_resource.movement_speed
 	if projectile_resource.damage:
 		damage = projectile_resource.damage
-	if projectile_resource.contact_animation:
-		contact_animation = projectile_resource.contact_animation
+	if projectile_resource.entry_animation:
+		exit_animation = projectile_resource.contact_animation
+	if projectile_resource.exit_animation:
+		exit_animation = projectile_resource.contact_animation
 	if projectile_resource.applied_effect:
 		applied_effect = projectile_resource.applied_effect
 	if projectile_resource.movement_pattern:

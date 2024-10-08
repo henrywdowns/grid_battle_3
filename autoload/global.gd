@@ -13,6 +13,7 @@ var battle_grid_coords = []
 var battle_points_to_panels = {}
 var enemy_panels: Array
 var player_panels: Array
+var panel_dimensions: Vector2
 
 func _ready():
 	var root = get_tree().root

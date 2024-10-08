@@ -4,9 +4,11 @@ class_name Projectile
 @export var movement_speed: float = 0.0
 @export var damage: int = 0
 @export var sprite: Texture
-@export var contact_animation: Texture
+@export var entry_animation: Texture
+@export var exit_animation: Texture
 @export var applied_effect: CardEffect
 @export var movement_pattern: MovementBehavior
+
 
 
 ### MOVEMENT ###

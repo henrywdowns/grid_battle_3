@@ -8,6 +8,7 @@ var enemy_node: Node2D
 enum CombatOrMovement { COMBAT, MOVEMENT }
 @export var combat_or_movement: CombatOrMovement
 @export var pattern_name: String
+@export var pixel_movement: bool = false
 signal attack_start
 signal attack_complete
 signal move_start
@@ -41,7 +42,29 @@ func _locate_player_pos() -> Vector2:
 func _get_self_coords() -> Vector2:
 	return enemy_node.enemy_coords #s node that owns this needs to adjust var enemy_node in its ready()
 
-func move_up(_enemy):
+
+
+
+### MOVEMENT SHORTCUT METHODS ###
+func move(direction: String, _enemy, _delta: float = 0.0, speed: int = 0):
+	match direction:
+		"up": 
+			move_up(_enemy)
+		"down":
+			move_down(_enemy)
+		"left":
+			move_left(_enemy)
+		"right":
+			move_right(_enemy)
+
+func move_up(_enemy, _delta: float = 0.0, speed: int = 0):
+	if pixel_movement:
+		assert(_delta)
+		assert(speed)
+		assert(_enemy is BaseProjectile)
+		_enemy.global_position += _delta * speed
+		
+		
 	move_start.emit()
 	var target_panel = _enemy.enemy_coords + Vector2.UP
 	if _check_if_legal_space(_enemy.enemy_coords + Vector2.UP):

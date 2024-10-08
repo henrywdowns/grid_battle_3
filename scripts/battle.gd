@@ -49,7 +49,8 @@ func build_stage():
 		gridpoints.append(panel.get_children()[0])
 		panel_status[panel] = {
 			"status":"normal", # for terrain changes, normal by default
-			"occupant":null # empty by default
+			"occupant":null, # empty by default
+			"projectile":false
 		}
 		panel_status[panel]["panel_id"] = x
 		if x < 9: 
@@ -66,7 +67,7 @@ func build_stage():
 	print_debug(Global.battle_points_to_panels)
 	for panel in panel_status.keys():
 		Global.battle_points_to_panels[panel_status[panel]["panel_gridpoint"]] = panel
-	print(Global.battle_points_to_panels)
+	Global.panel_dimensions = $"Arena Panels/X0Y0".texture.get_size()
 	Events.call_deferred("emit_signal", "stop_awaiting")
 	Events.entity_moved.connect(update_panel_status)
 	print_debug("stop awaiting emitted")
