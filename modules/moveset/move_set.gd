@@ -108,7 +108,7 @@ func determine_target(target_type) -> Array:
 		TargetType.HITSCAN:
 			target_result.append(perform_hitscan(player_location_coords))
 		TargetType.PROJECTILE:
-			perform_projectile(player_location_gridpoint)
+			target_result.append(perform_projectile(player_location_gridpoint))
 		TargetType.NONE:
 			pass
 		TargetType.SELF:
@@ -147,4 +147,5 @@ func perform_pierce(start_position: Vector2, direction: Vector2 = Vector2.RIGHT)
 	print_debug("missed")
 
 func perform_projectile(start_position: Marker2D):
-	pass
+	var spawn_position = Global.translate_coords_to_points(Global.translate_points_to_coords(start_position) + Vector2(1,0))
+	return spawn_position

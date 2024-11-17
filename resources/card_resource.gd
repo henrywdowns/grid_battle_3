@@ -90,6 +90,7 @@ var card_type_list = [
 @export var arguments: Array
 @export var targeting: TargetType
 @export var card_rarity: CardRarity
+@export var projectile: Projectile
 @export var flex_dict: Dictionary = {
 	'damage': 0,
 	'healing':0,
@@ -100,10 +101,11 @@ var card_type_list = [
 var card_type_str = card_type_list[card_type]
 var card_arcana_str = card_arcana_list[card_arcana]
 
+
 @export var unique_card_effects: Array[CardEffect]
 
-func unique_effect(targets: Array):
-	arguments = targets
+func unique_effect(arguments: Array):
+	# pass anything into arguments for reference in effect
 	print_debug("Unique card effects -- ",unique_card_effects," -- Targets -- ",arguments)
 	if len(unique_card_effects) > 0:
 		for effect in unique_card_effects:

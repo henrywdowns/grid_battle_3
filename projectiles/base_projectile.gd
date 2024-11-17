@@ -19,6 +19,9 @@ var exit_animation: Texture
 var applied_effect: CardEffect
 var movement_pattern: MovementBehavior
 var pixels_moved := Vector2(0,0)
+var distance_traveled := 0
+var projectile_coords: Vector2
+var projectile_gridpoint: Marker2D
 
 func _ready() -> void:
 	if projectile_resource.movement_speed:
@@ -39,6 +42,22 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	movement(movement_pattern)
+	distance_traveled += 1
+	if distance_traveled > 1000:
+		print_debug("Travel Distance safeguard exceeded - freeing self from tree")
+		self.free()
+
+func set_stats():
+	if projectile_resource:
+		movement_speed = projectile_resource.movement_speed
+		damage = projectile_resource.damage
+		sprite = projectile_resource.sprite
+		entry_animation = projectile_resource.entry_animation
+		exit_animation = projectile_resource.exit_animation
+		applied_effect = projectile_resource.applied_effect
+		movement_pattern = projectile_resource.movement_pattern
+	else:
+		print_debug("ERROR - Projectile did not spawn. Resource missing.")
 
 # not so simple - I'll need to manage sprite movement AND panel/coords movement
 func movement(movement_res: MovementBehavior) -> void:

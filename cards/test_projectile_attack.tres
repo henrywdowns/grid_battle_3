@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Card" load_steps=5 format=3 uid="uid://c5lv0cj50ongm"]
+
+[ext_resource type="Resource" uid="uid://hqgybkoj4buc" path="res://projectiles/test_projectile/test_projectile.tres" id="1_7v0a7"]
+[ext_resource type="Script" path="res://resources/card_resource.gd" id="1_bk6bd"]
+[ext_resource type="Script" path="res://resources/card_effect_resource.gd" id="2_w5vqw"]
+[ext_resource type="Resource" uid="uid://bckv764i482m1" path="res://cards/card_effects/spawn_projectile/spawn_projectile.tres" id="4_7dxme"]
+
+[resource]
+script = ExtResource("1_bk6bd")
+card_name = "test_projectile"
+card_desc = "Summon a projectile"
+card_type = 0
+card_arcana = 0
+card_filename = ""
+arguments = [ExtResource("1_7v0a7")]
+targeting = 1
+card_rarity = 0
+projectile = ExtResource("1_7v0a7")
+flex_dict = {
+"area": "<null>",
+"block": 0,
+"damage": 0,
+"healing": 0
+}
+unique_card_effects = Array[ExtResource("2_w5vqw")]([ExtResource("4_7dxme")])

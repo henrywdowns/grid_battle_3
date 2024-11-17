@@ -1,21 +1,14 @@
-[gd_resource type="Resource" script_class="character" load_steps=12 format=3 uid="uid://cilg0muqpy22o"]
+[gd_resource type="Resource" script_class="character" load_steps=5 format=3 uid="uid://cilg0muqpy22o"]
 
-[ext_resource type="Resource" uid="uid://cqtyue1s71gsh" path="res://cards/defense_2.tres" id="1_bxnsi"]
 [ext_resource type="Script" path="res://resources/character_resource.gd" id="1_igl1p"]
 [ext_resource type="Resource" uid="uid://bb7si1wuugsvs" path="res://cards/basic_attacks/basic_attack.tres" id="1_k6o60"]
 [ext_resource type="Script" path="res://resources/card_resource.gd" id="2_5vps2"]
-[ext_resource type="Resource" uid="uid://b7vb7dxkwudbx" path="res://cards/attack_2.tres" id="2_fhtfr"]
-[ext_resource type="Resource" uid="uid://bnibxtivgw1h3" path="res://cards/defense_1.tres" id="3_klmls"]
-[ext_resource type="Resource" uid="uid://6ynh4nrvx3pj" path="res://cards/other_1.tres" id="4_1v1dj"]
-[ext_resource type="Resource" uid="uid://d1w1ilbs1mpvy" path="res://cards/support_2.tres" id="5_5go4s"]
-[ext_resource type="Resource" uid="uid://deiv34cibyfs7" path="res://cards/attack_1.tres" id="8_ay77a"]
-[ext_resource type="Resource" uid="uid://bia8fhou1rdnb" path="res://cards/other_2.tres" id="9_b8e7c"]
-[ext_resource type="Resource" uid="uid://bj1ktrvkly28j" path="res://cards/support_1.tres" id="10_3v3cy"]
+[ext_resource type="Resource" uid="uid://c5lv0cj50ongm" path="res://cards/test_projectile_attack.tres" id="3_oky3n"]
 
 [resource]
 script = ExtResource("1_igl1p")
 HP = 50
 basic_attack = ExtResource("1_k6o60")
 move_delay = 0.5
-default_deck = Array[ExtResource("2_5vps2")]([ExtResource("1_bxnsi"), ExtResource("2_fhtfr"), ExtResource("3_klmls"), ExtResource("4_1v1dj"), ExtResource("5_5go4s")])
-draftable_pool = Array[ExtResource("2_5vps2")]([ExtResource("8_ay77a"), ExtResource("2_fhtfr"), ExtResource("4_1v1dj"), ExtResource("9_b8e7c"), ExtResource("10_3v3cy")])
+default_deck = Array[ExtResource("2_5vps2")]([ExtResource("3_oky3n")])
+draftable_pool = Array[ExtResource("2_5vps2")]([ExtResource("3_oky3n")])

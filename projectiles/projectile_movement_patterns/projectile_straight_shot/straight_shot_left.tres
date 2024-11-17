@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ProjectileStraightShot" load_steps=2 format=3 uid="uid://w2rtdvdsd0w0"]
 
-[ext_resource type="Script" path="res://enemies/enemy_modules/movement_and_combat/movement_logic/projectile_straight_shot/projectile_straight_shot.gd" id="1_cvo7g"]
+[ext_resource type="Script" path="res://projectiles/projectile_movement_patterns/projectile_straight_shot/projectile_straight_shot.gd" id="1_cvo7g"]
 
 [resource]
 script = ExtResource("1_cvo7g")
